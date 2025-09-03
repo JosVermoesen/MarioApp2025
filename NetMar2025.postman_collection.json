@@ -1,0 +1,4636 @@
+{
+	"info": {
+		"_postman_id": "4d8cea29-e753-4e99-92c9-d45cd72d966b",
+		"name": "NetMar2025",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43454038",
+		"_collection_link": "https://josvermoesen-2654697.postman.co/workspace/Jos-Vermoesen's-Workspace~55723a83-17d9-4861-8dfb-3775fcdbb4c9/collection/43454038-4d8cea29-e753-4e99-92c9-d45cd72d966b?action=share&source=collection_link&creator=43454038"
+	},
+	"item": [
+		{
+			"name": "Ademico Vsoft Ready To Test",
+			"item": [
+				{
+					"name": "Access",
+					"item": [
+						{
+							"name": "Check access to Ademico Test service for RV",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{ademicoPassWord}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{ademicoUsername}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ademicoUrl}}/api/peppol/v1/tools/connectivity?accessToken={{ademicoAccessToken}}",
+									"host": [
+										"{{ademicoUrl}}"
+									],
+									"path": [
+										"api",
+										"peppol",
+										"v1",
+										"tools",
+										"connectivity"
+									],
+									"query": [
+										{
+											"key": "accessToken",
+											"value": "{{ademicoAccessToken}}"
+										}
+									]
+								},
+								"description": "If you get a status `200` it means that you have access, status `401` means that your authentication credentials are not correct."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Legal Entities",
+					"item": [
+						{
+							"name": "Get all Peppol registrations in country BE as legal entity",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{ademicoPassword}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{ademicoUsername}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic <credentials>",
+										"description": "Added as a part of security scheme: basic"
+									}
+								],
+								"url": {
+									"raw": "{{ademicoUrl}}/api/peppol/v1/legal-entities?country=BE&accessToken={{ademicoAccessToken}}",
+									"host": [
+										"{{ademicoUrl}}"
+									],
+									"path": [
+										"api",
+										"peppol",
+										"v1",
+										"legal-entities"
+									],
+									"query": [
+										{
+											"key": "country",
+											"value": "BE",
+											"description": "The legal entity country"
+										},
+										{
+											"key": "accessToken",
+											"value": "{{ademicoAccessToken}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Peppol registration of rv as legal entity",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{ademicoPassword}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{ademicoUsername}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic <credentials>",
+										"description": "Added as a part of security scheme: basic"
+									}
+								],
+								"url": {
+									"raw": "{{ademicoUrl}}/api/peppol/v1/legal-entities?country=BE&peppolRegistrationScheme=0208&peppolRegistrationIdentifier=0440058217&accessToken={{ademicoAccessToken}}",
+									"host": [
+										"{{ademicoUrl}}"
+									],
+									"path": [
+										"api",
+										"peppol",
+										"v1",
+										"legal-entities"
+									],
+									"query": [
+										{
+											"key": "country",
+											"value": "BE",
+											"description": "The legal entity country"
+										},
+										{
+											"key": "peppolRegistrationScheme",
+											"value": "0208",
+											"description": "The Peppol identifier scheme of the legal entity"
+										},
+										{
+											"key": "peppolRegistrationIdentifier",
+											"value": "0440058217",
+											"description": "The Peppol identifier of the legal entity"
+										},
+										{
+											"key": "accessToken",
+											"value": "{{ademicoAccessToken}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Peppol registration of legalEntityID 28 (Pavele)",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{ademicoPassword}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{ademicoUsername}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic <credentials>",
+										"description": "Added as a part of security scheme: basic"
+									}
+								],
+								"url": {
+									"raw": "{{ademicoUrl}}/api/peppol/v1/legal-entities?legalEntityId=28&accessToken={{ademicoAccessToken}}",
+									"host": [
+										"{{ademicoUrl}}"
+									],
+									"path": [
+										"api",
+										"peppol",
+										"v1",
+										"legal-entities"
+									],
+									"query": [
+										{
+											"key": "legalEntityId",
+											"value": "28",
+											"description": "The legal entity identifier"
+										},
+										{
+											"key": "accessToken",
+											"value": "{{ademicoAccessToken}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Try to create a legal entity that already exists (should return error)",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{ademicoPassword}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{ademicoUsername}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"legalEntityDetails\": {\n    \"publishInPeppolDirectory\": true,\n    \"name\": \"Roelandt en Vermoesen bv\",\n    \"countryCode\": \"BE\",\n    \"geographicalInformation\": \"Grote Baan 141, 9310 Aalst\",\n    \"websiteURL\": \"https://rv.be\",\n    \"contacts\": [\n      {\n        \"contactType\": \"public\",\n        \"name\": \"Jos Vermoesen\",\n        \"phoneNumber\": \"+32 53215925\",\n        \"email\": \"info@rv.be\"\n      }\n    ],\n    \"additionalInformation\": \"Wij zijn gespecialiseerd in administratieve software\"\n  },\n  \"peppolRegistrations\": [\n    {\n      \"peppolIdentifier\": {\n        \"scheme\": \"0208\",\n        \"identifier\": \"0440058217\"\n      },\n      \"supportedDocuments\": [\n        \"PEPPOL_BIS_BILLING_UBL_INVOICE_V3\",\n        \"PEPPOL_BIS_BILLING_UBL_CREDIT_NOTE_V3\",\n        \"PEPPOL_MESSAGE_LEVEL_RESPONSE_TRANSACTION_3_0\",\n        \"PEPPOL_INVOICE_RESPONSE_TRANSACTION_3_0\"\n      ],\n      \"peppolRegistration\": true\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ademicoUrl}}/api/peppol/v1/legal-entities?accessToken={{ademicoAccessToken}}",
+									"host": [
+										"{{ademicoUrl}}"
+									],
+									"path": [
+										"api",
+										"peppol",
+										"v1",
+										"legal-entities"
+									],
+									"query": [
+										{
+											"key": "accessToken",
+											"value": "{{ademicoAccessToken}}"
+										}
+									]
+								},
+								"description": "Create a legal entity and register it in the Peppol network. In the section <a href=\"#section/Getting-started/Register-your-legal-entity-as-a-participant-in-the-Peppol-network\">Register your legal entity as a participant in the Peppol network</a> we explain in detail how to create your legal entity."
+							},
+							"response": []
+						},
+						{
+							"name": "Create/Register Pavele as legal entity in the Peppol network",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{ademicoPassword}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{ademicoUsername}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"legalEntityDetails\": {\n    \"publishInPeppolDirectory\": true,\n    \"name\": \"Pavele bv\",\n    \"countryCode\": \"BE\",\n    \"geographicalInformation\": \"Axelwalle 19, 9700 Heurne\",\n    \"websiteURL\": \"https://pavele.be\",\n    \"contacts\": [\n      {\n        \"contactType\": \"public\",\n        \"name\": \"Ignace Verschaeve\",\n        \"phoneNumber\": \"+32 59215925\",\n        \"email\": \"ignacev@telenet.be\"\n      }\n    ],\n    \"additionalInformation\": \"Wij zijn gespecialiseerd in electronica\"\n  },\n  \"peppolRegistrations\": [\n    {\n      \"peppolIdentifier\": {\n        \"scheme\": \"0208\",\n        \"identifier\": \"0430094832\"\n      },\n      \"supportedDocuments\": [\n        \"PEPPOL_BIS_BILLING_UBL_INVOICE_V3\",\n        \"PEPPOL_BIS_BILLING_UBL_CREDIT_NOTE_V3\",\n        \"PEPPOL_MESSAGE_LEVEL_RESPONSE_TRANSACTION_3_0\",\n        \"PEPPOL_INVOICE_RESPONSE_TRANSACTION_3_0\"\n      ],\n      \"publishInSMP\": true\n    },\n    {\n      \"peppolIdentifier\": {\n        \"scheme\": \"9925\",\n        \"identifier\": \"BE0430094832\"\n      },\n      \"supportedDocuments\": [\n        \"PEPPOL_BIS_BILLING_UBL_INVOICE_V3\",\n        \"PEPPOL_BIS_BILLING_UBL_CREDIT_NOTE_V3\",\n        \"PEPPOL_MESSAGE_LEVEL_RESPONSE_TRANSACTION_3_0\",\n        \"PEPPOL_INVOICE_RESPONSE_TRANSACTION_3_0\"\n      ],\n      \"publishInSMP\": true\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ademicoUrl}}/api/peppol/v1/legal-entities?accessToken={{ademicoAccessToken}}",
+									"host": [
+										"{{ademicoUrl}}"
+									],
+									"path": [
+										"api",
+										"peppol",
+										"v1",
+										"legal-entities"
+									],
+									"query": [
+										{
+											"key": "accessToken",
+											"value": "{{ademicoAccessToken}}"
+										}
+									]
+								},
+								"description": "Create a legal entity and register it in the Peppol network. In the section <a href=\"#section/Getting-started/Register-your-legal-entity-as-a-participant-in-the-Peppol-network\">Register your legal entity as a participant in the Peppol network</a> we explain in detail how to create your legal entity."
+							},
+							"response": []
+						},
+						{
+							"name": "Create/Register JLSound as legal entity in the Peppol network",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{ademicoPassword}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{ademicoUsername}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"legalEntityDetails\": {\n        \"publishInPeppolDirectory\": true,\n        \"name\": \"J.L. Sound bv\",\n        \"countryCode\": \"BE\",\n        \"geographicalInformation\": \"Nachtegalenlaan 53, 8400 Oostende\",\n        \"websiteURL\": \"\",\n        \"contacts\": [\n            {\n                \"contactType\": \"public\",\n                \"name\": \"Frans\",\n                \"phoneNumber\": \"+32 59801511\",\n                \"email\": \"frans.jlsound@gmail.com\"\n            }\n        ],\n        \"additionalInformation\": \"Wij zijn gespecialiseerd in TV en electronica\"\n    },\n    \"peppolRegistrations\": [\n        {\n            \"peppolIdentifier\": {\n                \"scheme\": \"0208\",\n                \"identifier\": \"0421132626\"\n            },\n            \"supportedDocuments\": [\n                \"PEPPOL_BIS_BILLING_UBL_INVOICE_V3\",\n                \"PEPPOL_BIS_BILLING_UBL_CREDIT_NOTE_V3\",\n                \"PEPPOL_MESSAGE_LEVEL_RESPONSE_TRANSACTION_3_0\",\n                \"PEPPOL_INVOICE_RESPONSE_TRANSACTION_3_0\"\n            ],\n            \"publishInSMP\": true\n        },\n        {\n            \"peppolIdentifier\": {\n                \"scheme\": \"9925\",\n                \"identifier\": \"BE0421132626\"\n            },\n            \"supportedDocuments\": [\n                \"PEPPOL_BIS_BILLING_UBL_INVOICE_V3\",\n                \"PEPPOL_BIS_BILLING_UBL_CREDIT_NOTE_V3\",\n                \"PEPPOL_MESSAGE_LEVEL_RESPONSE_TRANSACTION_3_0\",\n                \"PEPPOL_INVOICE_RESPONSE_TRANSACTION_3_0\"\n            ],\n            \"publishInSMP\": true\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ademicoUrl}}/api/peppol/v1/legal-entities?accessToken={{ademicoAccessToken}}",
+									"host": [
+										"{{ademicoUrl}}"
+									],
+									"path": [
+										"api",
+										"peppol",
+										"v1",
+										"legal-entities"
+									],
+									"query": [
+										{
+											"key": "accessToken",
+											"value": "{{ademicoAccessToken}}"
+										}
+									]
+								},
+								"description": "Create a legal entity and register it in the Peppol network. In the section <a href=\"#section/Getting-started/Register-your-legal-entity-as-a-participant-in-the-Peppol-network\">Register your legal entity as a participant in the Peppol network</a> we explain in detail how to create your legal entity."
+							},
+							"response": []
+						},
+						{
+							"name": "Create/Register Jonckheere as legal entity in the Peppol network",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{ademicoPassword}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{ademicoUsername}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"legalEntityDetails\": {\n    \"publishInPeppolDirectory\": true,\n    \"name\": \"Jonckheere Dirk & Jan\",\n    \"countryCode\": \"BE\",\n    \"geographicalInformation\": \"Gistelsesteenweg 13, 8460 Westkerke\",\n    \"websiteURL\": \"https://jonckheere.be\",\n    \"contacts\": [\n      {\n        \"contactType\": \"public\",\n        \"name\": \"Jan Jonckheere\",\n        \"phoneNumber\": \"+32 59267566\",\n        \"email\": \"jonckheerejan1@telenet.be\"\n      }\n    ],\n    \"additionalInformation\": \"Wij zijn gespecialiseerd in sanitaire installaties\"\n  },\n  \"peppolRegistrations\": [\n    {\n      \"peppolIdentifier\": {\n        \"scheme\": \"0208\",\n        \"identifier\": \"0529835180\"\n      },\n      \"supportedDocuments\": [\n        \"PEPPOL_BIS_BILLING_UBL_INVOICE_V3\",\n        \"PEPPOL_BIS_BILLING_UBL_CREDIT_NOTE_V3\",\n        \"PEPPOL_MESSAGE_LEVEL_RESPONSE_TRANSACTION_3_0\",\n        \"PEPPOL_INVOICE_RESPONSE_TRANSACTION_3_0\"\n      ],\n      \"publishInSMP\": true\n    },\n    {\n      \"peppolIdentifier\": {\n        \"scheme\": \"9925\",\n        \"identifier\": \"BE0529835180\"\n      },\n      \"supportedDocuments\": [\n        \"PEPPOL_BIS_BILLING_UBL_INVOICE_V3\",\n        \"PEPPOL_BIS_BILLING_UBL_CREDIT_NOTE_V3\",\n        \"PEPPOL_MESSAGE_LEVEL_RESPONSE_TRANSACTION_3_0\",\n        \"PEPPOL_INVOICE_RESPONSE_TRANSACTION_3_0\"\n      ],\n      \"publishInSMP\": true\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ademicoUrl}}/api/peppol/v1/legal-entities?accessToken={{ademicoAccessToken}}",
+									"host": [
+										"{{ademicoUrl}}"
+									],
+									"path": [
+										"api",
+										"peppol",
+										"v1",
+										"legal-entities"
+									],
+									"query": [
+										{
+											"key": "accessToken",
+											"value": "{{ademicoAccessToken}}"
+										}
+									]
+								},
+								"description": "Create a legal entity and register it in the Peppol network. In the section <a href=\"#section/Getting-started/Register-your-legal-entity-as-a-participant-in-the-Peppol-network\">Register your legal entity as a participant in the Peppol network</a> we explain in detail how to create your legal entity."
+							},
+							"response": []
+						},
+						{
+							"name": "Create/Register E-Clean as legal entity in the Peppol network",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{ademicoPassword}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{ademicoUsername}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"legalEntityDetails\": {\n        \"publishInPeppolDirectory\": true,\n        \"name\": \"Bv Erika Callebaut\",\n        \"countryCode\": \"BE\",\n        \"geographicalInformation\": \"Schroverstraat 102 - 9310 Aalst\",\n        \"websiteURL\": \"\",\n        \"contacts\": [\n            {\n                \"contactType\": \"public\",\n                \"name\": \"Erika\",\n                \"phoneNumber\": \"+32 53801511\",\n                \"email\": \"erika@gmail.com\"\n            }\n        ],\n        \"additionalInformation\": \"Wij zijn gespecialiseerd in huishoudhulp\"\n    },\n    \"peppolRegistrations\": [\n        {\n            \"peppolIdentifier\": {\n                \"scheme\": \"0208\",\n                \"identifier\": \"0885799743\"\n            },\n            \"supportedDocuments\": [                \n                \"PEPPOL_BIS_BILLING_UBL_INVOICE_V3\",\n                \"PEPPOL_BIS_BILLING_UBL_CREDIT_NOTE_V3\",\n                \"PEPPOL_MESSAGE_LEVEL_RESPONSE_TRANSACTION_3_0\",\n                \"PEPPOL_INVOICE_RESPONSE_TRANSACTION_3_0\"\n            ],\n            \"publishInSMP\": true\n        },\n        {\n            \"peppolIdentifier\": {\n                \"scheme\": \"9925\",\n                \"identifier\": \"BE0885799743\"\n            },\n            \"supportedDocuments\": [\n                \"PEPPOL_BIS_BILLING_UBL_INVOICE_V3\",\n                \"PEPPOL_BIS_BILLING_UBL_CREDIT_NOTE_V3\",\n                \"PEPPOL_MESSAGE_LEVEL_RESPONSE_TRANSACTION_3_0\",\n                \"PEPPOL_INVOICE_RESPONSE_TRANSACTION_3_0\"\n            ],\n            \"publishInSMP\": true\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ademicoUrl}}/api/peppol/v1/legal-entities?accessToken={{ademicoAccessToken}}",
+									"host": [
+										"{{ademicoUrl}}"
+									],
+									"path": [
+										"api",
+										"peppol",
+										"v1",
+										"legal-entities"
+									],
+									"query": [
+										{
+											"key": "accessToken",
+											"value": "{{ademicoAccessToken}}"
+										}
+									]
+								},
+								"description": "Create a legal entity and register it in the Peppol network. In the section <a href=\"#section/Getting-started/Register-your-legal-entity-as-a-participant-in-the-Peppol-network\">Register your legal entity as a participant in the Peppol network</a> we explain in detail how to create your legal entity."
+							},
+							"response": []
+						},
+						{
+							"name": "Create/Register De Buysere as legal entity in the Peppol network",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{ademicoPassword}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{ademicoUsername}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"legalEntityDetails\": {\n        \"publishInPeppolDirectory\": true,\n        \"name\": \"De Buysere Bernard\",\n        \"countryCode\": \"BE\",\n        \"geographicalInformation\": \"Kerkstraat 8 - 9900 Eeklo\",\n        \"websiteURL\": \"\",\n        \"contacts\": [\n            {\n                \"contactType\": \"public\",\n                \"name\": \"Bernard\",\n                \"phoneNumber\": \"+32 09801511\",\n                \"email\": \"bernard@gmail.com\"\n            }\n        ],\n        \"additionalInformation\": \"Wij zijn gespecialiseerd in binnenhuisinrichting\"\n    },\n    \"peppolRegistrations\": [\n        {\n            \"peppolIdentifier\": {\n                \"scheme\": \"0208\",\n                \"identifier\": \"0887392424\"\n            },\n            \"supportedDocuments\": [\n                \"UBL_BE_INVOICE_3_0\",\n                \"UBL_BE_CREDIT_NOTE_3_0\",\n                \"PEPPOL_BIS_BILLING_UBL_INVOICE_V3\",\n                \"PEPPOL_BIS_BILLING_UBL_CREDIT_NOTE_V3\",\n                \"PEPPOL_MESSAGE_LEVEL_RESPONSE_TRANSACTION_3_0\",\n                \"PEPPOL_INVOICE_RESPONSE_TRANSACTION_3_0\"\n            ],\n            \"publishInSMP\": true\n        },\n        {\n            \"peppolIdentifier\": {\n                \"scheme\": \"9925\",\n                \"identifier\": \"BE0887392424\"\n            },\n            \"supportedDocuments\": [\n                \"UBL_BE_INVOICE_3_0\",\n                \"UBL_BE_CREDIT_NOTE_3_0\",\n                \"PEPPOL_BIS_BILLING_UBL_INVOICE_V3\",\n                \"PEPPOL_BIS_BILLING_UBL_CREDIT_NOTE_V3\",\n                \"PEPPOL_MESSAGE_LEVEL_RESPONSE_TRANSACTION_3_0\",\n                \"PEPPOL_INVOICE_RESPONSE_TRANSACTION_3_0\"\n            ],\n            \"publishInSMP\": true\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ademicoUrl}}/api/peppol/v1/legal-entities?accessToken={{ademicoAccessToken}}",
+									"host": [
+										"{{ademicoUrl}}"
+									],
+									"path": [
+										"api",
+										"peppol",
+										"v1",
+										"legal-entities"
+									],
+									"query": [
+										{
+											"key": "accessToken",
+											"value": "{{ademicoAccessToken}}"
+										}
+									]
+								},
+								"description": "Create a legal entity and register it in the Peppol network. In the section <a href=\"#section/Getting-started/Register-your-legal-entity-as-a-participant-in-the-Peppol-network\">Register your legal entity as a participant in the Peppol network</a> we explain in detail how to create your legal entity."
+							},
+							"response": []
+						},
+						{
+							"name": "Create/Register Stonetec as legal entity in the Peppol network",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{ademicoPassword}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{ademicoUsername}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"legalEntityDetails\": {\n    \"publishInPeppolDirectory\": true,\n    \"name\": \"Stonetec bv\",\n    \"countryCode\": \"BE\",\n    \"geographicalInformation\": \"Acacialaan 14, 9200 Dendermonde\",\n    \"websiteURL\": \"https://stonetec.be\",\n    \"contacts\": [\n      {\n        \"contactType\": \"public\",\n        \"name\": \"Els\",\n        \"phoneNumber\": \"+32 52215925\",\n        \"email\": \"info@stonetec.be\"\n      }\n    ],\n    \"additionalInformation\": \"Wij zijn gespecialiseerd in grafzerken\"\n  },\n  \"peppolRegistrations\": [\n    {\n      \"peppolIdentifier\": {\n        \"scheme\": \"0208\",\n        \"identifier\": \"0780443687\"\n      },\n      \"supportedDocuments\": [\n        \"PEPPOL_BIS_BILLING_UBL_INVOICE_V3\",\n        \"PEPPOL_BIS_BILLING_UBL_CREDIT_NOTE_V3\",\n        \"PEPPOL_MESSAGE_LEVEL_RESPONSE_TRANSACTION_3_0\",\n        \"PEPPOL_INVOICE_RESPONSE_TRANSACTION_3_0\"\n      ],\n      \"publishInSMP\": true\n    },\n    {\n      \"peppolIdentifier\": {\n        \"scheme\": \"9925\",\n        \"identifier\": \"BE0780443687\"\n      },\n      \"supportedDocuments\": [\n        \"PEPPOL_BIS_BILLING_UBL_INVOICE_V3\",\n        \"PEPPOL_BIS_BILLING_UBL_CREDIT_NOTE_V3\",\n        \"PEPPOL_MESSAGE_LEVEL_RESPONSE_TRANSACTION_3_0\",\n        \"PEPPOL_INVOICE_RESPONSE_TRANSACTION_3_0\"\n      ],\n      \"publishInSMP\": true\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ademicoUrl}}/api/peppol/v1/legal-entities?accessToken={{ademicoAccessToken}}",
+									"host": [
+										"{{ademicoUrl}}"
+									],
+									"path": [
+										"api",
+										"peppol",
+										"v1",
+										"legal-entities"
+									],
+									"query": [
+										{
+											"key": "accessToken",
+											"value": "{{ademicoAccessToken}}"
+										}
+									]
+								},
+								"description": "Create a legal entity and register it in the Peppol network. In the section <a href=\"#section/Getting-started/Register-your-legal-entity-as-a-participant-in-the-Peppol-network\">Register your legal entity as a participant in the Peppol network</a> we explain in detail how to create your legal entity."
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a legal entity",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{basicAuthUsername}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{basicAuthPassword}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/peppol/v1/legal-entities/:legalEntityId?accessToken={{accessToken}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"peppol",
+										"v1",
+										"legal-entities",
+										":legalEntityId"
+									],
+									"query": [
+										{
+											"key": "accessToken",
+											"value": "{{accessToken}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "legalEntityId",
+											"value": "28",
+											"description": "(Required) The identifier of the legal entity you want to delete"
+										}
+									]
+								},
+								"description": "Delete a legal entity from the Peppol network(SML/SMP) and from the <a href=\"https://directory.peppol.eu/public\" target=\"_blank\">Peppol Directory</a>. For the TEST environment the legal entity is deleted from the <a href=\"https://test-directory.peppol.eu/public\" target=\"_blank\">TEST Peppol Directory</a>. </br></br>The legal entity cannot be deleted if it has already sent or received documents in the Peppol network."
+							},
+							"response": []
+						},
+						{
+							"name": "Update a legal entity",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{basicAuthUsername}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{basicAuthPassword}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"legalEntityDetails\": {\n    \"publishInPeppolDirectory\": true,\n    \"name\": \"Ademico Software\",\n    \"countryCode\": \"BE\",\n    \"geographicalInformation\": \"204 My street, My City, My Country\",\n    \"registrationDate\": \"2019-08-24T14:15:22Z\",\n    \"websiteURL\": \"https://ademico-software.com\",\n    \"contacts\": [\n      {\n        \"contactType\": \"public\",\n        \"name\": \"Your company name\",\n        \"phoneNumber\": \"+32 123456\",\n        \"email\": \"info@example.com\"\n      }\n    ],\n    \"additionalInformation\": \"Our company is specialized in ...\",\n    \"peppolAdditionalIdentifiers\": [\n      {\n        \"scheme\": \"0208\",\n        \"identifier\": \"0552912569\"\n      }\n    ]\n  }\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/peppol/v1/legal-entities/:legalEntityId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"peppol",
+										"v1",
+										"legal-entities",
+										":legalEntityId"
+									],
+									"variable": [
+										{
+											"key": "legalEntityId",
+											"value": "2251",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Update a legal entity and publish it(optionally) in the <a href=\"https://directory.peppol.eu/public\" target=\"_blank\">Peppol Directory</a>. For the TEST environment the legal entity is published in <a href=\"https://test-directory.peppol.eu/public\" target=\"_blank\">TEST Peppol Directory</a> </br></br>Set the flag `publishInPeppolDirectory` to false if you don't want to publish the legal entity details in the Peppol Directory. </br>"
+							},
+							"response": [
+								{
+									"name": "Legal entity updated successfully.",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic <credentials>",
+												"description": "Added as a part of security scheme: basic"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"legalEntityDetails\": {\n    \"publishInPeppolDirectory\": true,\n    \"name\": \"Ademico Software\",\n    \"countryCode\": \"BE\",\n    \"geographicalInformation\": \"204 My street, My City, My Country\",\n    \"registrationDate\": \"2019-08-24T14:15:22Z\",\n    \"websiteURL\": \"https://ademico-software.com\",\n    \"contacts\": [\n      {\n        \"contactType\": \"public\",\n        \"name\": \"Your company name\",\n        \"phoneNumber\": \"+32 123456\",\n        \"email\": \"info@example.com\"\n      }\n    ],\n    \"additionalInformation\": \"Our company is specialized in ...\",\n    \"peppolAdditionalIdentifiers\": [\n      {\n        \"scheme\": \"0208\",\n        \"identifier\": \"0552912569\"\n      }\n    ]\n  }\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/peppol/v1/legal-entities/:legalEntityId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"peppol",
+												"v1",
+												"legal-entities",
+												":legalEntityId"
+											],
+											"variable": [
+												{
+													"key": "legalEntityId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Error updating legal entity",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic <credentials>",
+												"description": "Added as a part of security scheme: basic"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"legalEntityDetails\": {\n    \"publishInPeppolDirectory\": true,\n    \"name\": \"Ademico Software\",\n    \"countryCode\": \"BE\",\n    \"geographicalInformation\": \"204 My street, My City, My Country\",\n    \"registrationDate\": \"2019-08-24T14:15:22Z\",\n    \"websiteURL\": \"https://ademico-software.com\",\n    \"contacts\": [\n      {\n        \"contactType\": \"public\",\n        \"name\": \"Your company name\",\n        \"phoneNumber\": \"+32 123456\",\n        \"email\": \"info@example.com\"\n      }\n    ],\n    \"additionalInformation\": \"Our company is specialized in ...\",\n    \"peppolAdditionalIdentifiers\": [\n      {\n        \"scheme\": \"0208\",\n        \"identifier\": \"0552912569\"\n      }\n    ]\n  }\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/peppol/v1/legal-entities/:legalEntityId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"peppol",
+												"v1",
+												"legal-entities",
+												":legalEntityId"
+											],
+											"variable": [
+												{
+													"key": "legalEntityId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"code\": \"LEGAL_ENTITY_ERROR\",\n  \"message\": \"Error updating legal entity\"\n}"
+								},
+								{
+									"name": "Authentication failure",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic <credentials>",
+												"description": "Added as a part of security scheme: basic"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"legalEntityDetails\": {\n    \"publishInPeppolDirectory\": true,\n    \"name\": \"Ademico Software\",\n    \"countryCode\": \"BE\",\n    \"geographicalInformation\": \"204 My street, My City, My Country\",\n    \"registrationDate\": \"2019-08-24T14:15:22Z\",\n    \"websiteURL\": \"https://ademico-software.com\",\n    \"contacts\": [\n      {\n        \"contactType\": \"public\",\n        \"name\": \"Your company name\",\n        \"phoneNumber\": \"+32 123456\",\n        \"email\": \"info@example.com\"\n      }\n    ],\n    \"additionalInformation\": \"Our company is specialized in ...\",\n    \"peppolAdditionalIdentifiers\": [\n      {\n        \"scheme\": \"0208\",\n        \"identifier\": \"0552912569\"\n      }\n    ]\n  }\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/peppol/v1/legal-entities/:legalEntityId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"peppol",
+												"v1",
+												"legal-entities",
+												":legalEntityId"
+											],
+											"variable": [
+												{
+													"key": "legalEntityId"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"code\": \"SECURITY_ERROR\",\n  \"message\": \"Invalid authentication credentials\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Invoices",
+					"item": [
+						{
+							"name": "Sending",
+							"item": [
+								{
+									"name": "Send the test UBL invoice/credit note to the Buyer",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{basicAuthUsername}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{basicAuthPassword}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-C5-REPORTING",
+												"value": "false",
+												"description": "If true, the API will report the submission to C5 after the document was sent to the Buyer. Only used for Singapore."
+											},
+											{
+												"key": "Content-Type",
+												"value": "multipart/form-data"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "file",
+													"description": "(Required) The invoice or credit note in UBL XML format",
+													"type": "file",
+													"src": "/C:/Users/Jos/OneDrive/Bureaublad/rv-invoice-sending.xml"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/peppol/v1/invoices/ubl-submissions?accessToken={{accessToken}}",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"peppol",
+												"v1",
+												"invoices",
+												"ubl-submissions"
+											],
+											"query": [
+												{
+													"key": "accessToken",
+													"value": "{{accessToken}}"
+												}
+											]
+										},
+										"description": "The invoice/credit note is scheduled in the queue to be sent to the Buyer. The UBL is validated before is being sent.You get notified either via pull or push mechanism when the invoice/credit note has be received by the Buyer. See below for possible validation errors you can get."
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Receiving",
+							"item": [
+								{
+									"name": "Get the test Invoice/Credit Note in UBL format",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{basicAuthUsername}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{basicAuthPassword}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/xml"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/peppol/v1/invoices/:transmissionId/ubl?accessToken={{accessToken}}",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"peppol",
+												"v1",
+												"invoices",
+												":transmissionId",
+												"ubl"
+											],
+											"query": [
+												{
+													"key": "accessToken",
+													"value": "{{accessToken}}"
+												}
+											],
+											"variable": [
+												{
+													"key": "transmissionId",
+													"value": "bcb8468185a011f0a4fc02bb4e4747f9",
+													"description": "(Required) "
+												}
+											]
+										},
+										"description": "Get the content of a sent or received Invoice/Credit Note in UBL format"
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Notifications",
+					"item": [
+						{
+							"name": "Get the list of notifications with Params to select",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{basicAuthUsername}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{basicAuthPassword}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/peppol/v1/notifications?accessToken={{accessToken}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"peppol",
+										"v1",
+										"notifications"
+									],
+									"query": [
+										{
+											"key": "transmissionId",
+											"value": "803828d52d4911ed85f512ef9c5638d0",
+											"description": "The transmission id of the notification",
+											"disabled": true
+										},
+										{
+											"key": "documentId",
+											"value": "pbe000512-1",
+											"description": "The document id of a document eg Invoice/Credit Note",
+											"disabled": true
+										},
+										{
+											"key": "eventType",
+											"value": "INVOICE_RESPONSE_RECEIVED",
+											"description": "The notification event type",
+											"disabled": true
+										},
+										{
+											"key": "peppolDocumentType",
+											"value": "INVOICE",
+											"description": "The document type: INVOICE, CREDIT_NOTE, ORDER",
+											"disabled": true
+										},
+										{
+											"key": "sender",
+											"value": "0208:0552912569",
+											"description": "The sender of the notification",
+											"disabled": true
+										},
+										{
+											"key": "receiver",
+											"value": "0208:0552912569",
+											"description": "The receiver of the notification",
+											"disabled": true
+										},
+										{
+											"key": "startDateTime",
+											"value": "2023-07-25T11:03:26.688Z",
+											"description": "The start date time of the period to filter the notifications. To filter all notifications for a specific time E.g. `2023-07-25T11:03:26.688Z` use `startDateTime=2023-07-25T11:03:26.688Z` and `endDateTime=2023-07-29T11:03:26.688Z",
+											"disabled": true
+										},
+										{
+											"key": "endDateTime",
+											"value": "2023-07-29T11:03:26.688Z",
+											"description": "The end date time of the period to filter the notifications.",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "0",
+											"description": "The starting page number from which we want to retrieve results. The first page is 0.",
+											"disabled": true
+										},
+										{
+											"key": "pageSize",
+											"value": "10",
+											"description": "How many results we retrieve per page",
+											"disabled": true
+										},
+										{
+											"key": "accessToken",
+											"value": "{{accessToken}}"
+										}
+									]
+								},
+								"description": "The API creates notifications to inform you when a document was sent successfully or when you receive a document from other legal entities.</br></br>The following status values are possible when you, acting as a Seller, are sending an invoice/credit note to a Buyer. You will get notified via the notification `InvoiceSendingNotificationRO`:<table><tr><th>Code</th><th>Description</th></tr><tr><td>QUEUED</td><td>Waiting to be sent to the Buyer</td></tr><tr><td>SENT</td><td>Acknowledged by the receiver Access Point C3</td></tr><tr><td>SEND_FAILED</td><td>Failed to send to the receiver's Access Point C3</td></tr></table></br>The following status values are possible when you, acting as a Seller, have sent an invoice/credit note to the Access Point of the Buyer and it was received. You will get notified via the notification `MLRReceivingNotificationRO`:<table><tr><th>Code</th><th>Description</th></tr><tr><td>TECHNICAL_ACCEPTANCE</td><td>Document received and accepted by the Access Point of the Buyer, but it was not (yet) read by Buyer</td></tr><tr><td>REJECTED</td><td>MLR reject. Status is used when the Access Point of the Buyer will not process the referenced document any further due to validation errors.</td></tr></table></br>When you, acting as a Buyer, are receiving an invoice/credit note from the Seller you will get notified via the notification `InvoiceReceivingNotificationRO`. This notification contains a unique identifier called `transmissionId` which you will use to get the incoming invoice/credit note using the endpoint <a href=\"#tag/InvoiceCredit-Note/operation/getInvoiceInUBLFormat\">Get Invoice/Credit Note</a>.</br></br>The following status values are possible when you, acting as a Seller, are receiving an InvoiceResponse notification(IR) from the Buyer. Not all Buyers are sending an InvoiceResponse.You will get notified via the notification `InvoiceResponseReceivingNotificationRO`:<table><tr><th>Code</th><th>Description</th></tr><tr><td>BUYER_ACKNOWLEDGE</td><td>Status is used when Buyer has received a readable invoice message that can be understood and submitted for processing by the Buyer.</td></tr><tr><td>IN_PROCESS</td><td>Status is used when the processing of the Invoice has started in Buyers system.</td></tr><tr><td>UNDER_QUERY</td><td>Status is used when Buyer will not proceed to accept the Invoice without receiving additional information from the Seller.</td></tr><tr><td>CONDITIONALLY_ACCEPTED</td><td>Status is used when Buyer is accepting the Invoice under conditions stated in 'Status Reason' and proceed to pay accordingly unless disputed by Seller.</td></tr><tr><td>REJECTED</td><td>Invoice reject. Status is used only when the Buyer will not process the referenced Invoice any further. Buyer is rejecting this invoice but not necessarily the commercial transaction. Although it can be used also for rejection for commercial reasons (invoice not corresponding to delivery).</td></tr><tr><td>ACCEPTED</td><td>Status is used only when the Buyer has given a final approval of the invoice and the next step is payment</td></tr><tr><td>PARTIALLY_PAID</td><td>Status is used together with Clarification Reason code PPD, only when the Buyer has initiated the payment of the invoice without having paid the accepted amount in full.</td></tr><tr><td>FULLY_PAID</td><td>Status is used only when the Buyer has initiated the payment of the invoice.</td></tr></table></br>Here is a list of all notifications defined in our OpenAPI specifications that you can receive:<table><tr><th>Name</th><th>Event Type</th><th>Description</th></tr><tr><td>InvoiceSendingNotificationRO</td><td>DOCUMENT_SENT</br>DOCUMENT_SEND_FAILED</td><td>Notification created when you, acting as a Seller, send an invoice/credit note to a Buyer. This notifies you whether the invoice was sent successfully or failed to be sent.</td></tr><tr><td>InvoiceReceivingNotificationRO</td><td>DOCUMENT_RECEIVED</td><td>Notification created when you, acting as a Buyer, receive an invoice/credit note from a Seller.</td></tr><tr><td>MLRReceivingNotificationRO</td><td>MLR_RECEIVED</td><td>Notification created when you, acting as a Seller, have sent an invoice/credit note to the Buyer's Access Point and it has been received. This notifies you whether the Buyer's Access Point has accepted or rejected the invoice for technical reasons.</td></tr><tr><td>InvoiceResponseSendingNotificationRO</td><td>INVOICE_RESPONSE_SENT</br>INVOICE_RESPONSE_SEND_FAILED</td><td>Notification created when you, acting as a Buyer, send an Invoice Response (IR) to a Seller. This notifies you whether the Invoice Response was sent successfully or failed to be sent.</td></tr><tr><td>InvoiceResponseReceivingNotificationRO</td><td>INVOICE_RESPONSE_RECEIVED</td><td>Notification created when you, acting as a Seller, receive an Invoice Response (IR) from a Buyer. This notifies you whether the invoice you sent to the Buyer was accepted, rejected, paid, etc.</td></tr><tr><td>OrderSendingNotificationRO</td><td>DOCUMENT_SENT</br>DOCUMENT_SEND_FAILED</td><td>Notification created when you, acting as a Buyer, send an order to a Seller. This notifies you whether the order was sent successfully or failed to be sent.</td></tr><tr><td>OrderReceivingNotificationRO</td><td>DOCUMENT_RECEIVED</td><td>Notification created when you, acting as a Seller, receive an order from a Buyer.</td></tr><tr><td>LegalEntityCorppassKycNotificationRO</td><td>LEGAL_ENTITY_KYC_CORPPASS_ACTIVATED</br>LEGAL_ENTITY_KYC_CORPPASS_ACTIVATION_ERROR</td><td>Specific to Singapore only: Notification created to inform you about the status of the legal entity KYC in Corppass.</td></tr><tr><td>LegalEntityCorppassC5NotificationRO</td><td>LEGAL_ENTITY_C5_ACTIVATED</br>LEGAL_ENTITY_C5_ACTIVATION_ERROR</br>LEGAL_ENTITY_C5_DEACTIVATED</br>LEGAL_ENTITY_C5_DEACTIVATION_ERROR</td><td>Specific to Singapore only: Notification created to inform you about the status of the legal entity C5 activation/deactivation in Corppass.</td></tr><tr><td>IrasSendingNotificationRO</td><td>IRAS_DOCUMENT_SENT</br>IRAS_DOCUMENT_SEND_FAILED</td><td>Specific to Singapore only: Notification created when you, acting as a Seller, send an invoice/credit note to a Buyer and you have indicated to our API to automatically report to IRAS via the HTTP header X-C5-REPORTING.</td></tr></table>"
+							},
+							"response": [
+								{
+									"name": "Notifications retrieved successfully",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic <credentials>",
+												"description": "Added as a part of security scheme: basic"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/peppol/v1/notifications?transmissionId=803828d52d4911ed85f512ef9c5638d0&documentId=pbe000512-1&eventType=INVOICE_RESPONSE_RECEIVED&peppolDocumentType=INVOICE&sender=0208:0552912569&receiver=0208:0552912569&startDateTime=2023-07-25T11:03:26.688Z&endDateTime=2023-07-29T11:03:26.688Z&page=0&pageSize=10",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"peppol",
+												"v1",
+												"notifications"
+											],
+											"query": [
+												{
+													"key": "transmissionId",
+													"value": "803828d52d4911ed85f512ef9c5638d0",
+													"description": "The transmission id of the notification"
+												},
+												{
+													"key": "documentId",
+													"value": "pbe000512-1",
+													"description": "The document id of a document eg Invoice/Credit Note"
+												},
+												{
+													"key": "eventType",
+													"value": "INVOICE_RESPONSE_RECEIVED",
+													"description": "The notification event type"
+												},
+												{
+													"key": "peppolDocumentType",
+													"value": "INVOICE",
+													"description": "The document type: INVOICE, CREDIT_NOTE, ORDER"
+												},
+												{
+													"key": "sender",
+													"value": "0208:0552912569",
+													"description": "The sender of the notification"
+												},
+												{
+													"key": "receiver",
+													"value": "0208:0552912569",
+													"description": "The receiver of the notification"
+												},
+												{
+													"key": "startDateTime",
+													"value": "2023-07-25T11:03:26.688Z",
+													"description": "The start date time of the period to filter the notifications. To filter all notifications for a specific time E.g. `2023-07-25T11:03:26.688Z` use `startDateTime=2023-07-25T11:03:26.688Z` and `endDateTime=2023-07-29T11:03:26.688Z"
+												},
+												{
+													"key": "endDateTime",
+													"value": "2023-07-29T11:03:26.688Z",
+													"description": "The end date time of the period to filter the notifications."
+												},
+												{
+													"key": "page",
+													"value": "0",
+													"description": "The starting page number from which we want to retrieve results. The first page is 0."
+												},
+												{
+													"key": "pageSize",
+													"value": "10",
+													"description": "How many results we retrieve per page"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"notifications\": [\n    {\n      \"documentId\": \"pbe000512-AUNZ-1\",\n      \"documentStatus\": \"SENT\",\n      \"eventType\": \"DOCUMENT_SENT\",\n      \"notificationDate\": \"2025-03-25T13:28:59.878\",\n      \"notificationId\": 1,\n      \"peppolDocumentType\": \"INVOICE\",\n      \"receiver\": \"0151:20234567890\",\n      \"sbdhTransmissionId\": \"1a5363fd097d11f083b9c2b5d1f6eb7f\",\n      \"sender\": \"0151:47555222000\",\n      \"transmissionId\": \"1a5363fe097d11f083b9c2b5d1f6eb7f\",\n      \"details\": []\n    },\n    {\n      \"documentId\": \"pbe000512-2\",\n      \"documentStatus\": \"SEND_FAILED\",\n      \"eventType\": \"DOCUMENT_SEND_FAILED\",\n      \"notificationDate\": \"2025-03-25T13:29:05.931\",\n      \"notificationId\": 5,\n      \"peppolDocumentType\": \"INVOICE\",\n      \"receiver\": \"0208:0465105397\",\n      \"sbdhTransmissionId\": \"1faf4efd097d11f083b9c2b5d1f6eb7f\",\n      \"sender\": \"0208:0552912569\",\n      \"transmissionId\": \"1faf4efe097d11f083b9c2b5d1f6eb7f\",\n      \"details\": [\n        {\n          \"code\": \"DOCUMENT_TRANSMISSION_ERROR\",\n          \"message\": \"Error dispatching the message to http://receiver:8080/msh\"\n        },\n        {\n          \"code\": \"DOCUMENT_TRANSMISSION_ERROR\",\n          \"message\": \"Error2\"\n        }\n      ]\n    },\n    {\n      \"documentId\": \"pbe000512-3\",\n      \"documentStatus\": \"REJECTED\",\n      \"eventType\": \"MLR_RECEIVED\",\n      \"notificationDate\": \"2025-03-25T13:29:07.536\",\n      \"notificationId\": 7,\n      \"peppolDocumentType\": \"INVOICE\",\n      \"receivedDate\": \"2025-03-25T13:29:07.536\",\n      \"receiver\": \"0208:0552912569\",\n      \"sender\": \"0208:0465105397\",\n      \"transmissionId\": \"20029f22097d11f083b9c2b5d1f6eb7f\",\n      \"details\": [\n        {\n          \"code\": \"GENERIC_ERROR\",\n          \"message\": \"/Invoice[1]/InvoiceLine[1]/Item[1]/ClassifiedTaxCategory[1]:[BR-S-05]-In an Invoice line (BG-25) where the Invoiced item VAT category code (BT-151) is \\\"Standard rated\\\" the Invoiced item VAT rate (BT-152) shall be greater than zero.\"\n        },\n        {\n          \"code\": \"GENERIC_ERROR\",\n          \"message\": \"/Invoice[1]/LegalMonetaryTotal[1]:[BR-CO-13]-Invoice total amount without VAT (BT-109) = Î£ Invoice line net amount (BT-131) - Sum of allowances on document level (BT-107) + Sum of charges on document level (BT-108).\"\n        },\n        {\n          \"code\": \"GENERIC_ERROR\",\n          \"message\": \"/Invoice[1]/TaxTotal[1]/TaxSubtotal[1]/TaxCategory[1]:[BR-S-08]-For each different value of VAT category rate (BT-119) where the VAT category code (BT-118) is \\\"Standard rated\\\", the VAT category taxable amount (BT-116) in a VAT breakdown (BG-23) shall equal the sum of Invoice line net amounts (BT-131) plus the sum of document level charge amounts (BT-99) minus the sum of document level allowance amounts (BT-92) where the VAT category code (BT-151, BT-102, BT-95) is \\\"Standard rated\\\" and the VAT rate (BT-152, BT-103, BT-96) equals the VAT category rate (BT-119).\"\n        },\n        {\n          \"code\": \"GENERIC_ERROR\",\n          \"message\": \"/Invoice[1]:[BR-CO-15]-Invoice total amount with VAT (BT-112) = Invoice total amount without VAT (BT-109) + Invoice total VAT amount (BT-110).\"\n        }\n      ]\n    },\n    {\n      \"details\": [],\n      \"documentId\": \"pbe000512-4\",\n      \"documentStatus\": \"ACCEPTED\",\n      \"eventType\": \"INVOICE_RESPONSE_RECEIVED\",\n      \"invoiceResponse\": {\n        \"effectiveDate\": \"2022-05-22\",\n        \"invoiceClarifications\": [],\n        \"invoiceTransmissionId\": \"221ca588097d11f083b9c2b5d1f6eb7f\",\n        \"note\": null,\n        \"responseCode\": \"AP\"\n      },\n      \"notificationDate\": \"2025-03-25T13:29:09.937\",\n      \"notificationId\": 9,\n      \"peppolDocumentType\": \"INVOICE\",\n      \"receiver\": \"0208:0552912569\",\n      \"sender\": \"0208:0465105397\",\n      \"transmissionId\": \"221ca588097d11f083b9c2b5d1f6eb7f\"\n    },\n    {\n      \"details\": [],\n      \"documentId\": \"pbe000512-5\",\n      \"documentStatus\": \"REJECTED\",\n      \"eventType\": \"INVOICE_RESPONSE_RECEIVED\",\n      \"invoiceResponse\": {\n        \"effectiveDate\": \"2022-08-24\",\n        \"invoiceClarifications\": [\n          {\n            \"clarification\": \"VAT Reference not found\",\n            \"clarificationCode\": \"LEG\",\n            \"clarificationType\": \"OPStatusReason\"\n          },\n          {\n            \"clarification\": \"Credit fully\",\n            \"clarificationCode\": \"CNF\",\n            \"clarificationType\": \"OPStatusAction\"\n          },\n          {\n            \"clarification\": \"Issue new invoice\",\n            \"clarificationCode\": \"NIN\",\n            \"clarificationType\": \"OPStatusAction\"\n          }\n        ],\n        \"invoiceTransmissionId\": \"22578bae097d11f083b9c2b5d1f6eb7f\",\n        \"note\": \"custom note\",\n        \"responseCode\": \"RE\"\n      },\n      \"notificationDate\": \"2025-03-25T13:29:10.460\",\n      \"notificationId\": 11,\n      \"peppolDocumentType\": \"INVOICE\",\n      \"receiver\": \"0208:0552912569\",\n      \"sender\": \"0208:0465105397\",\n      \"transmissionId\": \"22578bae097d11f083b9c2b5d1f6eb7f\"\n    },\n    {\n      \"details\": [],\n      \"documentId\": \"pbe000512-6\",\n      \"eventType\": \"DOCUMENT_RECEIVED\",\n      \"notificationDate\": \"2025-03-25T13:29:11.011\",\n      \"notificationId\": 12,\n      \"peppolDocumentType\": \"INVOICE\",\n      \"receivedDate\": \"2025-03-25T13:29:11.011\",\n      \"receiver\": \"0208:0552912569\",\n      \"sbdhTransmissionId\": \"5555555\",\n      \"sender\": \"0208:0465105397\",\n      \"transmissionId\": \"22e76fa4097d11f083b9c2b5d1f6eb7f\"\n    },\n    {\n      \"details\": [],\n      \"documentId\": \"pbe000512-8\",\n      \"documentStatus\": \"ACCEPTED\",\n      \"eventType\": \"INVOICE_RESPONSE_SENT\",\n      \"notificationDate\": \"2025-03-25T13:29:14.982\",\n      \"notificationId\": 15,\n      \"receiver\": \"0208:0465105397\",\n      \"sender\": \"0208:0552912569\",\n      \"transmissionId\": \"250ebc83097d11f083b9c2b5d1f6eb7f\"\n    },\n    {\n      \"details\": [],\n      \"documentId\": \"pbe000512-9\",\n      \"documentStatus\": \"REJECTED\",\n      \"eventType\": \"INVOICE_RESPONSE_SENT\",\n      \"notificationDate\": \"2025-03-25T13:29:17.621\",\n      \"notificationId\": 17,\n      \"receiver\": \"0208:0465105397\",\n      \"sender\": \"0208:0552912569\",\n      \"transmissionId\": \"26cf584a097d11f083b9c2b5d1f6eb7f\"\n    },\n    {\n      \"activationDate\": \"2025-03-25T14:29:45.897\",\n      \"eventType\": \"LEGAL_ENTITY_KYC_CORPPASS_ACTIVATED\",\n      \"initiatedDate\": \"2025-03-25T14:29:45.828\",\n      \"legalEntityId\": 2,\n      \"legalEntityRegistrationId\": 2,\n      \"notificationDate\": \"2025-03-25T14:29:45.899\",\n      \"notificationId\": 1,\n      \"signerEmail\": \"john.doe@example.com\",\n      \"signerName\": \"John Doe\"\n    },\n    {\n      \"activationDate\": \"2025-03-25T14:29:47.524\",\n      \"eventType\": \"LEGAL_ENTITY_C5_ACTIVATED\",\n      \"initiatedDate\": \"2025-03-25T14:29:47.500\",\n      \"legalEntityId\": 5,\n      \"legalEntityRegistrationId\": 5,\n      \"notificationDate\": \"2025-03-25T14:29:47.524\",\n      \"notificationId\": 2,\n      \"signerEmail\": \"john.doe@example.com\",\n      \"signerName\": \"John Doe\"\n    },\n    {\n      \"activationErrorDate\": \"2025-03-25T14:29:48.143\",\n      \"details\": [\n        {\n          \"code\": null,\n          \"message\": \"Corppass error detail\"\n        }\n      ],\n      \"eventType\": \"LEGAL_ENTITY_C5_ACTIVATION_ERROR\",\n      \"initiatedDate\": \"2025-03-25T14:29:48.126\",\n      \"legalEntityId\": 6,\n      \"legalEntityRegistrationId\": 6,\n      \"notificationDate\": \"2025-03-25T14:29:48.143\",\n      \"notificationId\": 3,\n      \"signerEmail\": \"john.doe@example.com\",\n      \"signerName\": \"John Doe\"\n    },\n    {\n      \"activationErrorDate\": \"2025-03-25T14:29:48.612\",\n      \"details\": [\n        {\n          \"code\": null,\n          \"message\": \"Corppass error detail\"\n        }\n      ],\n      \"eventType\": \"LEGAL_ENTITY_KYC_CORPPASS_ACTIVATION_ERROR\",\n      \"initiatedDate\": \"2025-03-25T14:29:48.598\",\n      \"legalEntityId\": 7,\n      \"legalEntityRegistrationId\": 7,\n      \"notificationDate\": \"2025-03-25T14:29:48.612\",\n      \"notificationId\": 4,\n      \"signerEmail\": \"john.doe@example.com\",\n      \"signerName\": \"John Doe\"\n    }\n  ],\n  \"pagination\": {\n    \"count\": 12,\n    \"page\": 0,\n    \"pageSize\": 20\n  }\n}"
+								},
+								{
+									"name": "Error getting the Notifications",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic <credentials>",
+												"description": "Added as a part of security scheme: basic"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/peppol/v1/notifications?transmissionId=803828d52d4911ed85f512ef9c5638d0&documentId=pbe000512-1&eventType=INVOICE_RESPONSE_RECEIVED&peppolDocumentType=INVOICE&sender=0208:0552912569&receiver=0208:0552912569&startDateTime=2023-07-25T11:03:26.688Z&endDateTime=2023-07-29T11:03:26.688Z&page=0&pageSize=10",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"peppol",
+												"v1",
+												"notifications"
+											],
+											"query": [
+												{
+													"key": "transmissionId",
+													"value": "803828d52d4911ed85f512ef9c5638d0",
+													"description": "The transmission id of the notification"
+												},
+												{
+													"key": "documentId",
+													"value": "pbe000512-1",
+													"description": "The document id of a document eg Invoice/Credit Note"
+												},
+												{
+													"key": "eventType",
+													"value": "INVOICE_RESPONSE_RECEIVED",
+													"description": "The notification event type"
+												},
+												{
+													"key": "peppolDocumentType",
+													"value": "INVOICE",
+													"description": "The document type: INVOICE, CREDIT_NOTE, ORDER"
+												},
+												{
+													"key": "sender",
+													"value": "0208:0552912569",
+													"description": "The sender of the notification"
+												},
+												{
+													"key": "receiver",
+													"value": "0208:0552912569",
+													"description": "The receiver of the notification"
+												},
+												{
+													"key": "startDateTime",
+													"value": "2023-07-25T11:03:26.688Z",
+													"description": "The start date time of the period to filter the notifications. To filter all notifications for a specific time E.g. `2023-07-25T11:03:26.688Z` use `startDateTime=2023-07-25T11:03:26.688Z` and `endDateTime=2023-07-29T11:03:26.688Z"
+												},
+												{
+													"key": "endDateTime",
+													"value": "2023-07-29T11:03:26.688Z",
+													"description": "The end date time of the period to filter the notifications."
+												},
+												{
+													"key": "page",
+													"value": "0",
+													"description": "The starting page number from which we want to retrieve results. The first page is 0."
+												},
+												{
+													"key": "pageSize",
+													"value": "10",
+													"description": "How many results we retrieve per page"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"code\": \"GENERIC_ERROR\",\n  \"message\": \"Error getting notifications\"\n}"
+								},
+								{
+									"name": "Authentication failure",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic <credentials>",
+												"description": "Added as a part of security scheme: basic"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/peppol/v1/notifications?transmissionId=803828d52d4911ed85f512ef9c5638d0&documentId=pbe000512-1&eventType=INVOICE_RESPONSE_RECEIVED&peppolDocumentType=INVOICE&sender=0208:0552912569&receiver=0208:0552912569&startDateTime=2023-07-25T11:03:26.688Z&endDateTime=2023-07-29T11:03:26.688Z&page=0&pageSize=10",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"peppol",
+												"v1",
+												"notifications"
+											],
+											"query": [
+												{
+													"key": "transmissionId",
+													"value": "803828d52d4911ed85f512ef9c5638d0",
+													"description": "The transmission id of the notification"
+												},
+												{
+													"key": "documentId",
+													"value": "pbe000512-1",
+													"description": "The document id of a document eg Invoice/Credit Note"
+												},
+												{
+													"key": "eventType",
+													"value": "INVOICE_RESPONSE_RECEIVED",
+													"description": "The notification event type"
+												},
+												{
+													"key": "peppolDocumentType",
+													"value": "INVOICE",
+													"description": "The document type: INVOICE, CREDIT_NOTE, ORDER"
+												},
+												{
+													"key": "sender",
+													"value": "0208:0552912569",
+													"description": "The sender of the notification"
+												},
+												{
+													"key": "receiver",
+													"value": "0208:0552912569",
+													"description": "The receiver of the notification"
+												},
+												{
+													"key": "startDateTime",
+													"value": "2023-07-25T11:03:26.688Z",
+													"description": "The start date time of the period to filter the notifications. To filter all notifications for a specific time E.g. `2023-07-25T11:03:26.688Z` use `startDateTime=2023-07-25T11:03:26.688Z` and `endDateTime=2023-07-29T11:03:26.688Z"
+												},
+												{
+													"key": "endDateTime",
+													"value": "2023-07-29T11:03:26.688Z",
+													"description": "The end date time of the period to filter the notifications."
+												},
+												{
+													"key": "page",
+													"value": "0",
+													"description": "The starting page number from which we want to retrieve results. The first page is 0."
+												},
+												{
+													"key": "pageSize",
+													"value": "10",
+													"description": "How many results we retrieve per page"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"code\": \"SECURITY_ERROR\",\n  \"message\": \"Invalid authentication credentials\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Consume a notification to remove it from the queue Copy",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{basicAuthUsername}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{basicAuthPassword}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/peppol/v1/notifications/:notificationId?accessToken={{accessToken}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"peppol",
+										"v1",
+										"notifications",
+										":notificationId"
+									],
+									"query": [
+										{
+											"key": "accessToken",
+											"value": "{{accessToken}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "notificationId",
+											"value": "7",
+											"description": "(Required) The id of the notification we want to consume"
+										}
+									]
+								},
+								"description": "Once consumed, the notification will not be returned anymore when getting the notifications list"
+							},
+							"response": [
+								{
+									"name": "Notification consumed successfully",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Basic <credentials>",
+												"description": "Added as a part of security scheme: basic"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/peppol/v1/notifications/:notificationId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"peppol",
+												"v1",
+												"notifications",
+												":notificationId"
+											],
+											"variable": [
+												{
+													"key": "notificationId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Error consuming notification",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic <credentials>",
+												"description": "Added as a part of security scheme: basic"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/peppol/v1/notifications/:notificationId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"peppol",
+												"v1",
+												"notifications",
+												":notificationId"
+											],
+											"variable": [
+												{
+													"key": "notificationId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"code\": \"GENERIC_ERROR\",\n  \"message\": \"Error consuming notification\"\n}"
+								},
+								{
+									"name": "Authentication failure",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic <credentials>",
+												"description": "Added as a part of security scheme: basic"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/peppol/v1/notifications/:notificationId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"peppol",
+												"v1",
+												"notifications",
+												":notificationId"
+											],
+											"variable": [
+												{
+													"key": "notificationId"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"code\": \"SECURITY_ERROR\",\n  \"message\": \"Invalid authentication credentials\"\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Mar",
+			"item": [
+				{
+					"name": "Customers",
+					"item": [
+						{
+							"name": "Get Validation Error",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"A110\": \"010018\"        \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/buggy/customervalidationerror",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"buggy",
+										"customervalidationerror"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Customer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"a110\": \"010038\",\n    \"a100\": \"Van den plas regenbui3\",\n    \"a101\": \"Rafke\",\n    \"a107\": \"8000\"    \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/customers",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Customer",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/customers/4",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"customers",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Customers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/customers",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Customer",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/customers/78",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"customers",
+										"78"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Customer",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"a110\": \"040037\",\n    \"e072\": \"\",\n    \"a10c\": \"2\",\n    \"a104\": \"Meersstraat 41\",\n    \"a105\": \"\",\n    \"a106\": \"\",\n    \"a107\": \"9308\",\n    \"a108\": \"Gijzegem updated\",\n    \"v149\": \"002\",\n    \"a109\": \"B\",\n    \"v150\": \"BE\",\n    \"vs03\": \"EUR\",\n    \"v161\": \"\",\n    \"a161\": \"\",\n    \"v151\": \"\",\n    \"v111\": \"\",\n    \"v254\": \"\",\n    \"v255\": \"\",\n    \"v256\": \"\",\n    \"a170\": \"\",\n    \"vs04\": \"\",\n    \"vs05\": \"0\",\n    \"vs06\": \"\",\n    \"vs07\": \"1\",\n    \"v225\": \"\",\n    \"v227\": \"\",\n    \"v247\": \"\",\n    \"a10a\": \"053/78.85.96\",\n    \"vs02\": \"\",\n    \"v224\": \"\",\n    \"a123\": \"\",\n    \"a124\": \"\",\n    \"a121\": \"\",\n    \"a122\": \"\",\n    \"v259\": \"\",\n    \"v260\": \"\",\n    \"e070\": \"\",\n    \"e071\": \"\",\n    \"v252\": \"\",\n    \"a191\": \"\",\n    \"a192\": \"\",\n    \"a193\": \"\",\n    \"a194\": \"\",\n    \"a197\": \"\",\n    \"_510z\": \"\",\n    \"a130\": \"\",\n    \"v301\": \"\",\n    \"a102\": \"2\",\n    \"a100\": \"D'Haeseleer Tineke\",\n    \"a101\": \"\",\n    \"v226\": \"\",\n    \"v243\": \"\",\n    \"v302\": \"\",\n    \"vs01\": \"0\",\n    \"a125\": \"\",\n    \"a127\": \"\",\n    \"v002\": \"\",\n    \"v257\": \"\",\n    \"v258\": \"\",\n    \"v244\": \"\",\n    \"v251\": \"\",\n    \"a120\": \"26031977\",\n    \"v201\": \"\",\n    \"v202\": \"\",\n    \"v203\": \"\",\n    \"v204\": \"\",\n    \"v205\": \"\",\n    \"v206\": \"\",\n    \"v207\": \"\",\n    \"v208\": \"\",\n    \"v209\": \"\",\n    \"v210\": \"\",\n    \"v211\": \"\",\n    \"v245\": \"\",\n    \"v246\": \"\",\n    \"v253\": \"\",\n    \"uxxx\": \"\",\n    \"v262\": \"\",\n    \"v263\": \"\",\n    \"rvID\": 5,    \n    \"id\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/customers/5",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"customers",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Customer PostalCodes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/customers/postalcodes",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"customers",
+										"postalcodes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Customers by PostalCode",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/customers?postalcodes=8000",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"customers"
+									],
+									"query": [
+										{
+											"key": "postalcodes",
+											"value": "8000"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Customers sorted  asc",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/customers?sort=asc",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"customers"
+									],
+									"query": [
+										{
+											"key": "sort",
+											"value": "asc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCustomers with search sorted and postalcodes term Copy",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/customers?sort=desc&search=arij&postalcodes=9860",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"customers"
+									],
+									"query": [
+										{
+											"key": "sort",
+											"value": "desc"
+										},
+										{
+											"key": "search",
+											"value": "arij"
+										},
+										{
+											"key": "postalcodes",
+											"value": "9860"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "LedgerAccounts",
+					"item": [
+						{
+							"name": "Get Validation Error",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n     \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/buggy/ledgeraccountvalidationerror",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"buggy",
+										"ledgeraccountvalidationerror"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add LedgerAccount",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"v019\": \"455200\",\n    \"v020\": \"Wedde forfait\"    \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/ledgeraccounts",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"ledgeraccounts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get LedgerAccounts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/ledgeraccounts",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"ledgeraccounts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get LedgerAccount",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/ledgeraccounts/4",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"ledgeraccounts",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update LedgerAccount",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"v019\": \"455200\",\n    \"v020\": \"Wedde forfait updated\",\n    \"dece022\": 0.0000,\n    \"dece023\": 0.0000,\n    \"dece024\": 0.0000,\n    \"dece025\": 0.0000,\n    \"dece026\": 0.0000,\n    \"dece027\": 0.0000,\n    \"dece028\": 0.0000,\n    \"dece029\": 0.0000,\n    \"dece030\": 0.0000,\n    \"dece031\": 0.0000,\n    \"v021\": null,\n    \"v032\": null,\n    \"v216\": null,\n    \"rvID\": null,    \n    \"id\": 4\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/ledgeraccounts/4",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"ledgeraccounts",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get LedgerAccounts Search",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/ledgeraccounts?search=k",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"ledgeraccounts"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "k"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "LedgerAccounts sorted  asc",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/ledgeraccounts?sort=asc",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"ledgeraccounts"
+									],
+									"query": [
+										{
+											"key": "sort",
+											"value": "asc"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Suppliers",
+					"item": [
+						{
+							"name": "Get Validation",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n     \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/buggy/suppliervalidationerror",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"buggy",
+										"suppliervalidationerror"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Supplier",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"a110\": \"999999\",\n    \"a100\": \"Vermoesen Test\",\n    \"a101\": \"bv\",\n    \"a107\": \"8400\",\n    \"a108\": \"Koksijde\"    \n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/suppliers",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"suppliers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Supplier",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/suppliers/633",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"suppliers",
+										"633"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Suppliers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/suppliers",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"suppliers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Supplier",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/suppliers/2",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"suppliers",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Supplier",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"a110\": \"980006\",\n    \"a102\": \"8\",\n    \"a100\": \"Garage Kerkvlietje\",\n    \"vs01\": \"0\",\n    \"a125\": \"\",\n    \"a10c\": \"2\",\n    \"a104\": \"Ninovesteenweg\",\n    \"a105\": \"223\",\n    \"a106\": \"\",\n    \"a107\": \"9320\",\n    \"a108\": \"Erembodegem\",\n    \"v149\": \"002\",\n    \"a109\": \"B\",\n    \"v150\": \"BE\",\n    \"vs03\": \"EUR\",\n    \"a10a\": \"053213526\",\n    \"vs02\": \"053709785\",\n    \"v224\": \"info@kerkvlie.skoda.be\",\n    \"v163\": \"\",\n    \"v016\": \"\",\n    \"v161\": \"\",\n    \"a161\": \"\",\n    \"a170\": \"645-1218122-31\",\n    \"v259\": \"\",\n    \"v260\": \"\",\n    \"a400\": \"\",\n    \"v015\": \"\",\n    \"v151\": \"\",\n    \"v111\": \"\",\n    \"vs04\": \"\",\n    \"v017\": \"1\",\n    \"v018\": \"0\",\n    \"v001\": \"\",\n    \"v002\": \"\",\n    \"v226\": \"\",\n    \"v227\": \"\",\n    \"v247\": \"\",\n    \"v254\": \"\",\n    \"v255\": \"\",\n    \"v256\": \"\",\n    \"v262\": \"\",\n    \"rvID\": 16,\n    \"vsoftSupplierInvoices\": [],\n    \"id\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/suppliers/2",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"suppliers",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Suppliers PostalCodes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/suppliers/postalcodes",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"suppliers",
+										"postalcodes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Suppliers by PostalCode",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/suppliers?postalcodes=9200",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"suppliers"
+									],
+									"query": [
+										{
+											"key": "postalcodes",
+											"value": "9200"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Suppliers sorted  asc",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/suppliers?sort=asc",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"suppliers"
+									],
+									"query": [
+										{
+											"key": "sort",
+											"value": "asc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetSuppliers with search sorted and postalcodes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/suppliers?sort=desc&search=Ver&postalcodes=9310",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"suppliers"
+									],
+									"query": [
+										{
+											"key": "sort",
+											"value": "desc"
+										},
+										{
+											"key": "search",
+											"value": "Ver"
+										},
+										{
+											"key": "postalcodes",
+											"value": "9310"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Contracts",
+					"item": [
+						{
+							"name": "Get Validation Error",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/buggy/contractvalidationerror",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"buggy",
+										"contractvalidationerror"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Contract",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"a110\": \"999999\",\n    \"a100\": \"Vermoesen Test\",\n    \"a101\": \"bv\",\n    \"a107\": \"8400\",\n    \"a108\": \"Koksijde\"    \n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/suppliers",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"suppliers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Contracts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/contracts",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"contracts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Contract",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/contracts/672",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"contracts",
+										"672"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Example url shortener",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"url\": \"https://rv.be\"\t\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.encurtador.dev/encurtamentos",
+							"protocol": "https",
+							"host": [
+								"api",
+								"encurtador",
+								"dev"
+							],
+							"path": [
+								"encurtamentos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Section 2 - API Basics",
+			"item": [
+				{
+					"name": "Get Weather Forecast",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/weatherforecast",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"weatherforecast"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomProduct}}\",\n    \"description\": \"{{$randomLoremParagraph}}\",\n    \"price\": {{$randomPrice}},\n    \"pictureUrl\": \"{{$randomImageUrl}}\",\n    \"type\": \"Some type\",\n    \"brand\": \"Some brand\",\n    \"quantityInStock\": {{$randomInt}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 2,\n    \"name\": \"{{$randomProduct}} Updated\",\n    \"description\": \"{{$randomLoremParagraph}}\",\n    \"price\": {{$randomPrice}},\n    \"pictureUrl\": \"{{$randomImageUrl}}\",\n    \"type\": \"Some type\",\n    \"brand\": \"Some brand\",\n    \"quantityInStock\": {{$randomInt}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/products/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products/3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Section 3 - Architecture",
+			"item": [
+				{
+					"name": "Get Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products/3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Brands",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products/brands",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"brands"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products/types",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products by Brand",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products?brand=React",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "brand",
+									"value": "React"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products by Type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products?type=boards",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "boards"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products sorted by price asc",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products?sort=priceDesc&type=boards",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "priceDesc"
+								},
+								{
+									"key": "type",
+									"value": "boards"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Section 4 - Specification",
+			"item": [
+				{
+					"name": "Get Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products by Brand",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products?brand=React",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "brand",
+									"value": "React"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products by Type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products?type=boards",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "boards"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products sorted by price asc",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products?sort=priceAsc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "priceAsc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Brands",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products/brands",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"brands"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products/types",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"types"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Section 5 - Paging, Sorting and Filtering",
+			"item": [
+				{
+					"name": "Get Products by Brand",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products?brands=Angular,React",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "brands",
+									"value": "Angular,React"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products by Brand and Types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products?brands=Angular,React&types=Boots,Gloves",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "brands",
+									"value": "Angular,React"
+								},
+								{
+									"key": "types",
+									"value": "Boots,Gloves"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Paged Products Page 0 Size 5",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products?pageSize=3&pageIndex=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "pageSize",
+									"value": "3"
+								},
+								{
+									"key": "pageIndex",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetProducts sorted by Price Ascending",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products?sort=priceAsc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "priceAsc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetProducts sorted by Price Descending",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products?sort=priceDesc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "priceDesc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Section 6 - Error Handling",
+			"item": [
+				{
+					"name": "Get Not Found",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/buggy/notfound",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"buggy",
+								"notfound"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Bad Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/buggy/badrequest",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"buggy",
+								"badrequest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Validation Error",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/buggy/validationerror",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"buggy",
+								"validationerror"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Unauthorised",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/buggy/unauthorized",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"buggy",
+								"unauthorized"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Internal server error",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/buggy/internalerror",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"buggy",
+								"internalerror"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Cors is enabled",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"CORS header is present\", function () {",
+									"    pm.response.to.have.header(\"Access-Control-Allow-Origin\");",
+									"    pm.expect(pm.response.headers.get(\"Access-Control-Allow-Origin\")).to.eql(\"https://localhost:4200\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "https://localhost:4200"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Section 12 - Shopping cart",
+			"item": [
+				{
+					"name": "Get Cart",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/cart?id=cart1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"cart"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "cart1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"cart1\",\n    \"items\": [\n        {\n            \"productName\": \"Angular Blue Boots\",\n            \"price\": 180.00,\n            \"pictureUrl\": \"/images/products/boot-ang1.png\",\n            \"type\": \"Boots\",\n            \"brand\": \"Angular\",\n            \"productId\": 18,\n            \"quantity\": 2\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/cart",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/cart?id=cart1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"cart"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "cart1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Section 14 - Identity",
+			"item": [
+				{
+					"name": "Default endpoints - register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test@test.com\",\n\t\"password\": \"Pa$$w0rd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Default endpoints - login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test@test.com\",\n\t\"password\": \"Pa$$w0rd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Default endpoints - login with cookie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test@test.com\",\n\t\"password\": \"Pa$$w0rd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/login?useCookies=true",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							],
+							"query": [
+								{
+									"key": "useCookies",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login as Bob - get token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"tom@test.com\",\n\t\"password\": \"Pa$$w0rd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login as Tom - get cookie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"tom@test.com\",\n\t\"password\": \"Pa$$w0rd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/login?useCookies=true",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							],
+							"query": [
+								{
+									"key": "useCookies",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register as Tom",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"Tom\",\n    \"lastName\": \"Smith\",\n\t\"email\": \"tom@test.com\",\n    \"berNumber\": \"12345678901\",\n    \"clientNumber\": \"220750\",\n\t\"password\": \"Pa$$w0rd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/account/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"account",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register with weak password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"Bob\",\n    \"lastName\": \"Bobbity\",\n\t\"email\": \"bob@test.com\",\n\t\"password\": \"letmein\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/account/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"account",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login as Tom bad password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"tom@test.com\",\n\t\"password\": \"BadPassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login as Tom",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"tom@test.com\",\n\t\"password\": \"Pa$$w0rd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/login?useCookies=true",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							],
+							"query": [
+								{
+									"key": "useCookies",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Secret from buggy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/buggy/secret",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"buggy",
+								"secret"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Current User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/account/user-info",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"account",
+								"user-info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/account/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"account",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add User Address (tom)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"line1\": \"100 Park Lane\",\n  \"city\": \"London\",\n  \"state\": \"London\",\n  \"postalCode\": \"SW1 1BD\",\n  \"country\": \"GB\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/account/address",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"account",
+								"address"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Address (tom)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"line1\": \"10 The Street\",\n  \"city\": \"New York\",\n  \"state\": \"NY\",\n  \"postalCode\": \"90250\",\n  \"country\": \"US\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/account/address",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"account",
+								"address"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Section 16 - Payments",
+			"item": [
+				{
+					"name": "Update Cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"cart1\",\n    \"items\": [\n        {\n            \"productId\": 17,\n            \"productName\": \"Angular Purple Boots\",\n            \"price\": 1,\n            \"quantity\": 2,\n            \"pictureUrl\": \"https://localhost:5001/images/products/boot-ang2.png\",\n            \"brand\": \"Angular\",\n            \"type\": \"Boots\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/cart",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create payment intent as tom",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/payments/cart1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"payments",
+								"cart1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Cart - Add payment intent details",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"cart1\",\n    \"items\": [\n        {\n            \"productId\": 17,\n            \"productName\": \"Angular Purple Boots\",\n            \"price\": 1,\n            \"quantity\": 10,\n            \"pictureUrl\": \"https://localhost:5001/images/products/boot-ang2.png\",\n            \"brand\": \"Angular\",\n            \"type\": \"Boots\"\n        }\n    ],\n    \"deliveryMethodId\": null,\n    \"clientSecret\": \"pi_3PeYxIHV9KPhYMym0np8q7R0_secret_dq4NT9Dn3cq3rRHAWQSqnI0w2\",\n    \"paymentIntentId\": \"pi_3PeYxIHV9KPhYMym0np8q7R0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/cart",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update payment intent as bob",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/payments/cart1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"payments",
+								"cart1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Address (tom) Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"line1\": \"100 Park Lane\",\n  \"city\": \"London\",\n  \"state\": \"London\",\n  \"postalCode\": \"SW1 1BB\",\n  \"country\": \"GB\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/account/address",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"account",
+								"address"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Section 17 - Orders",
+			"item": [
+				{
+					"name": "Update Cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"cart1\",\n    \"items\": [\n        {\n            \"productId\": 17,\n            \"productName\": \"Angular Purple Boots\",\n            \"price\": 1,\n            \"quantity\": 3,\n            \"pictureUrl\": \"/images/products/boot-ang2.png\",\n            \"brand\": \"Angular\",\n            \"type\": \"Boots\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/cart",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create payment intent",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/payments/cart1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"payments",
+								"cart1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\": \"cart1\",\n    \"deliveryMethodId\": 1,\n    \"shippingAddress\": {\n        \"name\": \"Tom Smith\",\n        \"city\": \"New York\",\n        \"country\": \"US\",\n        \"line1\": \"100 Centre Street\",\n        \"line2\": null,\n        \"postalCode\": \"10013\",\n        \"state\": \"NY\"\n    },\n    \"paymentSummary\": {\n        \"brand\": \"Mastercard\",\n        \"last4\": \"4444\",\n        \"expMonth\": 12,\n        \"expYear\": 2024\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/orders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Orders For User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/orders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order For User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/orders/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Section 20 - Coupons",
+			"item": [
+				{
+					"name": "Get Coupon from code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/coupons/gimme10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"coupons",
+								"gimme10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Invalid coupon",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/coupons/invalidCoupon",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"coupons",
+								"invalidCoupon"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Section 21 - Management",
+			"item": [
+				{
+					"name": "Login as admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@test.com\",\n    \"password\": \"Pa$$w0rd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/login?useCookies=true",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							],
+							"query": [
+								{
+									"key": "useCookies",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Admin Secret from buggy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/buggy/admin-secret",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"buggy",
+								"admin-secret"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Orders",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/admin/orders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/admin/orders/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"orders",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Section 22 - Performance",
+			"item": [
+				{
+					"name": "Populate cache",
+					"item": [
+						{
+							"name": "Get Paged Products Page 0 Size 5 Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/products?pageSize=3&pageIndex=1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"products"
+									],
+									"query": [
+										{
+											"key": "pageSize",
+											"value": "3"
+										},
+										{
+											"key": "pageIndex",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Products by Brand and Types Copy",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/products?brands=Angular,React&types=Boots,Gloves",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"products"
+									],
+									"query": [
+										{
+											"key": "brands",
+											"value": "Angular,React"
+										},
+										{
+											"key": "types",
+											"value": "Boots,Gloves"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Products by Brand Copy",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/products?brands=Angular,React",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"products"
+									],
+									"query": [
+										{
+											"key": "brands",
+											"value": "Angular,React"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetProducts with search term",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/products?search=red",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"products"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "red"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Add Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{xsrfToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomProduct}}\",\n    \"description\": \"{{$randomLoremParagraph}}\",\n    \"price\": {{$randomPrice}},\n    \"pictureUrl\": \"https://picsum.photos/300/300\",\n    \"type\": \"Some type\",\n    \"brand\": \"Some brand\",\n    \"quantityInStock\": {{$randomInt}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://localhost:5001"
+		},
+		{
+			"key": "ademicoPassword",
+			"value": "ay-nFJVqhsGX3rnnVqVkTDxT"
+		},
+		{
+			"key": "ademicoUsername",
+			"value": "rv"
+		},
+		{
+			"key": "ademicoAccessToken",
+			"value": "1aade332a55811eca4ff9af89e040201"
+		},
+		{
+			"key": "ademicoUrl",
+			"value": "https://test-peppol-api1.ademico-software.com/domibus"
+		},
+		{
+			"key": "ademicoPassWord",
+			"value": "ay-nFJVqhsGX3rnnVqVkTDxT"
+		}
+	]
+}
