@@ -152,7 +152,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Ademico\AdemicoClient.cs" />
-    <Compile Include="Classes\Ademico\AdemicoModels.cs" />
     <Compile Include="Classes\Ademico\Secrets.cs" />
     <Compile Include="Classes\Helpers.cs" />
     <Compile Include="Classes\SharedGlobals.cs" />

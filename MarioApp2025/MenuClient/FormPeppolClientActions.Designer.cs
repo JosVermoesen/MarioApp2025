@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             this.TabControlVariousActions = new System.Windows.Forms.TabControl();
+            this.TabMonitor = new System.Windows.Forms.TabPage();
+            this.ButtonTimer = new System.Windows.Forms.Button();
+            this.LabelMonitorReceived = new System.Windows.Forms.Label();
+            this.LabelMonitorSent = new System.Windows.Forms.Label();
+            this.ListBoxMonitorReceived = new System.Windows.Forms.ListBox();
+            this.ListBoxMonitorSent = new System.Windows.Forms.ListBox();
             this.TabActions = new System.Windows.Forms.TabPage();
             this.ButtonZipToCloud = new System.Windows.Forms.Button();
             this.ButtonShowSharedGlobals = new System.Windows.Forms.Button();
@@ -65,6 +71,7 @@
             this.StatusStrip = new System.Windows.Forms.StatusStrip();
             this.ToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.TabControlVariousActions.SuspendLayout();
+            this.TabMonitor.SuspendLayout();
             this.TabActions.SuspendLayout();
             this.TabNotifications.SuspendLayout();
             this.TabResponse.SuspendLayout();
@@ -75,6 +82,7 @@
             // 
             // TabControlVariousActions
             // 
+            this.TabControlVariousActions.Controls.Add(this.TabMonitor);
             this.TabControlVariousActions.Controls.Add(this.TabActions);
             this.TabControlVariousActions.Controls.Add(this.TabNotifications);
             this.TabControlVariousActions.Controls.Add(this.TabResponse);
@@ -84,8 +92,66 @@
             this.TabControlVariousActions.Location = new System.Drawing.Point(0, 0);
             this.TabControlVariousActions.Name = "TabControlVariousActions";
             this.TabControlVariousActions.SelectedIndex = 0;
-            this.TabControlVariousActions.Size = new System.Drawing.Size(584, 328);
+            this.TabControlVariousActions.Size = new System.Drawing.Size(584, 385);
             this.TabControlVariousActions.TabIndex = 0;
+            // 
+            // TabMonitor
+            // 
+            this.TabMonitor.Controls.Add(this.ButtonTimer);
+            this.TabMonitor.Controls.Add(this.LabelMonitorReceived);
+            this.TabMonitor.Controls.Add(this.LabelMonitorSent);
+            this.TabMonitor.Controls.Add(this.ListBoxMonitorReceived);
+            this.TabMonitor.Controls.Add(this.ListBoxMonitorSent);
+            this.TabMonitor.Location = new System.Drawing.Point(4, 22);
+            this.TabMonitor.Name = "TabMonitor";
+            this.TabMonitor.Size = new System.Drawing.Size(576, 359);
+            this.TabMonitor.TabIndex = 5;
+            this.TabMonitor.Text = "Monitor";
+            this.TabMonitor.UseVisualStyleBackColor = true;
+            // 
+            // ButtonTimer
+            // 
+            this.ButtonTimer.Location = new System.Drawing.Point(460, 10);
+            this.ButtonTimer.Name = "ButtonTimer";
+            this.ButtonTimer.Size = new System.Drawing.Size(108, 23);
+            this.ButtonTimer.TabIndex = 11;
+            this.ButtonTimer.Text = "Klok Start/Stop";
+            this.ButtonTimer.UseVisualStyleBackColor = true;
+            this.ButtonTimer.Click += new System.EventHandler(this.ButtonTimer_Click);
+            // 
+            // LabelMonitorReceived
+            // 
+            this.LabelMonitorReceived.AutoSize = true;
+            this.LabelMonitorReceived.Location = new System.Drawing.Point(5, 234);
+            this.LabelMonitorReceived.Name = "LabelMonitorReceived";
+            this.LabelMonitorReceived.Size = new System.Drawing.Size(60, 13);
+            this.LabelMonitorReceived.TabIndex = 10;
+            this.LabelMonitorReceived.Text = "Ontvangen";
+            // 
+            // LabelMonitorSent
+            // 
+            this.LabelMonitorSent.AutoSize = true;
+            this.LabelMonitorSent.Location = new System.Drawing.Point(8, 23);
+            this.LabelMonitorSent.Name = "LabelMonitorSent";
+            this.LabelMonitorSent.Size = new System.Drawing.Size(58, 13);
+            this.LabelMonitorSent.TabIndex = 9;
+            this.LabelMonitorSent.Text = "Verzonden";
+            // 
+            // ListBoxMonitorReceived
+            // 
+            this.ListBoxMonitorReceived.FormattingEnabled = true;
+            this.ListBoxMonitorReceived.Location = new System.Drawing.Point(8, 250);
+            this.ListBoxMonitorReceived.Name = "ListBoxMonitorReceived";
+            this.ListBoxMonitorReceived.Size = new System.Drawing.Size(560, 82);
+            this.ListBoxMonitorReceived.TabIndex = 8;
+            // 
+            // ListBoxMonitorSent
+            // 
+            this.ListBoxMonitorSent.FormattingEnabled = true;
+            this.ListBoxMonitorSent.Location = new System.Drawing.Point(8, 39);
+            this.ListBoxMonitorSent.Name = "ListBoxMonitorSent";
+            this.ListBoxMonitorSent.Size = new System.Drawing.Size(560, 69);
+            this.ListBoxMonitorSent.TabIndex = 7;
             // 
             // TabActions
             // 
@@ -106,14 +172,14 @@
             this.TabActions.Location = new System.Drawing.Point(4, 22);
             this.TabActions.Name = "TabActions";
             this.TabActions.Padding = new System.Windows.Forms.Padding(3);
-            this.TabActions.Size = new System.Drawing.Size(576, 302);
+            this.TabActions.Size = new System.Drawing.Size(576, 359);
             this.TabActions.TabIndex = 0;
             this.TabActions.Text = "Opzoekingen";
             this.TabActions.UseVisualStyleBackColor = true;
             // 
             // ButtonZipToCloud
             // 
-            this.ButtonZipToCloud.Location = new System.Drawing.Point(454, 230);
+            this.ButtonZipToCloud.Location = new System.Drawing.Point(320, 19);
             this.ButtonZipToCloud.Name = "ButtonZipToCloud";
             this.ButtonZipToCloud.Size = new System.Drawing.Size(111, 41);
             this.ButtonZipToCloud.TabIndex = 29;
@@ -123,7 +189,7 @@
             // 
             // ButtonShowSharedGlobals
             // 
-            this.ButtonShowSharedGlobals.Location = new System.Drawing.Point(454, 183);
+            this.ButtonShowSharedGlobals.Location = new System.Drawing.Point(203, 19);
             this.ButtonShowSharedGlobals.Name = "ButtonShowSharedGlobals";
             this.ButtonShowSharedGlobals.Size = new System.Drawing.Size(111, 41);
             this.ButtonShowSharedGlobals.TabIndex = 28;
@@ -133,9 +199,9 @@
             // 
             // ButtonGetPeppolRegistrations
             // 
-            this.ButtonGetPeppolRegistrations.Location = new System.Drawing.Point(320, 232);
+            this.ButtonGetPeppolRegistrations.Location = new System.Drawing.Point(279, 206);
             this.ButtonGetPeppolRegistrations.Name = "ButtonGetPeppolRegistrations";
-            this.ButtonGetPeppolRegistrations.Size = new System.Drawing.Size(111, 41);
+            this.ButtonGetPeppolRegistrations.Size = new System.Drawing.Size(152, 23);
             this.ButtonGetPeppolRegistrations.TabIndex = 27;
             this.ButtonGetPeppolRegistrations.Text = "Registratie(s) Opzoeken";
             this.ButtonGetPeppolRegistrations.UseVisualStyleBackColor = true;
@@ -175,7 +241,7 @@
             this.TextBoxLegalEntityId.Name = "TextBoxLegalEntityId";
             this.TextBoxLegalEntityId.Size = new System.Drawing.Size(77, 20);
             this.TextBoxLegalEntityId.TabIndex = 26;
-            this.TextBoxLegalEntityId.Text = "whatever";
+            this.TextBoxLegalEntityId.Text = ".";
             this.TextBoxLegalEntityId.TextChanged += new System.EventHandler(this.TextBoxLegalEntityId_TextChanged);
             // 
             // label5
@@ -243,7 +309,7 @@
             this.TabNotifications.Location = new System.Drawing.Point(4, 22);
             this.TabNotifications.Name = "TabNotifications";
             this.TabNotifications.Padding = new System.Windows.Forms.Padding(3);
-            this.TabNotifications.Size = new System.Drawing.Size(576, 302);
+            this.TabNotifications.Size = new System.Drawing.Size(576, 359);
             this.TabNotifications.TabIndex = 1;
             this.TabNotifications.Text = "Meldingen";
             this.TabNotifications.UseVisualStyleBackColor = true;
@@ -303,7 +369,7 @@
             this.TabResponse.Controls.Add(this.RichTextBoxResponses);
             this.TabResponse.Location = new System.Drawing.Point(4, 22);
             this.TabResponse.Name = "TabResponse";
-            this.TabResponse.Size = new System.Drawing.Size(576, 302);
+            this.TabResponse.Size = new System.Drawing.Size(576, 359);
             this.TabResponse.TabIndex = 4;
             this.TabResponse.Text = "Reacties/Antwoorden";
             this.TabResponse.UseVisualStyleBackColor = true;
@@ -313,7 +379,7 @@
             this.RichTextBoxResponses.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RichTextBoxResponses.Location = new System.Drawing.Point(0, 0);
             this.RichTextBoxResponses.Name = "RichTextBoxResponses";
-            this.RichTextBoxResponses.Size = new System.Drawing.Size(576, 302);
+            this.RichTextBoxResponses.Size = new System.Drawing.Size(576, 359);
             this.RichTextBoxResponses.TabIndex = 1;
             this.RichTextBoxResponses.Text = "";
             // 
@@ -326,7 +392,7 @@
             this.TabSendDocument.Controls.Add(this.ButtonCheckFile);
             this.TabSendDocument.Location = new System.Drawing.Point(4, 22);
             this.TabSendDocument.Name = "TabSendDocument";
-            this.TabSendDocument.Size = new System.Drawing.Size(576, 302);
+            this.TabSendDocument.Size = new System.Drawing.Size(576, 359);
             this.TabSendDocument.TabIndex = 2;
             this.TabSendDocument.Text = "Document Verzenden";
             this.TabSendDocument.UseVisualStyleBackColor = true;
@@ -378,7 +444,7 @@
             this.TabReceiveDocument.Controls.Add(this.LabelTransmissionId);
             this.TabReceiveDocument.Location = new System.Drawing.Point(4, 22);
             this.TabReceiveDocument.Name = "TabReceiveDocument";
-            this.TabReceiveDocument.Size = new System.Drawing.Size(576, 302);
+            this.TabReceiveDocument.Size = new System.Drawing.Size(576, 359);
             this.TabReceiveDocument.TabIndex = 3;
             this.TabReceiveDocument.Text = "Document ontvangen";
             this.TabReceiveDocument.UseVisualStyleBackColor = true;
@@ -425,7 +491,7 @@
             // 
             this.StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripStatusLabel});
-            this.StatusStrip.Location = new System.Drawing.Point(0, 306);
+            this.StatusStrip.Location = new System.Drawing.Point(0, 363);
             this.StatusStrip.Name = "StatusStrip";
             this.StatusStrip.Size = new System.Drawing.Size(584, 22);
             this.StatusStrip.TabIndex = 10;
@@ -442,14 +508,17 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.ButtonClose;
-            this.ClientSize = new System.Drawing.Size(584, 328);
+            this.ClientSize = new System.Drawing.Size(584, 385);
             this.Controls.Add(this.StatusStrip);
             this.Controls.Add(this.TabControlVariousActions);
             this.Controls.Add(this.ButtonClose);
             this.Name = "FormPeppolClientActions";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormPeppolClientActions";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormPeppolClientActions_FormClosing);
             this.TabControlVariousActions.ResumeLayout(false);
+            this.TabMonitor.ResumeLayout(false);
+            this.TabMonitor.PerformLayout();
             this.TabActions.ResumeLayout(false);
             this.TabActions.PerformLayout();
             this.TabNotifications.ResumeLayout(false);
@@ -504,5 +573,11 @@
         private System.Windows.Forms.Button ButtonShowSharedGlobals;
         private System.Windows.Forms.ListBox ListBoxDocumentsToSend;
         private System.Windows.Forms.Button ButtonZipToCloud;
+        private System.Windows.Forms.TabPage TabMonitor;
+        private System.Windows.Forms.ListBox ListBoxMonitorReceived;
+        private System.Windows.Forms.ListBox ListBoxMonitorSent;
+        private System.Windows.Forms.Label LabelMonitorReceived;
+        private System.Windows.Forms.Label LabelMonitorSent;
+        private System.Windows.Forms.Button ButtonTimer;
     }
 }

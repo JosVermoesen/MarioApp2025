@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MarioApp2025.Classes.Ademico;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -486,10 +487,10 @@ namespace MarioApp2025.MarioMenu.Admin
 
         async private void ButtonGetUBLDocument_Click(object sender, EventArgs e)
         {
-            string ademicoUrl = MySqlSecrets.testUrl;
-            string accessToken = MySqlSecrets.testAccessToken;
-            string username = MySqlSecrets.testUsername;
-            string password = MySqlSecrets.testPassword;
+            string ademicoUrl = MyApiSecrets.testUrl;
+            string accessToken = MyApiSecrets.testAccessToken;
+            string username = MyApiSecrets.testUsername;
+            string password = MyApiSecrets.testPassword;
 
             string transmissionId = TextBoxTransmissionId.Text.Trim();
 

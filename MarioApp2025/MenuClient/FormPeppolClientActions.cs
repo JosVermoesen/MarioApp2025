@@ -1,8 +1,4 @@
-﻿using ADODB;
-using Mario2025.Classes.Ademico;
-using MarioApp2025.MarioMenu.Admin;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
@@ -11,11 +7,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using ADODB;
+using Newtonsoft.Json;
+
+using MarioApp2025.Classes.Ademico;
+using MarioApp2025.MarioMenu.Admin;
+
 
 namespace MarioApp2025.MarioMenu.Actions
 {
     public partial class FormPeppolClientActions : Form
     {
+        private readonly Timer _timer;
+
         private readonly HttpClient httpCheck;
         private DialogResult answer;
         public string activeSellerDocument = "";
@@ -28,15 +32,92 @@ namespace MarioApp2025.MarioMenu.Actions
         public FormPeppolClientActions()
         {
             InitializeComponent();
+            _timer = new Timer
+            {
+                Interval = 10 * 60 * 1000 // 10 minutes in milliseconds
+            };
+            _timer.Tick += Timer_Tick;
+            _timer.Stop();
+
             Text = "Peppol Verrichtingen [ " + SharedGlobals.CompanyName + "]";
             httpCheck = new HttpClient();
             FormDataGridJsonPopUp = new FormDataGridJsonPopUp { };
             RadioButtonGetReceived.Checked = true;
             TextBoxLegalEntityId.Text = ""; // Default to empty to enable country/scheme/identifier fields
 
-            FillListPeppolToSend();
+            FillListPeppolToSend(ListBoxDocumentsToSend);
         }
 
+        private void FormPeppolClientActions_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _timer.Stop(); // Stop the timer when the form is closing
+            _timer.Dispose(); // Dispose of the timer to free resources
+        }
+
+        
+        // Monitor Tab - Fill the listbox with Peppol files to be sent
+        private void ButtonTimer_Click(object sender, EventArgs e)
+        {
+            if (_timer.Enabled)
+            {
+                _timer.Stop();
+                ButtonTimer.Text = "Start Timer";
+                ToolStripStatusLabel.Text = "Timer stopped.";
+                return;
+            }
+            else
+            {
+                ButtonTimer.Text = "Stop Timer";
+                Timer timer = new Timer
+                {
+                    Interval = 600000 // 10 minutes in milliseconds
+                };
+                timer.Tick += Timer_Tick;
+                ToolStripStatusLabel.Text = "Timer started. Notifications every 10 minutes.";
+                _timer.Start();
+            }
+
+        }       
+
+        // Actions Tab
+        async private void ButtonCheckConnectivity_Click(object sender, EventArgs e)
+        {
+            ToolStripStatusLabel.Text = "Bezig...";
+            Application.DoEvents();
+
+            var response = await AdemicoClient.CheckConnection(new HttpClient());
+            if (response != null)
+            {
+                ToolStripStatusLabel.Text = response;
+            }
+            else
+            {
+                MessageBox.Show(response, "Foutmelding", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void ButtonShowSharedGlobals_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+                $"Naam Bedrijf (KBO): {SharedGlobals.CompanyName}\n" +
+                $"Adres: {SharedGlobals.CompanyAddress}\n" +
+                $"Postcode en Plaats: {SharedGlobals.CompanyPostalCodeAndCity}\n" +
+                $"Telefoon: {SharedGlobals.CompanyPhoneNumber}\n" +
+                $"KBO Nummer: {SharedGlobals.CompanyKBONumber}\n" +
+                $"BTW Nummer (zonder 'BE'): {SharedGlobals.CompanyVATNumber}\n" +
+                $"IBAN Rekening Nummer: {SharedGlobals.CompanyIBANNumber}\n" +
+                $"BIC Nummer: {SharedGlobals.CompanyBICNumber}\n" +
+                $"Email Adres Bedrijf: {SharedGlobals.CompanyEmailAddress}\n" +
+                $"Contactpersoon: {SharedGlobals.CompanyContactPerson}\n" +
+                $"Email Adres Contactpersoon: {SharedGlobals.CompanyContactEmailAddress}\n\n" +
+                $"Peppol Documenten te Verzenden: {SharedGlobals.PeppolOutFiles}\n\n" +
+            $"Mapnummer Actief Bedrijf: {SharedGlobals.ActiveCompany}\n" +
+                $"Inhoudsopgave Mar Mdv Bestand: {SharedGlobals.MarntMdvLocation}\n" +
+                $"Inhoudsopgave Mar Data: {SharedGlobals.MimDataLocation}\n",
+                "Variabele gegevens van actief bedrijf",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+
+        }
         private void ButtonZipToCloud_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -69,113 +150,6 @@ namespace MarioApp2025.MarioMenu.Actions
                 Cursor.Current = Cursors.Default;
             }
 
-        }
-        private void ButtonClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-        async private void ButtonCheckConnectivity_Click(object sender, EventArgs e)
-        {
-            ToolStripStatusLabel.Text = "Bezig...";
-            Application.DoEvents();
-
-            var response = await AdemicoClient.CheckConnection(new HttpClient());
-            if (response != null)
-            {
-                ToolStripStatusLabel.Text = response;
-            }
-            else
-            {
-                MessageBox.Show(response, "Foutmelding", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        private void RadioButtonGetReceived_CheckedChanged(object sender, EventArgs e)
-        {
-            if (RadioButtonGetReceived.Checked)
-            {
-                // Enable the fields for received documents                
-                TextBoxReceiver.Enabled = true;
-                TextBoxReceiver.Text = "0208:" + SharedGlobals.CompanyKBONumber; // Default receiver for received documents
-                TextBoxSender.Enabled = false;
-                TextBoxSender.Text = "";
-            }
-        }
-        private void RadioButtonGetSent_CheckedChanged(object sender, EventArgs e)
-        {
-            if (RadioButtonGetSent.Checked)
-            {
-                // Enable the fields for sent documents                
-                TextBoxSender.Enabled = true;
-                TextBoxSender.Text = "9925:BE" + SharedGlobals.CompanyKBONumber; // Default sender for sent documents
-                TextBoxReceiver.Enabled = false;
-                TextBoxReceiver.Text = "";
-            }
-        }                
-        async private void ButtonNotifications_Click(object sender, EventArgs e)
-        {
-            ToolStripStatusLabel.Text = "Bezig...";
-            Application.DoEvents();
-
-
-            string eventType = RadioButtonGetReceived.Checked ? "DOCUMENT_RECEIVED" : "DOCUMENT_SENT";
-            var jsonResponse = await AdemicoClient.GetNotificationsAsync(
-                transmissionId: "", // "f8a591c77b2211f0b1ed0af13d778bd4"
-                documentId: "",
-                eventType: eventType, // "DOCUMENT_RECEIVED" or "DOCUMENT_SENT"
-                peppolDocumentType: "", // "INVOICE"
-                sender: TextBoxSender.Text, // "9925:BE0440058217",
-                receiver: TextBoxReceiver.Text, // "0208:0440058217",
-                startDateTime: "", // "2023-07-25T11:03:26.688Z"
-                endDateTime: "", // "2023-07-29T11:03:26.688Z"
-                page: "",
-                pageSize: ""
-            );
-
-            if (jsonResponse != null)
-            {
-                ToolStripStatusLabel.Text = "Notifications retrieved successfully.";
-                var deserializedString = JsonConvert.DeserializeObject(jsonResponse);
-                RichTextBoxResponses.Text = JsonConvert.SerializeObject(deserializedString, Newtonsoft.Json.Formatting.Indented);
-                DoPopUpDataGridJsonData(RichTextBoxResponses.Text); // Show the result in a popup with JSON table view
-            }
-            else
-            {
-                ToolStripStatusLabel.Text = "Failed to retrieve notifications.";
-                RichTextBoxResponses.Text = "";
-            }
-
-        }
-        private void ButtonCheckFile_Click(object sender, EventArgs e)
-        {
-            ToolStripStatusLabel.Text = "Bezig...";
-            Application.DoEvents();
-
-            string filePath = LabelFile.Text.Trim().ToLower();
-            string extension = Path.GetExtension(filePath).ToLowerInvariant();            
-
-            if (extension != ".xml") // && extension != ".ubl")
-            {
-                // Show a message box if the file is not a valid UBL XML file
-                ToolStripStatusLabel.Text = "Dit is geen geldig UBL XML bestand";
-                ButtonSendUblDocument.Enabled = false; // Disable the button if the file is not valid
-                return;
-            }
-            else
-            {
-                // HandleUblDocument(filePath);
-                activeSellerDocument  = ReadUBLInvoice(filePath, false, true).ToLower();
-                if (activeSellerDocument.Contains("error loading xml") || activeSellerDocument.Contains("not found"))
-                {
-                    ToolStripStatusLabel.Text = "Dit is geen geldig UBL XML bestand";                    
-                    ButtonSendUblDocument.Enabled = false; // Disable the button if the file is not valid                 
-                }
-                else
-                {
-                    ToolStripStatusLabel.Text = "UBL XML bestand is geldig";
-                    ButtonSendUblDocument.Enabled = true; // Enable the button if the file is valid                 
-                    MessageBox.Show("Document ID: " + activeSellerDocument + " is geldig en klaar om verzonden te worden!", "UBL Document Gegevens", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
         }
         async private void ButtonGetPeppolRegistrations_Click(object sender, EventArgs e)
         {
@@ -229,7 +203,7 @@ namespace MarioApp2025.MarioMenu.Actions
             {
                 ToolStripStatusLabel.Text = $"Request failed: {ex.Message}";
             }
-        }        
+        }
         private void TextBoxLegalEntityId_TextChanged(object sender, EventArgs e)
         {
             if (TextBoxLegalEntityId.Text.Length > 0)
@@ -260,12 +234,148 @@ namespace MarioApp2025.MarioMenu.Actions
                 TextBoxSupportedDocument.Enabled = true; // Enable the supported document field
             }
         }
+
+        // Notifications Tab
+        async private void ButtonNotifications_Click(object sender, EventArgs e)
+        {
+            ToolStripStatusLabel.Text = "Bezig...";
+            Application.DoEvents();
+
+
+            string eventType = RadioButtonGetReceived.Checked ? "DOCUMENT_RECEIVED" : "DOCUMENT_SENT";
+            var jsonResponse = await AdemicoClient.GetNotificationsAsync(
+                transmissionId: "", // "f8a591c77b2211f0b1ed0af13d778bd4"
+                documentId: "",
+                eventType: eventType, // "DOCUMENT_RECEIVED" or "DOCUMENT_SENT"
+                peppolDocumentType: "", // "INVOICE"
+                sender: TextBoxSender.Text, // "9925:BE0440058217",
+                receiver: TextBoxReceiver.Text, // "0208:0440058217",
+                startDateTime: "", // "2023-07-25T11:03:26.688Z"
+                endDateTime: "", // "2023-07-29T11:03:26.688Z"
+                page: "",
+                pageSize: ""
+            );
+
+            if (jsonResponse != null)
+            {
+                ToolStripStatusLabel.Text = "Notifications retrieved successfully.";
+                var deserializedString = JsonConvert.DeserializeObject(jsonResponse);
+                RichTextBoxResponses.Text = JsonConvert.SerializeObject(deserializedString, Newtonsoft.Json.Formatting.Indented);
+                DoPopUpDataGridJsonData(RichTextBoxResponses.Text); // Show the result in a popup with JSON table view
+            }
+            else
+            {
+                ToolStripStatusLabel.Text = "Failed to retrieve notifications.";
+                RichTextBoxResponses.Text = "";
+            }
+
+        }
+        private void RadioButtonGetReceived_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioButtonGetReceived.Checked)
+            {
+                // Enable the fields for received documents                
+                TextBoxReceiver.Enabled = true;
+                TextBoxReceiver.Text = "0208:" + SharedGlobals.CompanyKBONumber; // Default receiver for received documents
+                TextBoxSender.Enabled = false;
+                TextBoxSender.Text = "";
+            }
+        }
+        private void RadioButtonGetSent_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioButtonGetSent.Checked)
+            {
+                // Enable the fields for sent documents                
+                TextBoxSender.Enabled = true;
+                TextBoxSender.Text = "9925:BE" + SharedGlobals.CompanyKBONumber; // Default sender for sent documents
+                TextBoxReceiver.Enabled = false;
+                TextBoxReceiver.Text = "";
+            }
+        }
+
+        // Responses Tab
+
+        // Send UBL Document Tab        
+        private void FillListPeppolToSend(ListBox listbox)
+        {
+            string folderPath = SharedGlobals.MimDataLocation + "\\" + SharedGlobals.ActiveCompany + "\\peppol\\out";
+
+            if (Directory.Exists(folderPath))
+            {
+                string[] xmlFiles = Directory.GetFiles(folderPath, "*.xml");
+                listbox.Items.Clear();
+                listbox.Items.AddRange(xmlFiles);
+                LabelFile.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Er zijn geen te verzenden documenten voor bedrijf " + SharedGlobals.ActiveCompany);
+                listbox.Visible = false;
+            }
+        }
+        private void ListBoxDocumentsToSend_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ButtonSendUblDocument.Enabled = false; // Disable the button when selecting a new file
+            LabelFile.Text = "";
+
+            if (ListBoxDocumentsToSend.SelectedItem != null)
+            {
+                LabelFile.Text = ListBoxDocumentsToSend.SelectedItem.ToString().ToUpper();
+                string checkResult = ReadUBLInvoice(LabelFile.Text, false, false);
+                string existingResult = GetSellersDocumentResultRS(checkResult.ToUpper());
+                if (existingResult == "")
+                {
+                    ToolStripStatusLabel.Text = checkResult + " verkoopdocument nog te verzenden.";
+                    ButtonSendUblDocument.Enabled = true; // Enable the button if the file is valid and not yet sent
+                    Application.DoEvents();
+                }
+                else
+                {
+                    ToolStripStatusLabel.Text = checkResult + " verkoopdocument is reeds verzonden.";
+                    ButtonSendUblDocument.Enabled = false; // Disable the button if the file was already sent
+                    RichTextBoxResponses.Text = existingResult;
+                    Application.DoEvents();
+                }
+            }
+        }
+        private void ButtonCheckFile_Click(object sender, EventArgs e)
+        {
+            ToolStripStatusLabel.Text = "Bezig...";
+            Application.DoEvents();
+
+            string filePath = LabelFile.Text.Trim().ToLower();
+            string extension = Path.GetExtension(filePath).ToLowerInvariant();
+
+            if (extension != ".xml") // && extension != ".ubl")
+            {
+                // Show a message box if the file is not a valid UBL XML file
+                ToolStripStatusLabel.Text = "Dit is geen geldig UBL XML bestand";
+                ButtonSendUblDocument.Enabled = false; // Disable the button if the file is not valid
+                return;
+            }
+            else
+            {
+                // HandleUblDocument(filePath);
+                activeSellerDocument = ReadUBLInvoice(filePath, false, true).ToLower();
+                if (activeSellerDocument.Contains("error loading xml") || activeSellerDocument.Contains("not found"))
+                {
+                    ToolStripStatusLabel.Text = "Dit is geen geldig UBL XML bestand";
+                    ButtonSendUblDocument.Enabled = false; // Disable the button if the file is not valid                 
+                }
+                else
+                {
+                    ToolStripStatusLabel.Text = "UBL XML bestand is geldig";
+                    ButtonSendUblDocument.Enabled = true; // Enable the button if the file is valid                 
+                    MessageBox.Show("Document ID: " + activeSellerDocument + " is geldig en klaar om verzonden te worden!", "UBL Document Gegevens", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
         async private void ButtonSendUblDocument_Click(object sender, EventArgs e)
         {
             ToolStripStatusLabel.Text = "Bezig...";
             Application.DoEvents();
 
-            string filePath = LabelFile.Text.Trim(); 
+            string filePath = LabelFile.Text.Trim();
             activeSellerDocument = ReadUBLInvoice(filePath, false, false).ToUpper();
 
             try
@@ -282,7 +392,7 @@ namespace MarioApp2025.MarioMenu.Actions
                     var deserializedString = JsonConvert.DeserializeObject(value: result.ResponseBody);
                     RichTextBoxResponses.Text = JsonConvert.SerializeObject(deserializedString, Newtonsoft.Json.Formatting.Indented);
                     bool updatedRS = SetSellersDocumentResultRS(activeSellerDocument, RichTextBoxResponses.Text);
-                    
+
                     // Result is shown in the main form textbox now and can be copied from there
                     // Datagrid popup is not useful here
                     // DoPopUpDataGridJsonData(RichTextBoxResult.Text); // Show the result in a popup with JSON table view
@@ -298,28 +408,189 @@ namespace MarioApp2025.MarioMenu.Actions
                 ToolStripStatusLabel.Text = $"Error: {ex.Message}";
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }        
-        private void ButtonShowSharedGlobals_Click(object sender, EventArgs e)
+        }
+
+        // Receive UBL Document Tab
+        async private void ButtonGetUBLDocument_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(
-                $"Naam Bedrijf (KBO): {SharedGlobals.CompanyName}\n" +
-                $"Adres: {SharedGlobals.CompanyAddress}\n" +
-                $"Postcode en Plaats: {SharedGlobals.CompanyPostalCodeAndCity}\n" +
-                $"Telefoon: {SharedGlobals.CompanyPhoneNumber}\n" +
-                $"KBO Nummer: {SharedGlobals.CompanyKBONumber}\n" +
-                $"BTW Nummer (zonder 'BE'): {SharedGlobals.CompanyVATNumber}\n" +
-                $"IBAN Rekening Nummer: {SharedGlobals.CompanyIBANNumber}\n" +
-                $"BIC Nummer: {SharedGlobals.CompanyBICNumber}\n" +
-                $"Email Adres Bedrijf: {SharedGlobals.CompanyEmailAddress}\n" +
-                $"Contactpersoon: {SharedGlobals.CompanyContactPerson}\n" +
-                $"Email Adres Contactpersoon: {SharedGlobals.CompanyContactEmailAddress}\n\n" +
-                $"Peppol Documenten te Verzenden: {SharedGlobals.PeppolOutFiles}\n\n" +
-            $"Mapnummer Actief Bedrijf: {SharedGlobals.ActiveCompany}\n" +
-                $"Inhoudsopgave Mar Mdv Bestand: {SharedGlobals.MarntMdvLocation}\n" +
-                $"Inhoudsopgave Mar Data: {SharedGlobals.MimDataLocation}\n",
-                "Variabele gegevens van actief bedrijf",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            ToolStripStatusLabel.Text = "Bezig...";
+            Application.DoEvents();
+
+            string myDocumentsFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            string ademicoUrl = MyApiSecrets.testUrl;
+            string accessToken = MyApiSecrets.testAccessToken;
+            string username = MyApiSecrets.testUsername;
+            string password = MyApiSecrets.testPassword;
+
+            if (TextBoxTransmissionId.Text.Length == 0)
+            {
+                MessageBox.Show("Gelieve een Transmission ID in te vullen.", "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ToolStripStatusLabel.Text = "Ready";
+                return;
+            }
+            string transmissionId = TextBoxTransmissionId.Text.Trim();
+            string requestUrl = $"{ademicoUrl}/api/peppol/v1/invoices/{transmissionId}/ubl?accessToken={accessToken}";
+
+            try
+            {
+                HttpClient client = new HttpClient();
+                var byteArray = Encoding.ASCII.GetBytes($"{username}:{password}");
+                client.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+
+                // Accept XML
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
+
+                // Make the GET request
+                HttpResponseMessage response = await client.GetAsync(requestUrl);
+                response.EnsureSuccessStatusCode();
+
+                // Read the content
+                string invoiceXml = await response.Content.ReadAsStringAsync();
+
+                // Save to file                
+                // Combine folder path with the filename you want
+                string outputFile = Path.Combine(myDocumentsFolderPath, "invoice.xml");
+
+                // Save to file in My Documents
+                await Task.Run(() => File.WriteAllText(outputFile, invoiceXml));
+                Application.DoEvents();
+
+                string documentId = ReadUBLInvoice(outputFile, false, true).ToUpper();
+                string destinationPath = MoveXmlDocumentToMarPeppolIn(documentId);
+                ToolStripStatusLabel.Text = "UBL Invoice " + documentId + ".XML retrieved and saved successfully.";
+                Application.DoEvents();
+
+
+                MessageBox.Show(
+                    "UBL Invoice XML retrieved and saved successfully.\n\n" +
+                    $"Invoice saved to: {documentId}",
+                    "Success",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                ToolStripStatusLabel.Text = "Ready";
+            }
+        }
+        private void ButtonClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+
+        // Common functions for multiple tabs
+        private string MoveXmlDocumentToMarPeppolIn(string documentId)
+        {
+            // 1️⃣ Locate the original file in My Documents
+            string documentPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string originalFile = Path.Combine(documentPath, "invoice.xml");
+
+            // 2️⃣ Create a temporary renamed file path in the same folder
+            string renamedFile = Path.Combine(documentPath, documentId + ".xml");
+
+            // 3️⃣ Rename (move) the file
+            if (File.Exists(originalFile))
+            {
+                File.Move(originalFile, renamedFile);
+                // Console.WriteLine($"Renamed to: {renamedFile}");
+            }
+            else
+            {
+                Console.WriteLine("Original file not found.");
+                return "";
+            }
+
+            // 4️⃣ Copy the renamed file to another location
+            string destinationFolder = SharedGlobals.MimDataLocation + "\\" + SharedGlobals.ActiveCompany + "\\peppol\\in";
+            // Directory.CreateDirectory(destinationFolder);    // ensure it exists
+            string destinationFile = Path.Combine(destinationFolder, documentId + ".xml");
+
+            File.Copy(renamedFile, destinationFile, overwrite: true);
+            Console.WriteLine($"Copied to: {destinationFile}");
+            // TODO: Remove the temporary renamed file if needed
+            try
+            {
+                if (File.Exists(renamedFile))
+                {
+                    File.Delete(renamedFile);
+                    // Console.WriteLine($"Deleted temporary file: {renamedFile}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting temporary file: {ex.Message}");
+            }
+
+            return destinationFile;
+        }
+        public string GetSellersDocumentResultRS(string document)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            string sSQL = "SELECT  * FROM Dokumenten WHERE  v033 = '" + document.Substring(0, 11) + "'";  // 'Journalen.v066";
+            // Open the connection and execute the insert command.
+            // The connection is automatically closed when the
+            // code exits the using block.
+            string connectionString = SharedGlobals.DbJetProvider + SharedGlobals.MimDataLocation + SharedGlobals.MarntMdvLocation;
+            DocumentRS = new Recordset()
+            {
+                CursorLocation = CursorLocationEnum.adUseClient
+            };
+            DocumentRS.Open(sSQL, connectionString, CursorTypeEnum.adOpenDynamic, LockTypeEnum.adLockOptimistic);
+            Cursor.Current = Cursors.Default;
+            if (DocumentRS.RecordCount == 1)
+            {
+                try
+                {
+                    return DocumentRS.Fields["v405"].Value.ToString(); // Get the field with the JSON result
+                }
+                catch (Exception)
+                {
+                    return "Error retrieving document result.";
+                }
+            }
+            else
+            {
+                return "Verkoopdocument niet gevonden.";
+            }
+        }
+        public bool SetSellersDocumentResultRS(string document, string jsonResult)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            string sSQL = "SELECT * FROM Dokumenten WHERE  v033 = '" + document.Substring(0, 11) + "'";  // 'Journalen.v066";
+            // Open the connection and execute the insert command.
+            // The connection is automatically closed when the
+            // code exits the using block.
+            string connectionString = SharedGlobals.DbJetProvider + SharedGlobals.MimDataLocation + SharedGlobals.MarntMdvLocation;
+            DocumentRS = new Recordset()
+            {
+                CursorLocation = CursorLocationEnum.adUseClient
+            };
+            DocumentRS.Open(sSQL, connectionString, CursorTypeEnum.adOpenDynamic, LockTypeEnum.adLockOptimistic);
+            Cursor.Current = Cursors.Default;
+            if (DocumentRS.RecordCount == 1)
+            {
+                try
+                {
+                    DocumentRS.Fields["v405"].Value = jsonResult; // Set the field to the JSON result
+                    DocumentRS.Fields["dnnSync"].Value = "False"; // Mark as not synced to DNN yet 
+                    DocumentRS.Update();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
 
         }
 
@@ -405,8 +676,8 @@ namespace MarioApp2025.MarioMenu.Actions
                 msg.AppendLine("postalZone: " + NodeText(supplierNode, "cac:PostalAddress/cbc:PostalZone", ns));
                 msg.AppendLine("countryCode: " + NodeText(supplierNode, "cac:PostalAddress/cac:Country/cbc:IdentificationCode", ns));
                 msg.AppendLine("vatNumber: " + NodeText(supplierNode, "cac:PartyTaxScheme/cbc:CompanyID", ns));
-                
-                if(messageBox)
+
+                if (messageBox)
                     MessageBox.Show(msg.ToString(), "Testing UBL DATA versie 0.01", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -431,8 +702,8 @@ namespace MarioApp2025.MarioMenu.Actions
                 msg.AppendLine("custCountryCode: " + NodeText(custNode, "cac:Party/cac:PostalAddress/cac:Country/cbc:IdentificationCode", ns));
                 msg.AppendLine("custTaxID: " + NodeText(custNode, "cac:Party/cac:PartyTaxScheme/cbc:CompanyID", ns));
                 msg.AppendLine("custTaxScheme: " + NodeText(custNode, "cac:Party/cac:PartyTaxScheme/cac:TaxScheme/cbc:ID", ns));
-                
-                if(messageBox)
+
+                if (messageBox)
                     MessageBox.Show(msg.ToString(), "Testing UBL DATA versie 0.01", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -463,8 +734,8 @@ namespace MarioApp2025.MarioMenu.Actions
                     msg.AppendLine("Mandate ID: " + NodeText(pmNode, "cac:PaymentMandate/cbc:ID", ns));
                     msg.AppendLine("Mandate Date: " + NodeText(pmNode, "cac:PaymentMandate/cbc:PaymentMandateDate", ns));
                 }
-                
-                if(messageBox)
+
+                if (messageBox)
                     MessageBox.Show(msg.ToString(), "Testing UBL DATA versie 0.01", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -520,8 +791,8 @@ namespace MarioApp2025.MarioMenu.Actions
                 msgMoney.AppendLine("TaxExclusiveAmount: " + NodeText(moneyTotalEl, "cbc:TaxExclusiveAmount", ns));
                 msgMoney.AppendLine("TaxInclusiveAmount: " + NodeText(moneyTotalEl, "cbc:TaxInclusiveAmount", ns));
                 msgMoney.AppendLine("PayableAmount: " + NodeText(moneyTotalEl, "cbc:PayableAmount", ns) + $" ({currencyID})");
-                
-                if (messageBox)  
+
+                if (messageBox)
                     MessageBox.Show(msgMoney.ToString(), "Testing UBL DATA versie 0.01", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
@@ -537,142 +808,11 @@ namespace MarioApp2025.MarioMenu.Actions
                     var price = NodeText(lineNode, ".//cbc:PriceAmount", ns);
                     msgLines.AppendLine($"Item: {desc}, Quantity: {qty}, Price: {price}");
                 }
-                
-                if(messageBox)
+
+                if (messageBox)
                     MessageBox.Show(msgLines.ToString(), "Testing UBL DATA versie 0.01", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             return documentId;
-        }
-        // Helper for safe node text extraction
-        private static string NodeText(XmlNode parentNode, string xpath, XmlNamespaceManager ns)
-        {
-            var node = parentNode.SelectSingleNode(xpath, ns);
-            return node?.InnerText.Trim() ?? "";
-        }
-        public string GetSellersDocumentResultRS(string document)
-        {
-            Cursor.Current = Cursors.WaitCursor;
-            string sSQL = "SELECT  * FROM Dokumenten WHERE  v033 = '" + document + "'";  // 'Journalen.v066";
-            // Open the connection and execute the insert command.
-            // The connection is automatically closed when the
-            // code exits the using block.
-            string connectionString = SharedGlobals.DbJetProvider + SharedGlobals.MimDataLocation + SharedGlobals.MarntMdvLocation;
-            DocumentRS = new Recordset()
-            {
-                CursorLocation = CursorLocationEnum.adUseClient
-            };
-            DocumentRS.Open(sSQL, connectionString, CursorTypeEnum.adOpenDynamic, LockTypeEnum.adLockOptimistic);
-            Cursor.Current = Cursors.Default;
-            if (DocumentRS.RecordCount == 1)
-            {
-                try
-                {   
-                    return DocumentRS.Fields["v405"].Value.ToString(); // Get the field with the JSON result
-                }
-                catch (Exception)
-                {
-                    return "Error retrieving document result.";
-                }
-            }
-            else
-            {
-                return "Verkoopdocument niet gevonden.";
-            }
-        }        
-        public bool SetSellersDocumentResultRS(string document, string jsonResult)
-        {
-            Cursor.Current = Cursors.WaitCursor;
-            string sSQL = "SELECT  * FROM Dokumenten WHERE  v033 = '" + document + "'";  // 'Journalen.v066";
-            // Open the connection and execute the insert command.
-            // The connection is automatically closed when the
-            // code exits the using block.
-            string connectionString = SharedGlobals.DbJetProvider + SharedGlobals.MimDataLocation + SharedGlobals.MarntMdvLocation;
-            DocumentRS = new Recordset()
-            {
-                CursorLocation = CursorLocationEnum.adUseClient
-            };
-            DocumentRS.Open(sSQL, connectionString, CursorTypeEnum.adOpenDynamic, LockTypeEnum.adLockOptimistic);
-            Cursor.Current = Cursors.Default;
-            if (DocumentRS.RecordCount == 1)
-            {
-                try
-                {
-                    DocumentRS.Fields["v405"].Value = jsonResult; // Set the field to the JSON result
-                    DocumentRS.Update();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-
-        }               
-        
-                
-        private void OpenFolder(string folderPath)
-        {
-            if (Directory.Exists(folderPath))
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = folderPath,
-                    UseShellExecute = true,
-                    Verb = "open"
-                });
-            }
-            else
-            {
-                MessageBox.Show("The specified folder does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void ListBoxDocumentsToSend_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ButtonSendUblDocument.Enabled = false; // Disable the button when selecting a new file
-            LabelFile.Text = "";
-
-            if (ListBoxDocumentsToSend.SelectedItem != null)
-            {
-                LabelFile.Text = ListBoxDocumentsToSend.SelectedItem.ToString().ToUpper();
-                string checkResult = ReadUBLInvoice(LabelFile.Text, false, false);
-                string existingResult = GetSellersDocumentResultRS(checkResult.ToUpper());
-                if (existingResult == "")
-                {
-                    ToolStripStatusLabel.Text = checkResult + " verkoopdocument nog te verzenden.";
-                    ButtonSendUblDocument.Enabled = true; // Enable the button if the file is valid and not yet sent
-                    Application.DoEvents();
-                }
-                else
-                {
-                    ToolStripStatusLabel.Text = checkResult + " verkoopdocument is reeds verzonden.";
-                    ButtonSendUblDocument.Enabled = false; // Disable the button if the file was already sent
-                    RichTextBoxResponses.Text = existingResult;
-                    Application.DoEvents();
-                }
-            }
-        }
-
-        private void FillListPeppolToSend()
-        {
-            string folderPath = SharedGlobals.MimDataLocation + "\\" + SharedGlobals.ActiveCompany + "\\peppol\\out";
-
-            if (Directory.Exists(folderPath))
-            {
-                string[] xmlFiles = Directory.GetFiles(folderPath, "*.xml");
-                ListBoxDocumentsToSend.Items.Clear();
-                ListBoxDocumentsToSend.Items.AddRange(xmlFiles);
-                LabelFile.Text = "";
-            }
-            else
-            {
-                MessageBox.Show("Er zijn geen te verzenden documenten voor bedrijf " + SharedGlobals.ActiveCompany);
-                ListBoxDocumentsToSend.Visible = false;
-            }
         }
         private void DoPopUpEntitiesData(string messageAsJson)
         {
@@ -698,120 +838,39 @@ namespace MarioApp2025.MarioMenu.Actions
             formJsonTable.ShowDialog(this); // Show the popup form as a dialog, centered on the main form
         }
 
-        async private void ButtonGetUBLDocument_Click(object sender, EventArgs e)
+        // Helper for safe node text extraction        
+        private static string NodeText(XmlNode parentNode, string xpath, XmlNamespaceManager ns)
         {
-            ToolStripStatusLabel.Text = "Bezig...";
-            Application.DoEvents();
-
-            string myDocumentsFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-            string ademicoUrl = MyApiSecrets.testUrl;
-            string accessToken = MyApiSecrets.testAccessToken;
-            string username = MyApiSecrets.testUsername;
-            string password = MyApiSecrets.testPassword;
-
-            if ( TextBoxTransmissionId.Text.Length == 0)
-            {
-                MessageBox.Show("Gelieve een Transmission ID in te vullen.", "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ToolStripStatusLabel.Text = "Ready";
-                return;
-            }
-            string transmissionId = TextBoxTransmissionId.Text.Trim();
-            string requestUrl = $"{ademicoUrl}/api/peppol/v1/invoices/{transmissionId}/ubl?accessToken={accessToken}";
-
-            try
-            {
-                HttpClient client = new HttpClient();
-                var byteArray = Encoding.ASCII.GetBytes($"{username}:{password}");
-                client.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-
-                // Accept XML
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
-
-                // Make the GET request
-                HttpResponseMessage response = await client.GetAsync(requestUrl);
-                response.EnsureSuccessStatusCode();
-
-                // Read the content
-                string invoiceXml = await response.Content.ReadAsStringAsync();
-
-                // Save to file                
-                // Combine folder path with the filename you want
-                string outputFile = Path.Combine(myDocumentsFolderPath, "invoice.xml");
-
-                // Save to file in My Documents
-                await Task.Run(() => File.WriteAllText(outputFile, invoiceXml));
-                Application.DoEvents();
-
-                string documentId = ReadUBLInvoice(outputFile, false, true).ToUpper();                
-                string destinationPath = MoveXmlDocumentToMarPeppolIn(documentId);
-                ToolStripStatusLabel.Text = "UBL Invoice " + documentId + ".XML retrieved and saved successfully.";
-                Application.DoEvents();
-
-
-                MessageBox.Show(
-                    "UBL Invoice XML retrieved and saved successfully.\n\n" +
-                    $"Invoice saved to: {documentId}",
-                    "Success",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
-            }
-            catch (Exception ex)
-            {                
-                MessageBox.Show(ex.Message);
-                ToolStripStatusLabel.Text = "Ready";
-            }
+            var node = parentNode.SelectSingleNode(xpath, ns);
+            return node?.InnerText.Trim() ?? "";
         }
-
-        private string MoveXmlDocumentToMarPeppolIn(string documentId)
+        private void OpenFolder(string folderPath)
         {
-            // 1️⃣ Locate the original file in My Documents
-            string documentPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string originalFile = Path.Combine(documentPath, "invoice.xml");
-
-            // 2️⃣ Create a temporary renamed file path in the same folder
-            string renamedFile = Path.Combine(documentPath, documentId + ".xml");
-
-            // 3️⃣ Rename (move) the file
-            if (File.Exists(originalFile))
+            if (Directory.Exists(folderPath))
             {
-                File.Move(originalFile, renamedFile);
-                // Console.WriteLine($"Renamed to: {renamedFile}");
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = folderPath,
+                    UseShellExecute = true,
+                    Verb = "open"
+                });
             }
             else
             {
-                Console.WriteLine("Original file not found.");
-                return "";
+                MessageBox.Show("The specified folder does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            // 4️⃣ Copy the renamed file to another location
-            string destinationFolder = SharedGlobals.MimDataLocation + "\\" + SharedGlobals.ActiveCompany + "\\peppol\\in";
-            // Directory.CreateDirectory(destinationFolder);    // ensure it exists
-            string destinationFile = Path.Combine(destinationFolder, documentId + ".xml");
-
-            File.Copy(renamedFile, destinationFile, overwrite: true);
-            Console.WriteLine($"Copied to: {destinationFile}");
-            // TODO: Remove the temporary renamed file if needed
-            try
-            {
-                if (File.Exists(renamedFile))
-                {
-                    File.Delete(renamedFile);
-                    // Console.WriteLine($"Deleted temporary file: {renamedFile}");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error deleting temporary file: {ex.Message}");
-            }
-
-            return destinationFile;
+        }        
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            // Your repeated instructions here
+            ToolStripStatusLabel.Text = "10 minutes passed!";            
         }
-    }
+        private void RefreshMonitorLists()
+        {
+            ListBoxMonitorSent.Items.Clear();
+            ListBoxMonitorReceived.Items.Clear();
+
+        }        
+    }  
 }
-
-
 
