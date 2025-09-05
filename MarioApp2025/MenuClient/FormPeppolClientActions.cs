@@ -45,7 +45,7 @@ namespace MarioApp2025.MarioMenu.Actions
             RadioButtonGetReceived.Checked = true;
             TextBoxLegalEntityId.Text = ""; // Default to empty to enable country/scheme/identifier fields
 
-            FillListPeppolToSend(ListBoxDocumentsToSend);
+            RefreshMonitorLists();            
         }
 
         private void FormPeppolClientActions_FormClosing(object sender, FormClosingEventArgs e)
@@ -54,8 +54,23 @@ namespace MarioApp2025.MarioMenu.Actions
             _timer.Dispose(); // Dispose of the timer to free resources
         }
 
-        
         // Monitor Tab - Fill the listbox with Peppol files to be sent
+        async private void ButtonCheckConnectivity_Click(object sender, EventArgs e)
+        {
+            ToolStripStatusLabel.Text = "Bezig...";
+            Application.DoEvents();
+
+            var response = await AdemicoClient.CheckConnection(new HttpClient());
+            if (response != null)
+            {
+                ToolStripStatusLabel.Text = response;
+            }
+            else
+            {
+                MessageBox.Show(response, "Foutmelding", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void ButtonTimer_Click(object sender, EventArgs e)
         {
             if (_timer.Enabled)
@@ -79,22 +94,7 @@ namespace MarioApp2025.MarioMenu.Actions
 
         }       
 
-        // Actions Tab
-        async private void ButtonCheckConnectivity_Click(object sender, EventArgs e)
-        {
-            ToolStripStatusLabel.Text = "Bezig...";
-            Application.DoEvents();
-
-            var response = await AdemicoClient.CheckConnection(new HttpClient());
-            if (response != null)
-            {
-                ToolStripStatusLabel.Text = response;
-            }
-            else
-            {
-                MessageBox.Show(response, "Foutmelding", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        // Actions Tab        
         private void ButtonShowSharedGlobals_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
@@ -118,6 +118,7 @@ namespace MarioApp2025.MarioMenu.Actions
                 MessageBoxIcon.Information);
 
         }
+
         private void ButtonZipToCloud_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -131,6 +132,7 @@ namespace MarioApp2025.MarioMenu.Actions
             try
             {
                 string zipResult = BackupHelper.ZipFolderToCloudDrive(sourceFolderPath, cloudFolderPath);
+                Application.DoEvents();
                 Cursor.Current = Cursors.Default;
                 ToolStripStatusLabel.Text = "Ready";
                 Application.DoEvents();
@@ -151,6 +153,7 @@ namespace MarioApp2025.MarioMenu.Actions
             }
 
         }
+
         async private void ButtonGetPeppolRegistrations_Click(object sender, EventArgs e)
         {
             ToolStripStatusLabel.Text = "Bezig...";
@@ -204,6 +207,7 @@ namespace MarioApp2025.MarioMenu.Actions
                 ToolStripStatusLabel.Text = $"Request failed: {ex.Message}";
             }
         }
+
         private void TextBoxLegalEntityId_TextChanged(object sender, EventArgs e)
         {
             if (TextBoxLegalEntityId.Text.Length > 0)
@@ -270,6 +274,7 @@ namespace MarioApp2025.MarioMenu.Actions
             }
 
         }
+
         private void RadioButtonGetReceived_CheckedChanged(object sender, EventArgs e)
         {
             if (RadioButtonGetReceived.Checked)
@@ -281,6 +286,7 @@ namespace MarioApp2025.MarioMenu.Actions
                 TextBoxSender.Text = "";
             }
         }
+
         private void RadioButtonGetSent_CheckedChanged(object sender, EventArgs e)
         {
             if (RadioButtonGetSent.Checked)
@@ -295,24 +301,35 @@ namespace MarioApp2025.MarioMenu.Actions
 
         // Responses Tab
 
-        // Send UBL Document Tab        
-        private void FillListPeppolToSend(ListBox listbox)
+        // Send and receive UBL Document Tab        
+        private void FillListPeppolToReceive(ListBox listboxIn)
         {
-            string folderPath = SharedGlobals.MimDataLocation + "\\" + SharedGlobals.ActiveCompany + "\\peppol\\out";
+            string folderInPath = SharedGlobals.MimDataLocation + "\\" + SharedGlobals.ActiveCompany + "\\peppol\\in";
+            listboxIn.Items.Clear();
 
-            if (Directory.Exists(folderPath))
+            // Check the API notifications for received documents for this company and fill the listbox
+
+        }
+
+        private void FillListPeppolToSend(ListBox listboxOut)
+        {
+            string folderOutPath = SharedGlobals.MimDataLocation + "\\" + SharedGlobals.ActiveCompany + "\\peppol\\out";
+            listboxOut.Items.Clear();
+
+            if (Directory.Exists(folderOutPath))
             {
-                string[] xmlFiles = Directory.GetFiles(folderPath, "*.xml");
-                listbox.Items.Clear();
-                listbox.Items.AddRange(xmlFiles);
+                string[] xmlFiles = Directory.GetFiles(folderOutPath, "*.xml");
+                listboxOut.Items.Clear();
+                listboxOut.Items.AddRange(xmlFiles);
                 LabelFile.Text = "";
             }
             else
             {
-                MessageBox.Show("Er zijn geen te verzenden documenten voor bedrijf " + SharedGlobals.ActiveCompany);
-                listbox.Visible = false;
+                ToolStripStatusLabel.Text = "Geen te verzenden documenten voor " + SharedGlobals.ActiveCompany;
+                listboxOut.Visible = false;
             }
         }
+
         private void ListBoxDocumentsToSend_SelectedIndexChanged(object sender, EventArgs e)
         {
             ButtonSendUblDocument.Enabled = false; // Disable the button when selecting a new file
@@ -326,18 +343,21 @@ namespace MarioApp2025.MarioMenu.Actions
                 if (existingResult == "")
                 {
                     ToolStripStatusLabel.Text = checkResult + " verkoopdocument nog te verzenden.";
-                    ButtonSendUblDocument.Enabled = true; // Enable the button if the file is valid and not yet sent
+                    ButtonSendUblDocument.Enabled = true; // Enable the button if the file is valid and not yet sent                    
                     Application.DoEvents();
                 }
                 else
                 {
                     ToolStripStatusLabel.Text = checkResult + " verkoopdocument is reeds verzonden.";
-                    ButtonSendUblDocument.Enabled = false; // Disable the button if the file was already sent
+                    ButtonSendUblDocument.Enabled = false; // Disable the button if the file was already sent                    
                     RichTextBoxResponses.Text = existingResult;
                     Application.DoEvents();
+                    MessageBox.Show("Verzendbewijs aanwezig in marIntegraal:\n\n" + existingResult, checkResult + " reeds verzonden");                     
+
                 }
             }
         }
+
         private void ButtonCheckFile_Click(object sender, EventArgs e)
         {
             ToolStripStatusLabel.Text = "Bezig...";
@@ -370,6 +390,7 @@ namespace MarioApp2025.MarioMenu.Actions
                 }
             }
         }
+
         async private void ButtonSendUblDocument_Click(object sender, EventArgs e)
         {
             ToolStripStatusLabel.Text = "Bezig...";
@@ -478,6 +499,7 @@ namespace MarioApp2025.MarioMenu.Actions
                 ToolStripStatusLabel.Text = "Ready";
             }
         }
+
         private void ButtonClose_Click(object sender, EventArgs e)
         {
             Close();
@@ -485,6 +507,15 @@ namespace MarioApp2025.MarioMenu.Actions
 
 
         // Common functions for multiple tabs
+        private void RefreshMonitorLists()
+        {
+            FillListPeppolToSend(ListBoxDocumentsToSend);
+
+            FillListPeppolToSend(ListBoxMonitorSent);
+            
+            FillListPeppolToReceive(ListBoxMonitorReceived);
+        }
+
         private string MoveXmlDocumentToMarPeppolIn(string documentId)
         {
             // 1️⃣ Locate the original file in My Documents
@@ -529,6 +560,7 @@ namespace MarioApp2025.MarioMenu.Actions
 
             return destinationFile;
         }
+
         public string GetSellersDocumentResultRS(string document)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -559,6 +591,7 @@ namespace MarioApp2025.MarioMenu.Actions
                 return "Verkoopdocument niet gevonden.";
             }
         }
+
         public bool SetSellersDocumentResultRS(string document, string jsonResult)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -593,6 +626,61 @@ namespace MarioApp2025.MarioMenu.Actions
             }
 
         }
+                
+        private void DoPopUpEntitiesData(string messageAsJson)
+        {
+            FormDataGridJsonPopUp formJsonTable = new FormDataGridJsonPopUp
+            {
+                jsonData = messageAsJson, // Pass the JSON data to the popup form
+                jsonType = "registration",
+                Dock = DockStyle.Fill // Fill the popup form with the JSON table view                
+            };
+            formJsonTable.LoadRegistrationJsonData();
+            formJsonTable.ShowDialog(this); // Show the popup form as a dialog, centered on the main form
+        }
+
+        private void DoPopUpDataGridJsonData(string messageAsJson)
+        {
+            FormDataGridJsonPopUp.Controls.Clear();
+            FormDataGridJsonPopUp formJsonTable = new FormDataGridJsonPopUp
+            {
+                jsonData = messageAsJson, // Pass the JSON data to the popup form
+                jsonType = "notification", // or "registration" based on context
+                Dock = DockStyle.Fill // Fill the popup form with the JSON table view                
+            };
+            formJsonTable.LoadNotificationJsonData();
+            formJsonTable.ShowDialog(this); // Show the popup form as a dialog, centered on the main form
+        }
+
+        // Helper for safe node text extraction        
+        private static string NodeText(XmlNode parentNode, string xpath, XmlNamespaceManager ns)
+        {
+            var node = parentNode.SelectSingleNode(xpath, ns);
+            return node?.InnerText.Trim() ?? "";
+        }
+
+        private void OpenFolder(string folderPath)
+        {
+            if (Directory.Exists(folderPath))
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = folderPath,
+                    UseShellExecute = true,
+                    Verb = "open"
+                });
+            }
+            else
+            {
+                MessageBox.Show("The specified folder does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }        
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            // Your repeated instructions here
+            ToolStripStatusLabel.Text = "10 minutes passed!";            
+        }       
 
         private static string ReadUBLInvoice(string filePath, bool messageBox, bool justDocumentId)
         {
@@ -814,63 +902,6 @@ namespace MarioApp2025.MarioMenu.Actions
             }
             return documentId;
         }
-        private void DoPopUpEntitiesData(string messageAsJson)
-        {
-            FormDataGridJsonPopUp formJsonTable = new FormDataGridJsonPopUp
-            {
-                jsonData = messageAsJson, // Pass the JSON data to the popup form
-                jsonType = "registration",
-                Dock = DockStyle.Fill // Fill the popup form with the JSON table view                
-            };
-            formJsonTable.LoadRegistrationJsonData();
-            formJsonTable.ShowDialog(this); // Show the popup form as a dialog, centered on the main form
-        }
-        private void DoPopUpDataGridJsonData(string messageAsJson)
-        {
-            FormDataGridJsonPopUp.Controls.Clear();
-            FormDataGridJsonPopUp formJsonTable = new FormDataGridJsonPopUp
-            {
-                jsonData = messageAsJson, // Pass the JSON data to the popup form
-                jsonType = "notification", // or "registration" based on context
-                Dock = DockStyle.Fill // Fill the popup form with the JSON table view                
-            };
-            formJsonTable.LoadNotificationJsonData();
-            formJsonTable.ShowDialog(this); // Show the popup form as a dialog, centered on the main form
-        }
-
-        // Helper for safe node text extraction        
-        private static string NodeText(XmlNode parentNode, string xpath, XmlNamespaceManager ns)
-        {
-            var node = parentNode.SelectSingleNode(xpath, ns);
-            return node?.InnerText.Trim() ?? "";
-        }
-        private void OpenFolder(string folderPath)
-        {
-            if (Directory.Exists(folderPath))
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = folderPath,
-                    UseShellExecute = true,
-                    Verb = "open"
-                });
-            }
-            else
-            {
-                MessageBox.Show("The specified folder does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }        
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            // Your repeated instructions here
-            ToolStripStatusLabel.Text = "10 minutes passed!";            
-        }
-        private void RefreshMonitorLists()
-        {
-            ListBoxMonitorSent.Items.Clear();
-            ListBoxMonitorReceived.Items.Clear();
-
-        }        
     }  
 }
 

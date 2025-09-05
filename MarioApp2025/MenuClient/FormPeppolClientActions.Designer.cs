@@ -30,6 +30,7 @@
         {
             this.TabControlVariousActions = new System.Windows.Forms.TabControl();
             this.TabMonitor = new System.Windows.Forms.TabPage();
+            this.ButtonCheckConnectivity = new System.Windows.Forms.Button();
             this.ButtonTimer = new System.Windows.Forms.Button();
             this.LabelMonitorReceived = new System.Windows.Forms.Label();
             this.LabelMonitorSent = new System.Windows.Forms.Label();
@@ -49,7 +50,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.ButtonCheckConnectivity = new System.Windows.Forms.Button();
             this.TabNotifications = new System.Windows.Forms.TabPage();
             this.TextBoxSender = new System.Windows.Forms.TextBox();
             this.TextBoxReceiver = new System.Windows.Forms.TextBox();
@@ -97,6 +97,7 @@
             // 
             // TabMonitor
             // 
+            this.TabMonitor.Controls.Add(this.ButtonCheckConnectivity);
             this.TabMonitor.Controls.Add(this.ButtonTimer);
             this.TabMonitor.Controls.Add(this.LabelMonitorReceived);
             this.TabMonitor.Controls.Add(this.LabelMonitorSent);
@@ -109,11 +110,21 @@
             this.TabMonitor.Text = "Monitor";
             this.TabMonitor.UseVisualStyleBackColor = true;
             // 
+            // ButtonCheckConnectivity
+            // 
+            this.ButtonCheckConnectivity.Location = new System.Drawing.Point(466, 13);
+            this.ButtonCheckConnectivity.Name = "ButtonCheckConnectivity";
+            this.ButtonCheckConnectivity.Size = new System.Drawing.Size(102, 23);
+            this.ButtonCheckConnectivity.TabIndex = 17;
+            this.ButtonCheckConnectivity.Text = "Verbinding Testen";
+            this.ButtonCheckConnectivity.UseVisualStyleBackColor = true;
+            this.ButtonCheckConnectivity.Click += new System.EventHandler(this.ButtonCheckConnectivity_Click);
+            // 
             // ButtonTimer
             // 
-            this.ButtonTimer.Location = new System.Drawing.Point(460, 10);
+            this.ButtonTimer.Location = new System.Drawing.Point(476, 212);
             this.ButtonTimer.Name = "ButtonTimer";
-            this.ButtonTimer.Size = new System.Drawing.Size(108, 23);
+            this.ButtonTimer.Size = new System.Drawing.Size(92, 23);
             this.ButtonTimer.TabIndex = 11;
             this.ButtonTimer.Text = "Klok Start/Stop";
             this.ButtonTimer.UseVisualStyleBackColor = true;
@@ -122,35 +133,35 @@
             // LabelMonitorReceived
             // 
             this.LabelMonitorReceived.AutoSize = true;
-            this.LabelMonitorReceived.Location = new System.Drawing.Point(5, 234);
+            this.LabelMonitorReceived.Location = new System.Drawing.Point(8, 217);
             this.LabelMonitorReceived.Name = "LabelMonitorReceived";
-            this.LabelMonitorReceived.Size = new System.Drawing.Size(60, 13);
+            this.LabelMonitorReceived.Size = new System.Drawing.Size(358, 13);
             this.LabelMonitorReceived.TabIndex = 10;
-            this.LabelMonitorReceived.Text = "Ontvangen";
+            this.LabelMonitorReceived.Text = "Te Ontvangen of Ontvangen (controleer tab blad Documenten Ontvangen";
             // 
             // LabelMonitorSent
             // 
             this.LabelMonitorSent.AutoSize = true;
-            this.LabelMonitorSent.Location = new System.Drawing.Point(8, 23);
+            this.LabelMonitorSent.Location = new System.Drawing.Point(5, 18);
             this.LabelMonitorSent.Name = "LabelMonitorSent";
-            this.LabelMonitorSent.Size = new System.Drawing.Size(58, 13);
+            this.LabelMonitorSent.Size = new System.Drawing.Size(355, 13);
             this.LabelMonitorSent.TabIndex = 9;
-            this.LabelMonitorSent.Text = "Verzonden";
+            this.LabelMonitorSent.Text = "Te Verzenden of Verzonden (controleer tab blad Documenten Verzenden)";
             // 
             // ListBoxMonitorReceived
             // 
             this.ListBoxMonitorReceived.FormattingEnabled = true;
-            this.ListBoxMonitorReceived.Location = new System.Drawing.Point(8, 250);
+            this.ListBoxMonitorReceived.Location = new System.Drawing.Point(9, 243);
             this.ListBoxMonitorReceived.Name = "ListBoxMonitorReceived";
-            this.ListBoxMonitorReceived.Size = new System.Drawing.Size(560, 82);
+            this.ListBoxMonitorReceived.Size = new System.Drawing.Size(560, 95);
             this.ListBoxMonitorReceived.TabIndex = 8;
             // 
             // ListBoxMonitorSent
             // 
             this.ListBoxMonitorSent.FormattingEnabled = true;
-            this.ListBoxMonitorSent.Location = new System.Drawing.Point(8, 39);
+            this.ListBoxMonitorSent.Location = new System.Drawing.Point(9, 42);
             this.ListBoxMonitorSent.Name = "ListBoxMonitorSent";
-            this.ListBoxMonitorSent.Size = new System.Drawing.Size(560, 69);
+            this.ListBoxMonitorSent.Size = new System.Drawing.Size(560, 95);
             this.ListBoxMonitorSent.TabIndex = 7;
             // 
             // TabActions
@@ -168,7 +179,6 @@
             this.TabActions.Controls.Add(this.label3);
             this.TabActions.Controls.Add(this.label2);
             this.TabActions.Controls.Add(this.label1);
-            this.TabActions.Controls.Add(this.ButtonCheckConnectivity);
             this.TabActions.Location = new System.Drawing.Point(4, 22);
             this.TabActions.Name = "TabActions";
             this.TabActions.Padding = new System.Windows.Forms.Padding(3);
@@ -288,16 +298,6 @@
             this.label1.Size = new System.Drawing.Size(56, 13);
             this.label1.TabIndex = 17;
             this.label1.Text = "LandCode";
-            // 
-            // ButtonCheckConnectivity
-            // 
-            this.ButtonCheckConnectivity.Location = new System.Drawing.Point(19, 19);
-            this.ButtonCheckConnectivity.Name = "ButtonCheckConnectivity";
-            this.ButtonCheckConnectivity.Size = new System.Drawing.Size(129, 23);
-            this.ButtonCheckConnectivity.TabIndex = 16;
-            this.ButtonCheckConnectivity.Text = "Verbinding Testen";
-            this.ButtonCheckConnectivity.UseVisualStyleBackColor = true;
-            this.ButtonCheckConnectivity.Click += new System.EventHandler(this.ButtonCheckConnectivity_Click);
             // 
             // TabNotifications
             // 
@@ -512,6 +512,7 @@
             this.Controls.Add(this.StatusStrip);
             this.Controls.Add(this.TabControlVariousActions);
             this.Controls.Add(this.ButtonClose);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "FormPeppolClientActions";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormPeppolClientActions";
@@ -558,7 +559,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button ButtonCheckConnectivity;
         private System.Windows.Forms.TextBox TextBoxSender;
         private System.Windows.Forms.TextBox TextBoxReceiver;
         private System.Windows.Forms.RadioButton RadioButtonGetSent;
@@ -579,5 +579,6 @@
         private System.Windows.Forms.Label LabelMonitorReceived;
         private System.Windows.Forms.Label LabelMonitorSent;
         private System.Windows.Forms.Button ButtonTimer;
+        private System.Windows.Forms.Button ButtonCheckConnectivity;
     }
 }

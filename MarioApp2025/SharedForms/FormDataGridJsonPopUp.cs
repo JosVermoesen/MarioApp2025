@@ -1,12 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MarioApp2025.MarioMenu.Admin
@@ -21,6 +17,20 @@ namespace MarioApp2025.MarioMenu.Admin
             InitializeComponent();
         }
 
+        private void DataGridView_SelectionChanged(object sender, EventArgs e)
+        {
+            if (DataGridView.SelectedRows.Count > 0)
+            {
+                var selectedRow = DataGridView.SelectedRows[0];
+                var cellValues = new StringBuilder();
+                foreach (DataGridViewCell cell in selectedRow.Cells)
+                {
+                    cellValues.AppendLine($"{DataGridView.Columns[cell.ColumnIndex].HeaderText}: {cell.Value}");
+                }
+
+                MessageBox.Show(cellValues.ToString(), "Selected Row Details", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
         private void ButtonClose_Click(object sender, EventArgs e)
         {
             Close();
@@ -36,7 +46,6 @@ namespace MarioApp2025.MarioMenu.Admin
                 DataGridView.DataSource = root.Notifications;
             }
         }
-
         public void LoadRegistrationJsonData()
         {
             var root = JsonConvert.DeserializeObject<RootRegistration>(jsonData);
@@ -81,21 +90,18 @@ namespace MarioApp2025.MarioMenu.Admin
             [JsonProperty("legalEntities")]
             public List<LegalEntity> LegalEntities { get; set; }
         }
-
         public class Pagination
         {
             public int Count { get; set; }
             public int Page { get; set; }
             public int PageSize { get; set; }
         }
-
         public class LegalEntity
         {
             public int LegalEntityId { get; set; }
             public LegalEntityDetails LegalEntityDetails { get; set; }
             public List<PeppolRegistration> PeppolRegistrations { get; set; }
         }
-
         public class LegalEntityDetails
         {
             public bool PublishInPeppolDirectory { get; set; }
@@ -107,7 +113,6 @@ namespace MarioApp2025.MarioMenu.Admin
             public List<Contact> Contacts { get; set; }
             public List<object> PeppolAdditionalIdentifiers { get; set; }
         }
-
         public class Contact
         {
             public string ContactType { get; set; }
@@ -121,14 +126,12 @@ namespace MarioApp2025.MarioMenu.Admin
             public int PeppolRegistrationId { get; set; }
             public PeppolRegistrationDetails PeppolRegistrationDetails { get; set; }
         }
-
         public class PeppolRegistrationDetails
         {
             public PeppolIdentifier PeppolIdentifier { get; set; }
             public List<string> SupportedDocuments { get; set; }
             public bool PeppolRegistration { get; set; }
         }
-
         public class PeppolIdentifier
         {
             public string Scheme { get; set; }
@@ -149,10 +152,7 @@ namespace MarioApp2025.MarioMenu.Admin
             public string PeppolIdentifier { get; set; }
             public string SupportedDocuments { get; set; }
         }
-
-        // Replace the 'required' keyword with explicit null checks or default initializations to ensure compatibility with C# 7.3.
-        // This avoids the use of the 'required members' feature introduced in C# 11.
-
+                
         public class RootNotification
         {
             [JsonProperty("pagination")]
@@ -161,7 +161,6 @@ namespace MarioApp2025.MarioMenu.Admin
             [JsonProperty("notifications")]
             public List<Notification> Notifications { get; set; } = new List<Notification>(); // Default initialization
         }
-
         public class Notification
         {
             public string EventType { get; set; }
@@ -175,21 +174,6 @@ namespace MarioApp2025.MarioMenu.Admin
             public string Sender { get; set; }
             public string Receiver { get; set; }
             public List<object> Details { get; set; } = new List<object>();
-        }
-
-        private void DataGridView_SelectionChanged(object sender, EventArgs e)
-        {
-            if (DataGridView.SelectedRows.Count > 0)
-            {
-                var selectedRow = DataGridView.SelectedRows[0];
-                var cellValues = new StringBuilder();
-                foreach (DataGridViewCell cell in selectedRow.Cells)
-                {
-                    cellValues.AppendLine($"{DataGridView.Columns[cell.ColumnIndex].HeaderText}: {cell.Value}");
-                }
-
-                MessageBox.Show(cellValues.ToString(), "Selected Row Details", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
         }        
     }
 }

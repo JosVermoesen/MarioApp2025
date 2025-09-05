@@ -59,9 +59,9 @@
             this.CheckBoxIsAdmin.AutoSize = true;
             this.CheckBoxIsAdmin.Location = new System.Drawing.Point(12, 154);
             this.CheckBoxIsAdmin.Name = "CheckBoxIsAdmin";
-            this.CheckBoxIsAdmin.Size = new System.Drawing.Size(92, 17);
+            this.CheckBoxIsAdmin.Size = new System.Drawing.Size(81, 17);
             this.CheckBoxIsAdmin.TabIndex = 2;
-            this.CheckBoxIsAdmin.Text = "Is Beheerder?";
+            this.CheckBoxIsAdmin.Text = "Beheerder?";
             this.CheckBoxIsAdmin.UseVisualStyleBackColor = true;
             this.CheckBoxIsAdmin.CheckedChanged += new System.EventHandler(this.CheckBoxIsAdmin_CheckedChanged);
             // 

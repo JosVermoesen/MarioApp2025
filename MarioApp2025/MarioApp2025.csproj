@@ -29,7 +29,7 @@
     <PublisherName>Vsoft Administratieve Software</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -255,7 +255,6 @@
     <EmbeddedResource Include="SharedForms\FormDataGridJsonPopUp.resx">
       <DependentUpon>FormDataGridJsonPopUp.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="MarioApp2025_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -95,11 +95,12 @@
             this.VpeMenuItem.Name = "VpeMenuItem";
             this.VpeMenuItem.Size = new System.Drawing.Size(39, 20);
             this.VpeMenuItem.Text = "VPE";
+            this.VpeMenuItem.Visible = false;
             // 
             // MenuItemAutoPageBreak
             // 
             this.MenuItemAutoPageBreak.Name = "MenuItemAutoPageBreak";
-            this.MenuItemAutoPageBreak.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemAutoPageBreak.Size = new System.Drawing.Size(179, 22);
             this.MenuItemAutoPageBreak.Text = "AutoPagebreak Test";
             this.MenuItemAutoPageBreak.Click += new System.EventHandler(this.MenuItemAutoPageBreak_Click);
             // 
