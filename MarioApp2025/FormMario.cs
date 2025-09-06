@@ -1,13 +1,13 @@
-﻿using IDEALSoftware.VpeCommunity;
-using MarioApp2025.Classes.Ademico;
-using MarioApp2025.MarioMenu.Actions;
-using MarioApp2025.MarioMenu.Admin;
-using Microsoft.VisualBasic;
+﻿using Microsoft.VisualBasic;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using IDEALSoftware.VpeCommunity;
+using MarioApp2025.Classes.Ademico;
+using MarioApp2025.MarioMenu.Actions;
+using MarioApp2025.MarioMenu.Admin;
 
 namespace MarioApp2025
 {
