@@ -19,9 +19,9 @@ using System.IO.Compression;
 
 
 namespace MarioApp2025
-{    
+{
     public class MarHelpers
-    {        
+    {
         public static void ResetCompanyGlobals()
         {
             SharedGlobals.ActiveCompany = "";
@@ -166,8 +166,8 @@ namespace MarioApp2025
             }
             reader.Close();
             conn.Close();
-        }                
-    
+        }
+
         private static string GetHighestCounterTable(string location, string filter)
         {
             // Change provider depending on Access version:
@@ -231,27 +231,27 @@ namespace MarioApp2025
             catch (Exception)
             {
                 return "Bedrijfsdata is nog in gebruik voor dit bedrijf. Eerst marIntegraal afsluiten a.u.b.";
-            }            
-        }
-    }
-    public class DatabaseHelper
-        {
-            public static string CompactAccessDatabase(string databasePath)
-            {
-                if (!File.Exists(databasePath))
-                    return $"Database file not found: {databasePath}";
-                string tempDatabasePath = Path.Combine(Path.GetDirectoryName(databasePath), "temp_compact.mdb");
-                // Use JRO to compact the database
-                var jro = new JetEngine(); // Ensure the JRO namespace is correctly referenced
-                jro.CompactDatabase($"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={databasePath};", $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={tempDatabasePath};Jet OLEDB:Engine Type=5");
-                // Replace original database with compacted one
-                File.Delete(databasePath);
-                File.Move(tempDatabasePath, databasePath);
-                return "Database compacted successfully.";
             }
         }
     }
-    
+    public class DatabaseHelper
+    {
+        public static string CompactAccessDatabase(string databasePath)
+        {
+            if (!File.Exists(databasePath))
+                return $"Database file not found: {databasePath}";
+            string tempDatabasePath = Path.Combine(Path.GetDirectoryName(databasePath), "temp_compact.mdb");
+            // Use JRO to compact the database
+            var jro = new JetEngine(); // Ensure the JRO namespace is correctly referenced
+            jro.CompactDatabase($"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={databasePath};", $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={tempDatabasePath};Jet OLEDB:Engine Type=5");
+            // Replace original database with compacted one
+            File.Delete(databasePath);
+            File.Move(tempDatabasePath, databasePath);
+            return "Database compacted successfully.";
+        }
+    }
+}
+
 
 
 

@@ -283,7 +283,7 @@ namespace MarioApp2025.MarioMenu.Admin
                         TextBoxGeographicalInformation.Text = address?.Replace("\n", " - ");
 
                         ToolStripStatusLabel.Text = "Onderneming met geldig EU BTW nummer.";
-                        ButtonEntityNew.Enabled = true;                        
+                        ButtonEntityNew.Enabled = true;
                     }
                     else
                     {
@@ -291,7 +291,7 @@ namespace MarioApp2025.MarioMenu.Admin
                         TextBoxGeographicalInformation.Clear();
 
                         ToolStripStatusLabel.Text = "Ongeldig EU BTW nummer";
-                        ButtonEntityNew.Enabled = false;                        
+                        ButtonEntityNew.Enabled = false;
                     }
                 }
             }
@@ -313,12 +313,12 @@ namespace MarioApp2025.MarioMenu.Admin
             // step 2: capitalize the first letter of each word
             var textInfo = CultureInfo.CurrentCulture.TextInfo;
             return textInfo.ToTitleCase(lower);
-        }       
+        }
 
         async private void ButtonEntityNew_Click(object sender, EventArgs e)
         {
             if (!RadioButtonBothSchemes.Checked && !RadioButtonOnlyScheme0208.Checked)
-                {
+            {
                 ToolStripStatusLabel.Text = "Kies een registratie schema.";
                 MessageBox.Show("Selecteer de nodige registratie schemas.", "Foutmelding", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -421,7 +421,8 @@ namespace MarioApp2025.MarioMenu.Admin
                 ButtonEntityNew.Enabled = false; // Disable the button after creating the entity
                 TextBoxCompanyName.Clear();
                 TextBoxGeographicalInformation.Clear();
-            } else
+            }
+            else
             {
                 // Build the request using your Postman example values
                 var entity = new CreateLegalEntityModel
@@ -482,7 +483,7 @@ namespace MarioApp2025.MarioMenu.Admin
                 ButtonEntityNew.Enabled = false; // Disable the button after creating the entity
                 TextBoxCompanyName.Clear();
                 TextBoxGeographicalInformation.Clear();
-            }                            
+            }
         }
 
         async private void ButtonGetUBLDocument_Click(object sender, EventArgs e)
@@ -524,7 +525,7 @@ namespace MarioApp2025.MarioMenu.Admin
                     using (var writer = new StreamWriter(outputFile, false, Encoding.UTF8))
                     {
                         await writer.WriteAsync(invoiceXml);
-                    }                    
+                    }
 
                     StatusStrip.Text = "UBL Invoice XML retrieved and saved successfully.";
 
@@ -812,7 +813,7 @@ namespace MarioApp2025.MarioMenu.Admin
             else
             {
                 ToolStripStatusLabel.Text = "Bedrijfsgegevens worden niet gepubliceerd in de Peppol Directory.";
-            }            
+            }
         }
     }
 }

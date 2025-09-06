@@ -39,9 +39,9 @@ namespace MarioApp2025
                     OleDbDataReader readerUpdate = cmdUpdate.ExecuteReader();
 
                     List<VsoftContract> contractsNew = new List<VsoftContract>();
-                    List<VsoftContract > contractsUpdate = new List<VsoftContract>();
+                    List<VsoftContract> contractsUpdate = new List<VsoftContract>();
 
-                    
+
 
 
                     while (readerNew.Read())
@@ -65,13 +65,13 @@ namespace MarioApp2025
                         {
                             ioB014 = 0;
                         }
-                                               
+
                         contractsNew.Add(new VsoftContract
                         {
                             A000 = readerNew["A000"].ToString().Trim(' '),
                             A110 = readerNew["A110"].ToString().Trim(' '),
                             V223 = readerNew["v223"].ToString().Trim(' '),
-                            A010 = readerNew["A010"].ToString().Trim(' '),                            
+                            A010 = readerNew["A010"].ToString().Trim(' '),
                             Vs99 = readerNew["vs99"].ToString().Trim(' '),
                             Vs98 = readerNew["vs98"].ToString().Trim(' '),
                             V164 = readerNew["v164"].ToString().Trim(' '),
@@ -82,10 +82,10 @@ namespace MarioApp2025
                             Vs97 = readerNew["vs97"].ToString().Trim(' '),
                             B010 = readerNew["B010"].ToString().Trim(' '),
                             B014 = readerNew["B014"].ToString().Trim(' '),
-                            V166 = readerNew["v166"].ToString().Trim(' '),                        
+                            V166 = readerNew["v166"].ToString().Trim(' '),
                             Vs96 = readerNew["vs96"].ToString().Trim(' '),
                             V167 = readerNew["v167"].ToString().Trim(' '),
-                                                                            
+
                             DecB010 = ioB010,
                             DecB014 = ioB014,
 
@@ -134,12 +134,12 @@ namespace MarioApp2025
                             ioB014 = 0;
                         }
 
-                        contractsUpdate.Add(new VsoftContract 
+                        contractsUpdate.Add(new VsoftContract
                         {
                             A000 = readerUpdate["A000"].ToString().Trim(' '),
                             A110 = readerUpdate["A110"].ToString().Trim(' '),
                             V223 = readerUpdate["v223"].ToString().Trim(' '),
-                            A010 = readerUpdate["A010"].ToString().Trim(' '),                        
+                            A010 = readerUpdate["A010"].ToString().Trim(' '),
                             Vs99 = readerUpdate["vs99"].ToString().Trim(' '),
                             Vs98 = readerUpdate["vs98"].ToString().Trim(' '),
                             V164 = readerUpdate["v164"].ToString().Trim(' '),

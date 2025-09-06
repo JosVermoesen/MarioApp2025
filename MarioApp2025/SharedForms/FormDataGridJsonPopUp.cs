@@ -152,7 +152,7 @@ namespace MarioApp2025.MarioMenu.Admin
             public string PeppolIdentifier { get; set; }
             public string SupportedDocuments { get; set; }
         }
-                
+
         public class RootNotification
         {
             [JsonProperty("pagination")]
@@ -174,7 +174,7 @@ namespace MarioApp2025.MarioMenu.Admin
             public string Sender { get; set; }
             public string Receiver { get; set; }
             public List<object> Details { get; set; } = new List<object>();
-        }        
+        }
     }
 }
 

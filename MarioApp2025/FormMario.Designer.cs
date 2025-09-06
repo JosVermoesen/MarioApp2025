@@ -32,6 +32,7 @@
             this.ActionsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemPeppolActions = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemUserSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemZipCompany = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemCloseApp = new System.Windows.Forms.ToolStripMenuItem();
             this.VpeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemAutoPageBreak = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,7 +41,10 @@
             this.MenuItemMdvToSql = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemPeppolSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.InfoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStrip = new System.Windows.Forms.ToolStrip();
+            this.ToolStripStatusLabel = new System.Windows.Forms.ToolStripLabel();
             this.MenuStripFormMario.SuspendLayout();
+            this.ToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // MenuStripFormMario
@@ -61,6 +65,7 @@
             this.ActionsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuItemPeppolActions,
             this.MenuItemUserSettings,
+            this.MenuItemZipCompany,
             this.MenuItemCloseApp});
             this.ActionsMenuItem.Name = "ActionsMenuItem";
             this.ActionsMenuItem.Size = new System.Drawing.Size(51, 20);
@@ -69,22 +74,29 @@
             // MenuItemPeppolActions
             // 
             this.MenuItemPeppolActions.Name = "MenuItemPeppolActions";
-            this.MenuItemPeppolActions.Size = new System.Drawing.Size(203, 22);
+            this.MenuItemPeppolActions.Size = new System.Drawing.Size(182, 22);
             this.MenuItemPeppolActions.Text = "Peppol Acties";
             this.MenuItemPeppolActions.Click += new System.EventHandler(this.MenuItemPeppolActions_Click);
             // 
             // MenuItemUserSettings
             // 
             this.MenuItemUserSettings.Name = "MenuItemUserSettings";
-            this.MenuItemUserSettings.Size = new System.Drawing.Size(203, 22);
-            this.MenuItemUserSettings.Text = "Actief Bedrijf Aanduiden";
+            this.MenuItemUserSettings.Size = new System.Drawing.Size(182, 22);
+            this.MenuItemUserSettings.Text = "Activeringen";
             this.MenuItemUserSettings.Click += new System.EventHandler(this.MenuItemUserSettings_Click);
+            // 
+            // MenuItemZipCompany
+            // 
+            this.MenuItemZipCompany.Name = "MenuItemZipCompany";
+            this.MenuItemZipCompany.Size = new System.Drawing.Size(182, 22);
+            this.MenuItemZipCompany.Text = "Actief Bedrijf Zippen";
+            this.MenuItemZipCompany.Click += new System.EventHandler(this.MenuItemZipCompany_Click);
             // 
             // MenuItemCloseApp
             // 
             this.MenuItemCloseApp.Name = "MenuItemCloseApp";
             this.MenuItemCloseApp.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.MenuItemCloseApp.Size = new System.Drawing.Size(203, 22);
+            this.MenuItemCloseApp.Size = new System.Drawing.Size(182, 22);
             this.MenuItemCloseApp.Text = "Afsluiten";
             this.MenuItemCloseApp.Click += new System.EventHandler(this.MenuItemCloseApp_Click);
             // 
@@ -143,11 +155,29 @@
             this.InfoMenuItem.Text = "?";
             this.InfoMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // ToolStrip
+            // 
+            this.ToolStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripStatusLabel});
+            this.ToolStrip.Location = new System.Drawing.Point(0, 366);
+            this.ToolStrip.Name = "ToolStrip";
+            this.ToolStrip.Size = new System.Drawing.Size(800, 25);
+            this.ToolStrip.TabIndex = 3;
+            this.ToolStrip.Text = "Ready";
+            // 
+            // ToolStripStatusLabel
+            // 
+            this.ToolStripStatusLabel.Name = "ToolStripStatusLabel";
+            this.ToolStripStatusLabel.Size = new System.Drawing.Size(39, 22);
+            this.ToolStripStatusLabel.Text = "Ready";
+            // 
             // FormMario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 391);
+            this.Controls.Add(this.ToolStrip);
             this.Controls.Add(this.MenuStripFormMario);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.MenuStripFormMario;
@@ -158,6 +188,8 @@
             this.Shown += new System.EventHandler(this.FormMario_Shown);
             this.MenuStripFormMario.ResumeLayout(false);
             this.MenuStripFormMario.PerformLayout();
+            this.ToolStrip.ResumeLayout(false);
+            this.ToolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,5 +209,8 @@
         private System.Windows.Forms.ToolStripMenuItem MenuItemPeppolSettings;
         private System.Windows.Forms.ToolStripMenuItem InfoMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MenuItemAutoPageBreak;
+        private System.Windows.Forms.ToolStripMenuItem MenuItemZipCompany;
+        private System.Windows.Forms.ToolStrip ToolStrip;
+        private System.Windows.Forms.ToolStripLabel ToolStripStatusLabel;
     }
 }

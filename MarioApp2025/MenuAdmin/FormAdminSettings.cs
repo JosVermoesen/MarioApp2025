@@ -21,5 +21,10 @@ namespace MarioApp2025.MarioMenu.Admin
         {
             Close();
         }
+
+        private void ButtonCreateGuid_Click(object sender, EventArgs e)
+        {
+            TextBoxGuid.Text = Guid.NewGuid().ToString();
+        }
     }
 }

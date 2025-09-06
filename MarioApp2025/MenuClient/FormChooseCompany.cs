@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MarioApp2025.Classes.Ademico;
+using System;
 using System.Collections;
 using System.IO;
 using System.Linq;
@@ -103,7 +104,7 @@ namespace MarioApp2025.MarioMenu.Actions
                 return false;
             }
         }
-        private void ProcessDirectory(string targetDirectory, string listType )
+        private void ProcessDirectory(string targetDirectory, string listType)
         {
             string[] subdirectoryEntries = Directory.GetDirectories(targetDirectory);
             foreach (string subdirectory in subdirectoryEntries)
@@ -145,6 +146,39 @@ namespace MarioApp2025.MarioMenu.Actions
             {
                 MessageBox.Show(marntTxtPath + " could not be read");
                 MessageBox.Show(e.Message);
+            }
+        }
+
+        private void ButtonValidateGuid_Click(object sender, EventArgs e)
+        {
+            string guidInput = TextBoxGuidToValidate.Text;
+            if (guidInput.Length != 36)
+            {
+                MessageBox.Show("Waarschuwing: de ingegeven GUID is niet correct.\nEen geldige GUID heeft 36 tekens.");
+                TextBoxGuidToValidate.Text = "";
+                return;
+            }
+
+            if (guidInput != MyApiSecrets.guidToControl)
+            {
+                MessageBox.Show("Waarschuwing: de ingegeven GUID komt niet overeen met de verwachte GUID.\nControleer of de GUID correct is.");
+                TextBoxGuidToValidate.Text = "";
+                return;
+            }
+            SharedGlobals.UserGuid = TextBoxGuidToValidate.Text;
+            MessageBox.Show("De ingegeven GUID is correct.\nU kan nu aan de slag met Peppol voor marIntegraal.");
+            LabelUserGuid.Visible = false;
+            TextBoxGuidToValidate.Visible = false;
+            ButtonValidateGuid.Visible = false;
+        }
+
+        private void FormChooseCompany_Load(object sender, EventArgs e)
+        {
+            if (SharedGlobals.UserGuid != MyApiSecrets.guidToControl)
+            {
+                LabelUserGuid.Visible = true;
+                TextBoxGuidToValidate.Visible = true;
+                ButtonValidateGuid.Visible = true;
             }
         }
     }

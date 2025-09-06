@@ -1,4 +1,5 @@
 ﻿using IDEALSoftware.VpeCommunity;
+using MarioApp2025.Classes.Ademico;
 using MarioApp2025.MarioMenu.Actions;
 using MarioApp2025.MarioMenu.Admin;
 using Microsoft.VisualBasic;
@@ -13,6 +14,8 @@ namespace MarioApp2025
     public partial class FormMario : Form
     {
         private readonly VpeControl AutoPageBreak;
+        
+        public Form FormDataGridJsonPopUp { get; set; }
 
         public FormMario()
         {
@@ -71,10 +74,12 @@ namespace MarioApp2025
             if (SharedGlobals.ActiveCompany != "")
             {
                 Text = "Mario2025 - [" + SharedGlobals.ActiveCompany + "] " + SharedGlobals.CompanyName;
+                MenuItemZipCompany.Text = "Zip bedrijf " + SharedGlobals.ActiveCompany + " naar Marnt Cloud";
             }
             else
             {
                 Text = "Mario2025";
+                MenuItemZipCompany.Text = "Zip bedrijf naar Marnt Cloud";
             }
         }
 
@@ -91,7 +96,7 @@ namespace MarioApp2025
                 "Bedrijfsinhoudsopgave2025",
                 "" // Default if not found
                 ) ?? ""; // Ensure null-coalescing operator to handle possible null value.
-            
+
             bool containsPath = value.ToLower().Contains(@"\marnt\data".ToLower());
             if (!containsPath)
             {
@@ -99,7 +104,7 @@ namespace MarioApp2025
                 Close();
             }
             SharedGlobals.SetMimDataLocation(value);
-                        
+
             // Load MarNT CloudLocation from settings
             value = Interaction.GetSetting(
                 "marINTEGRAAL",       // AppName
@@ -162,6 +167,12 @@ namespace MarioApp2025
                 MessageBox.Show("Eerst een bedrijf activeren a.u.b.", "Kies eerst een bedrijf", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            if (SharedGlobals.UserGuid  != MyApiSecrets.guidToControl )
+            {
+                MessageBox.Show("Eerst uw sleutel activeren", "Toegangsleutel ontbreekt of onjuist", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             var form = new FormPeppolClientActions();
             form.ShowDialog(this);
         }
@@ -274,7 +285,7 @@ namespace MarioApp2025
                 if (VpeDoc.WriteDoc(FileName))
                 {
                     MessageBox.Show("PDF file \"" + FileName + "\" created successfully.");
-                    Process process =  new Process();
+                    Process process = new Process();
                     process.StartInfo.FileName = FileName;
                     process.StartInfo.UseShellExecute = true;
                     process.StartInfo.CreateNoWindow = true;
@@ -290,6 +301,62 @@ namespace MarioApp2025
                         " - out of memory\n" +
                         " - export module missing");
                 }
+            }
+        }
+
+        private void MenuItemZipCompany_Click(object sender, EventArgs e)
+        {
+            if (SharedGlobals.ActiveCompany == "")
+            {
+                MessageBox.Show("Eerst een bedrijf activeren a.u.b.", "Kies eerst een bedrijf", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            Cursor.Current = Cursors.WaitCursor;
+            ToolStripStatusLabel.Text = "Bezig...";
+            Application.DoEvents();
+
+            string sourceFolderPath = SharedGlobals.MimDataLocation + "\\" + SharedGlobals.ActiveCompany;
+            string cloudFolderPath = SharedGlobals.MarntCLoudArchiveLocation;
+
+            try
+            {
+                string zipResult = BackupHelper.ZipFolderToCloudDrive(sourceFolderPath, cloudFolderPath);
+                Application.DoEvents();
+                Cursor.Current = Cursors.Default;
+                ToolStripStatusLabel.Text = "Ready";
+                Application.DoEvents();
+
+                var answer = MessageBox.Show(
+                    zipResult + " met succes.\n\nFolder openen?", "Zip naar Marnt Cloud",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2);
+
+                if (answer == DialogResult.No) return;
+                OpenFolder(cloudFolderPath);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Fout bij het zippen van de map naar Marnt Cloud. Controleer of de Marnt Cloud locatie correct is ingesteld.", "Foutmelding", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Cursor.Current = Cursors.Default;
+            }
+        }
+
+        private void OpenFolder(string folderPath)
+        {
+            if (Directory.Exists(folderPath))
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = folderPath,
+                    UseShellExecute = true,
+                    Verb = "open"
+                });
+            }
+            else
+            {
+                MessageBox.Show("The specified folder does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

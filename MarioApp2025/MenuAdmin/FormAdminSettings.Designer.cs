@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.ButtonClose = new System.Windows.Forms.Button();
+            this.ButtonCreateGuid = new System.Windows.Forms.Button();
+            this.TextBoxGuid = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // ButtonClose
@@ -42,22 +44,45 @@
             this.ButtonClose.UseVisualStyleBackColor = true;
             this.ButtonClose.Click += new System.EventHandler(this.ButtonClose_Click);
             // 
+            // ButtonCreateGuid
+            // 
+            this.ButtonCreateGuid.Location = new System.Drawing.Point(15, 12);
+            this.ButtonCreateGuid.Name = "ButtonCreateGuid";
+            this.ButtonCreateGuid.Size = new System.Drawing.Size(111, 23);
+            this.ButtonCreateGuid.TabIndex = 7;
+            this.ButtonCreateGuid.Text = "Guid aanmaken";
+            this.ButtonCreateGuid.UseVisualStyleBackColor = true;
+            this.ButtonCreateGuid.Click += new System.EventHandler(this.ButtonCreateGuid_Click);
+            // 
+            // TextBoxGuid
+            // 
+            this.TextBoxGuid.Location = new System.Drawing.Point(15, 50);
+            this.TextBoxGuid.Name = "TextBoxGuid";
+            this.TextBoxGuid.ReadOnly = true;
+            this.TextBoxGuid.Size = new System.Drawing.Size(271, 20);
+            this.TextBoxGuid.TabIndex = 9;
+            // 
             // FormAdminSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.ButtonClose;
             this.ClientSize = new System.Drawing.Size(382, 274);
+            this.Controls.Add(this.TextBoxGuid);
+            this.Controls.Add(this.ButtonCreateGuid);
             this.Controls.Add(this.ButtonClose);
             this.Name = "FormAdminSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormAdminSettings";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button ButtonClose;
+        private System.Windows.Forms.Button ButtonCreateGuid;
+        private System.Windows.Forms.TextBox TextBoxGuid;
     }
 }

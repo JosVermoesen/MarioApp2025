@@ -30,14 +30,17 @@
         {
             this.TabControlVariousActions = new System.Windows.Forms.TabControl();
             this.TabMonitor = new System.Windows.Forms.TabPage();
+            this.LabelTotalOutToRemoveFromNotifications = new System.Windows.Forms.Label();
+            this.LabelTotalnMapOut = new System.Windows.Forms.Label();
+            this.LabelPeppelOutDone = new System.Windows.Forms.Label();
+            this.LabelListPeppolOut = new System.Windows.Forms.Label();
             this.ButtonCheckConnectivity = new System.Windows.Forms.Button();
             this.ButtonTimer = new System.Windows.Forms.Button();
             this.LabelMonitorReceived = new System.Windows.Forms.Label();
             this.LabelMonitorSent = new System.Windows.Forms.Label();
-            this.ListBoxMonitorReceived = new System.Windows.Forms.ListBox();
-            this.ListBoxMonitorSent = new System.Windows.Forms.ListBox();
+            this.ListBoxMonitorForPeppolIn = new System.Windows.Forms.ListBox();
+            this.ListBoxMonitorPeppolOut = new System.Windows.Forms.ListBox();
             this.TabActions = new System.Windows.Forms.TabPage();
-            this.ButtonZipToCloud = new System.Windows.Forms.Button();
             this.ButtonShowSharedGlobals = new System.Windows.Forms.Button();
             this.ButtonGetPeppolRegistrations = new System.Windows.Forms.Button();
             this.TextBoxCountryCode = new System.Windows.Forms.TextBox();
@@ -59,7 +62,7 @@
             this.TabResponse = new System.Windows.Forms.TabPage();
             this.RichTextBoxResponses = new System.Windows.Forms.RichTextBox();
             this.TabSendDocument = new System.Windows.Forms.TabPage();
-            this.ListBoxDocumentsToSend = new System.Windows.Forms.ListBox();
+            this.ListBoxDocumentsPeppolOut = new System.Windows.Forms.ListBox();
             this.LabelFile = new System.Windows.Forms.Label();
             this.ButtonSendUblDocument = new System.Windows.Forms.Button();
             this.ButtonCheckFile = new System.Windows.Forms.Button();
@@ -97,18 +100,60 @@
             // 
             // TabMonitor
             // 
+            this.TabMonitor.Controls.Add(this.LabelTotalOutToRemoveFromNotifications);
+            this.TabMonitor.Controls.Add(this.LabelTotalnMapOut);
+            this.TabMonitor.Controls.Add(this.LabelPeppelOutDone);
+            this.TabMonitor.Controls.Add(this.LabelListPeppolOut);
             this.TabMonitor.Controls.Add(this.ButtonCheckConnectivity);
             this.TabMonitor.Controls.Add(this.ButtonTimer);
             this.TabMonitor.Controls.Add(this.LabelMonitorReceived);
             this.TabMonitor.Controls.Add(this.LabelMonitorSent);
-            this.TabMonitor.Controls.Add(this.ListBoxMonitorReceived);
-            this.TabMonitor.Controls.Add(this.ListBoxMonitorSent);
+            this.TabMonitor.Controls.Add(this.ListBoxMonitorForPeppolIn);
+            this.TabMonitor.Controls.Add(this.ListBoxMonitorPeppolOut);
             this.TabMonitor.Location = new System.Drawing.Point(4, 22);
             this.TabMonitor.Name = "TabMonitor";
             this.TabMonitor.Size = new System.Drawing.Size(576, 359);
             this.TabMonitor.TabIndex = 5;
             this.TabMonitor.Text = "Monitor";
             this.TabMonitor.UseVisualStyleBackColor = true;
+            // 
+            // LabelTotalOutToRemoveFromNotifications
+            // 
+            this.LabelTotalOutToRemoveFromNotifications.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.LabelTotalOutToRemoveFromNotifications.Location = new System.Drawing.Point(137, 174);
+            this.LabelTotalOutToRemoveFromNotifications.Name = "LabelTotalOutToRemoveFromNotifications";
+            this.LabelTotalOutToRemoveFromNotifications.Size = new System.Drawing.Size(74, 13);
+            this.LabelTotalOutToRemoveFromNotifications.TabIndex = 21;
+            this.LabelTotalOutToRemoveFromNotifications.Text = "0";
+            this.LabelTotalOutToRemoveFromNotifications.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // LabelTotalnMapOut
+            // 
+            this.LabelTotalnMapOut.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.LabelTotalnMapOut.Location = new System.Drawing.Point(9, 174);
+            this.LabelTotalnMapOut.Name = "LabelTotalnMapOut";
+            this.LabelTotalnMapOut.Size = new System.Drawing.Size(74, 13);
+            this.LabelTotalnMapOut.TabIndex = 20;
+            this.LabelTotalnMapOut.Text = "0";
+            this.LabelTotalnMapOut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // LabelPeppelOutDone
+            // 
+            this.LabelPeppelOutDone.AutoSize = true;
+            this.LabelPeppelOutDone.Location = new System.Drawing.Point(99, 152);
+            this.LabelPeppelOutDone.Name = "LabelPeppelOutDone";
+            this.LabelPeppelOutDone.Size = new System.Drawing.Size(112, 13);
+            this.LabelPeppelOutDone.TabIndex = 19;
+            this.LabelPeppelOutDone.Text = "OUT reeds verzonden";
+            // 
+            // LabelListPeppolOut
+            // 
+            this.LabelListPeppolOut.AutoSize = true;
+            this.LabelListPeppolOut.Location = new System.Drawing.Point(9, 152);
+            this.LabelListPeppolOut.Name = "LabelListPeppolOut";
+            this.LabelListPeppolOut.Size = new System.Drawing.Size(74, 13);
+            this.LabelListPeppolOut.TabIndex = 18;
+            this.LabelListPeppolOut.Text = "Totaal in OUT";
             // 
             // ButtonCheckConnectivity
             // 
@@ -122,11 +167,12 @@
             // 
             // ButtonTimer
             // 
-            this.ButtonTimer.Location = new System.Drawing.Point(476, 212);
+            this.ButtonTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ButtonTimer.Location = new System.Drawing.Point(466, 143);
             this.ButtonTimer.Name = "ButtonTimer";
-            this.ButtonTimer.Size = new System.Drawing.Size(92, 23);
+            this.ButtonTimer.Size = new System.Drawing.Size(102, 57);
             this.ButtonTimer.TabIndex = 11;
-            this.ButtonTimer.Text = "Klok Start/Stop";
+            this.ButtonTimer.Text = "Start Vernieuwen";
             this.ButtonTimer.UseVisualStyleBackColor = true;
             this.ButtonTimer.Click += new System.EventHandler(this.ButtonTimer_Click);
             // 
@@ -142,31 +188,30 @@
             // LabelMonitorSent
             // 
             this.LabelMonitorSent.AutoSize = true;
-            this.LabelMonitorSent.Location = new System.Drawing.Point(5, 18);
+            this.LabelMonitorSent.Location = new System.Drawing.Point(8, 23);
             this.LabelMonitorSent.Name = "LabelMonitorSent";
-            this.LabelMonitorSent.Size = new System.Drawing.Size(355, 13);
+            this.LabelMonitorSent.Size = new System.Drawing.Size(367, 13);
             this.LabelMonitorSent.TabIndex = 9;
-            this.LabelMonitorSent.Text = "Te Verzenden of Verzonden (controleer tab blad Documenten Verzenden)";
+            this.LabelMonitorSent.Text = "Verzenden van documenten (voor manuele verwerking ga naar het tab blad)";
             // 
-            // ListBoxMonitorReceived
+            // ListBoxMonitorForPeppolIn
             // 
-            this.ListBoxMonitorReceived.FormattingEnabled = true;
-            this.ListBoxMonitorReceived.Location = new System.Drawing.Point(9, 243);
-            this.ListBoxMonitorReceived.Name = "ListBoxMonitorReceived";
-            this.ListBoxMonitorReceived.Size = new System.Drawing.Size(560, 95);
-            this.ListBoxMonitorReceived.TabIndex = 8;
+            this.ListBoxMonitorForPeppolIn.FormattingEnabled = true;
+            this.ListBoxMonitorForPeppolIn.Location = new System.Drawing.Point(9, 243);
+            this.ListBoxMonitorForPeppolIn.Name = "ListBoxMonitorForPeppolIn";
+            this.ListBoxMonitorForPeppolIn.Size = new System.Drawing.Size(560, 95);
+            this.ListBoxMonitorForPeppolIn.TabIndex = 8;
             // 
-            // ListBoxMonitorSent
+            // ListBoxMonitorPeppolOut
             // 
-            this.ListBoxMonitorSent.FormattingEnabled = true;
-            this.ListBoxMonitorSent.Location = new System.Drawing.Point(9, 42);
-            this.ListBoxMonitorSent.Name = "ListBoxMonitorSent";
-            this.ListBoxMonitorSent.Size = new System.Drawing.Size(560, 95);
-            this.ListBoxMonitorSent.TabIndex = 7;
+            this.ListBoxMonitorPeppolOut.FormattingEnabled = true;
+            this.ListBoxMonitorPeppolOut.Location = new System.Drawing.Point(9, 42);
+            this.ListBoxMonitorPeppolOut.Name = "ListBoxMonitorPeppolOut";
+            this.ListBoxMonitorPeppolOut.Size = new System.Drawing.Size(560, 95);
+            this.ListBoxMonitorPeppolOut.TabIndex = 7;
             // 
             // TabActions
             // 
-            this.TabActions.Controls.Add(this.ButtonZipToCloud);
             this.TabActions.Controls.Add(this.ButtonShowSharedGlobals);
             this.TabActions.Controls.Add(this.ButtonGetPeppolRegistrations);
             this.TabActions.Controls.Add(this.TextBoxCountryCode);
@@ -187,19 +232,9 @@
             this.TabActions.Text = "Opzoekingen";
             this.TabActions.UseVisualStyleBackColor = true;
             // 
-            // ButtonZipToCloud
-            // 
-            this.ButtonZipToCloud.Location = new System.Drawing.Point(320, 19);
-            this.ButtonZipToCloud.Name = "ButtonZipToCloud";
-            this.ButtonZipToCloud.Size = new System.Drawing.Size(111, 41);
-            this.ButtonZipToCloud.TabIndex = 29;
-            this.ButtonZipToCloud.Text = "Veiligheidskopij  van Actief Bedrijf maken";
-            this.ButtonZipToCloud.UseVisualStyleBackColor = true;
-            this.ButtonZipToCloud.Click += new System.EventHandler(this.ButtonZipToCloud_Click);
-            // 
             // ButtonShowSharedGlobals
             // 
-            this.ButtonShowSharedGlobals.Location = new System.Drawing.Point(203, 19);
+            this.ButtonShowSharedGlobals.Location = new System.Drawing.Point(320, 19);
             this.ButtonShowSharedGlobals.Name = "ButtonShowSharedGlobals";
             this.ButtonShowSharedGlobals.Size = new System.Drawing.Size(111, 41);
             this.ButtonShowSharedGlobals.TabIndex = 28;
@@ -386,7 +421,7 @@
             // TabSendDocument
             // 
             this.TabSendDocument.AllowDrop = true;
-            this.TabSendDocument.Controls.Add(this.ListBoxDocumentsToSend);
+            this.TabSendDocument.Controls.Add(this.ListBoxDocumentsPeppolOut);
             this.TabSendDocument.Controls.Add(this.LabelFile);
             this.TabSendDocument.Controls.Add(this.ButtonSendUblDocument);
             this.TabSendDocument.Controls.Add(this.ButtonCheckFile);
@@ -397,14 +432,14 @@
             this.TabSendDocument.Text = "Document Verzenden";
             this.TabSendDocument.UseVisualStyleBackColor = true;
             // 
-            // ListBoxDocumentsToSend
+            // ListBoxDocumentsPeppolOut
             // 
-            this.ListBoxDocumentsToSend.FormattingEnabled = true;
-            this.ListBoxDocumentsToSend.Location = new System.Drawing.Point(8, 43);
-            this.ListBoxDocumentsToSend.Name = "ListBoxDocumentsToSend";
-            this.ListBoxDocumentsToSend.Size = new System.Drawing.Size(560, 173);
-            this.ListBoxDocumentsToSend.TabIndex = 6;
-            this.ListBoxDocumentsToSend.SelectedIndexChanged += new System.EventHandler(this.ListBoxDocumentsToSend_SelectedIndexChanged);
+            this.ListBoxDocumentsPeppolOut.FormattingEnabled = true;
+            this.ListBoxDocumentsPeppolOut.Location = new System.Drawing.Point(8, 43);
+            this.ListBoxDocumentsPeppolOut.Name = "ListBoxDocumentsPeppolOut";
+            this.ListBoxDocumentsPeppolOut.Size = new System.Drawing.Size(560, 173);
+            this.ListBoxDocumentsPeppolOut.TabIndex = 6;
+            this.ListBoxDocumentsPeppolOut.SelectedIndexChanged += new System.EventHandler(this.ListBoxDocumentsToSend_SelectedIndexChanged);
             // 
             // LabelFile
             // 
@@ -571,14 +606,17 @@
         private System.Windows.Forms.TextBox TextBoxTransmissionId;
         private System.Windows.Forms.Label LabelTransmissionId;
         private System.Windows.Forms.Button ButtonShowSharedGlobals;
-        private System.Windows.Forms.ListBox ListBoxDocumentsToSend;
-        private System.Windows.Forms.Button ButtonZipToCloud;
+        private System.Windows.Forms.ListBox ListBoxDocumentsPeppolOut;
         private System.Windows.Forms.TabPage TabMonitor;
-        private System.Windows.Forms.ListBox ListBoxMonitorReceived;
-        private System.Windows.Forms.ListBox ListBoxMonitorSent;
+        private System.Windows.Forms.ListBox ListBoxMonitorForPeppolIn;
+        private System.Windows.Forms.ListBox ListBoxMonitorPeppolOut;
         private System.Windows.Forms.Label LabelMonitorReceived;
         private System.Windows.Forms.Label LabelMonitorSent;
         private System.Windows.Forms.Button ButtonTimer;
         private System.Windows.Forms.Button ButtonCheckConnectivity;
+        private System.Windows.Forms.Label LabelPeppelOutDone;
+        private System.Windows.Forms.Label LabelListPeppolOut;
+        private System.Windows.Forms.Label LabelTotalOutToRemoveFromNotifications;
+        private System.Windows.Forms.Label LabelTotalnMapOut;
     }
 }

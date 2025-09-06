@@ -4,12 +4,13 @@
     {
         static SharedGlobals()
         {
-            DbJetProvider = "PROVIDER=Microsoft.Jet.OLEDB.4.0;Data Source=";
+            DbJetProvider = "PROVIDER=Microsoft.Jet.OLEDB.4.0;Data Source=";            
+            UserGuid = "";
 
             MimDataLocation = "";
             MarntMdvLocation = "";
             IsAdmin = false; // default to false
-            
+
             ActiveCompany = "";
             CompanyName = ""; // value s046 in marnt.mdv file is Company Name
             CompanyAddress = ""; // value s047 in marnt.mdv file is Company Address
@@ -22,7 +23,7 @@
             CompanyEmailAddress = ""; // value s295 in marnt.mdv file is Company Email Address
             CompanyContactPerson = ""; // value s052 in marnt.mdv file is Company Contact Person
             CompanyContactEmailAddress = ""; // value s050 in marnt.mdv file is Company Contact Email Address
-        
+
             MarntCloudLocation = ""; // default values
             MarntCLoudArchiveLocation = ""; // default values
             MarntCloudMarioLocation = ""; // default values
@@ -30,7 +31,7 @@
             PeppolOutFiles = 0;
             PeppolInDirectory = "";
             PeppolOutDirectory = "";
-        } // default values
+        } // default values        
         public static string PeppolInDirectory { get; set; } = ""; // default values
         public static string PeppolOutDirectory { get; set; } = ""; // default values
         public static string MarntCloudMarioLocation { get; set; } = ""; // default values
@@ -54,6 +55,7 @@
         public static string AdemicoAccessToken { get; }
         public static string AdemicoUsername { get; }
         public static string AdemicoPassword { get; }
+        public static string UserGuid { get; set; }
         public static string DbJetProvider { get; }
         public static string MimDataLocation { get; private set; }
         public static string ActiveCompany { get; set; } = ""; // default values

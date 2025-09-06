@@ -21,7 +21,7 @@ namespace MarioApp2025.MarioMenu.Actions
         private readonly Timer _timer;
 
         private readonly HttpClient httpCheck;
-        private DialogResult answer;
+
         public string activeSellerDocument = "";
 
         public Form FormDataGridJsonPopUp { get; set; }
@@ -29,12 +29,18 @@ namespace MarioApp2025.MarioMenu.Actions
         // Testing ADODB connection to marnt.mdv file       
         public Recordset DocumentRS { get; private set; }
 
+        public int totalInMapOut = 0;
+        public int totalOutToRemoveFromNotifications = 0;
+
+        public int totalReceivedInMap = 0;
+        public int totalReceivedToRemoveFromNotifications = 0;
+
         public FormPeppolClientActions()
         {
             InitializeComponent();
             _timer = new Timer
             {
-                Interval = 10 * 60 * 1000 // 10 minutes in milliseconds
+                Interval = 5 * 60 * 1000 // 5 minutes in milliseconds
             };
             _timer.Tick += Timer_Tick;
             _timer.Stop();
@@ -45,7 +51,7 @@ namespace MarioApp2025.MarioMenu.Actions
             RadioButtonGetReceived.Checked = true;
             TextBoxLegalEntityId.Text = ""; // Default to empty to enable country/scheme/identifier fields
 
-            RefreshMonitorLists();            
+            RefreshMonitor();
         }
 
         private void FormPeppolClientActions_FormClosing(object sender, FormClosingEventArgs e)
@@ -76,23 +82,23 @@ namespace MarioApp2025.MarioMenu.Actions
             if (_timer.Enabled)
             {
                 _timer.Stop();
-                ButtonTimer.Text = "Start Timer";
-                ToolStripStatusLabel.Text = "Timer stopped.";
+                ButtonTimer.Text = "Start Vernieuwen";
+                ToolStripStatusLabel.Text = "Timer is gestopt.";
                 return;
             }
             else
             {
-                ButtonTimer.Text = "Stop Timer";
+                ButtonTimer.Text = "Stop Vernieuwen";
                 Timer timer = new Timer
                 {
                     Interval = 600000 // 10 minutes in milliseconds
                 };
                 timer.Tick += Timer_Tick;
-                ToolStripStatusLabel.Text = "Timer started. Notifications every 10 minutes.";
+                ToolStripStatusLabel.Text = "Timer is gestart. Automatisch bijwerken om de 5 minuten.";
                 _timer.Start();
             }
 
-        }       
+        }
 
         // Actions Tab        
         private void ButtonShowSharedGlobals_Click(object sender, EventArgs e)
@@ -109,48 +115,13 @@ namespace MarioApp2025.MarioMenu.Actions
                 $"Email Adres Bedrijf: {SharedGlobals.CompanyEmailAddress}\n" +
                 $"Contactpersoon: {SharedGlobals.CompanyContactPerson}\n" +
                 $"Email Adres Contactpersoon: {SharedGlobals.CompanyContactEmailAddress}\n\n" +
-                $"Peppol Documenten te Verzenden: {SharedGlobals.PeppolOutFiles}\n\n" +
+                $"Peppol Documenten in map OUT: {SharedGlobals.PeppolOutFiles}\n\n" +
             $"Mapnummer Actief Bedrijf: {SharedGlobals.ActiveCompany}\n" +
                 $"Inhoudsopgave Mar Mdv Bestand: {SharedGlobals.MarntMdvLocation}\n" +
                 $"Inhoudsopgave Mar Data: {SharedGlobals.MimDataLocation}\n",
                 "Variabele gegevens van actief bedrijf",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
-
-        }
-
-        private void ButtonZipToCloud_Click(object sender, EventArgs e)
-        {
-            Cursor.Current = Cursors.WaitCursor;
-
-            ToolStripStatusLabel.Text = "Bezig...";
-            Application.DoEvents();
-
-            string sourceFolderPath = SharedGlobals.MimDataLocation + "\\" + SharedGlobals.ActiveCompany;
-            string cloudFolderPath = SharedGlobals.MarntCLoudArchiveLocation;
-
-            try
-            {
-                string zipResult = BackupHelper.ZipFolderToCloudDrive(sourceFolderPath, cloudFolderPath);
-                Application.DoEvents();
-                Cursor.Current = Cursors.Default;
-                ToolStripStatusLabel.Text = "Ready";
-                Application.DoEvents();
-
-                answer = MessageBox.Show(
-                    zipResult + "\n\nFolder openen?", "Zip naar Marnt Cloud",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question,
-                    MessageBoxDefaultButton.Button2);
-
-                if (answer == DialogResult.No) return;
-                OpenFolder(cloudFolderPath);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Fout bij het zippen van de map naar Marnt Cloud. Controleer of de Marnt Cloud locatie correct is ingesteld.", "Foutmelding", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Cursor.Current = Cursors.Default;
-            }
 
         }
 
@@ -306,12 +277,13 @@ namespace MarioApp2025.MarioMenu.Actions
         {
             string folderInPath = SharedGlobals.MimDataLocation + "\\" + SharedGlobals.ActiveCompany + "\\peppol\\in";
             listboxIn.Items.Clear();
+            MessageBox.Show(folderInPath);
 
             // Check the API notifications for received documents for this company and fill the listbox
 
         }
 
-        private void FillListPeppolToSend(ListBox listboxOut)
+        private void FillListPeppolToSend(ListBox listboxOut, bool isMonitorListBox)
         {
             string folderOutPath = SharedGlobals.MimDataLocation + "\\" + SharedGlobals.ActiveCompany + "\\peppol\\out";
             listboxOut.Items.Clear();
@@ -328,6 +300,24 @@ namespace MarioApp2025.MarioMenu.Actions
                 ToolStripStatusLabel.Text = "Geen te verzenden documenten voor " + SharedGlobals.ActiveCompany;
                 listboxOut.Visible = false;
             }
+
+            if (isMonitorListBox)
+            {
+                totalInMapOut = listboxOut.Items.Count;
+
+                // Refresh the real number of total files to be sent
+                int localTotalOutToRemove = 0;
+                foreach (var item in listboxOut.Items)
+                {
+                    string documentId = ReadUBLInvoice(item.ToString(), false, false).ToUpper();
+                    string existingResult = GetSellersDocumentResultRS(documentId);
+                    if (existingResult != "")
+                    {
+                        localTotalOutToRemove++;
+                    }
+                }
+                totalOutToRemoveFromNotifications = localTotalOutToRemove;
+            }
         }
 
         private void ListBoxDocumentsToSend_SelectedIndexChanged(object sender, EventArgs e)
@@ -335,9 +325,9 @@ namespace MarioApp2025.MarioMenu.Actions
             ButtonSendUblDocument.Enabled = false; // Disable the button when selecting a new file
             LabelFile.Text = "";
 
-            if (ListBoxDocumentsToSend.SelectedItem != null)
+            if (ListBoxDocumentsPeppolOut.SelectedItem != null)
             {
-                LabelFile.Text = ListBoxDocumentsToSend.SelectedItem.ToString().ToUpper();
+                LabelFile.Text = ListBoxDocumentsPeppolOut.SelectedItem.ToString().ToUpper();
                 string checkResult = ReadUBLInvoice(LabelFile.Text, false, false);
                 string existingResult = GetSellersDocumentResultRS(checkResult.ToUpper());
                 if (existingResult == "")
@@ -352,8 +342,7 @@ namespace MarioApp2025.MarioMenu.Actions
                     ButtonSendUblDocument.Enabled = false; // Disable the button if the file was already sent                    
                     RichTextBoxResponses.Text = existingResult;
                     Application.DoEvents();
-                    MessageBox.Show("Verzendbewijs aanwezig in marIntegraal:\n\n" + existingResult, checkResult + " reeds verzonden");                     
-
+                    MessageBox.Show("Verzendbewijs aanwezig in boekhouding:\n\n" + existingResult, checkResult + " reeds verzonden");
                 }
             }
         }
@@ -507,13 +496,22 @@ namespace MarioApp2025.MarioMenu.Actions
 
 
         // Common functions for multiple tabs
-        private void RefreshMonitorLists()
+        private void RefreshMonitor()
         {
-            FillListPeppolToSend(ListBoxDocumentsToSend);
+            totalInMapOut = 0;
+            totalOutToRemoveFromNotifications = 0;
+            totalReceivedInMap = 0;
+            totalReceivedToRemoveFromNotifications = 0;
 
-            FillListPeppolToSend(ListBoxMonitorSent);
-            
-            FillListPeppolToReceive(ListBoxMonitorReceived);
+            FillListPeppolToSend(ListBoxDocumentsPeppolOut, false);
+            FillListPeppolToSend(ListBoxMonitorPeppolOut, true);
+            LabelTotalnMapOut.Text = totalInMapOut.ToString();
+            LabelTotalOutToRemoveFromNotifications.Text = totalOutToRemoveFromNotifications.ToString();
+
+            FillListPeppolToReceive(ListBoxMonitorForPeppolIn);
+
+            ToolStripStatusLabel.Text = "Ready";
+            Application.DoEvents();
         }
 
         private string MoveXmlDocumentToMarPeppolIn(string documentId)
@@ -563,7 +561,6 @@ namespace MarioApp2025.MarioMenu.Actions
 
         public string GetSellersDocumentResultRS(string document)
         {
-            Cursor.Current = Cursors.WaitCursor;
             string sSQL = "SELECT  * FROM Dokumenten WHERE  v033 = '" + document.Substring(0, 11) + "'";  // 'Journalen.v066";
             // Open the connection and execute the insert command.
             // The connection is automatically closed when the
@@ -574,22 +571,22 @@ namespace MarioApp2025.MarioMenu.Actions
                 CursorLocation = CursorLocationEnum.adUseClient
             };
             DocumentRS.Open(sSQL, connectionString, CursorTypeEnum.adOpenDynamic, LockTypeEnum.adLockOptimistic);
-            Cursor.Current = Cursors.Default;
+
+            string fieldValue = "";
             if (DocumentRS.RecordCount == 1)
             {
-                try
+                if (DocumentRS.Fields["v405"].Value == null)
                 {
-                    return DocumentRS.Fields["v405"].Value.ToString(); // Get the field with the JSON result
+                    fieldValue = "";
                 }
-                catch (Exception)
+                else
                 {
-                    return "Error retrieving document result.";
+                    fieldValue = DocumentRS.Fields["v405"].Value.ToString();
                 }
             }
-            else
-            {
-                return "Verkoopdocument niet gevonden.";
-            }
+
+            DocumentRS?.Close();
+            return fieldValue;
         }
 
         public bool SetSellersDocumentResultRS(string document, string jsonResult)
@@ -626,7 +623,7 @@ namespace MarioApp2025.MarioMenu.Actions
             }
 
         }
-                
+
         private void DoPopUpEntitiesData(string messageAsJson)
         {
             FormDataGridJsonPopUp formJsonTable = new FormDataGridJsonPopUp
@@ -674,13 +671,17 @@ namespace MarioApp2025.MarioMenu.Actions
             {
                 MessageBox.Show("The specified folder does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }        
+        }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
             // Your repeated instructions here
-            ToolStripStatusLabel.Text = "10 minutes passed!";            
-        }       
+            ToolStripStatusLabel.Text = "10 minutes passed! Refreshing lists...";
+            Application.DoEvents();
+
+            RefreshMonitor();
+
+        }
 
         private static string ReadUBLInvoice(string filePath, bool messageBox, bool justDocumentId)
         {
@@ -902,6 +903,6 @@ namespace MarioApp2025.MarioMenu.Actions
             }
             return documentId;
         }
-    }  
+    }
 }
 
