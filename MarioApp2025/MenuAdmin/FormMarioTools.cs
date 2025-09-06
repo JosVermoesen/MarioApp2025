@@ -732,28 +732,25 @@ namespace MarioApp2025
             ToolStripStatusLabel.Text = "Ready";
             StatusStrip.Refresh();
         }
-
-        async private void ButtonCheckVat_Click(object sender, EventArgs e)
-        {
-            string vatNumber = TextBoxVatNumber.Text;
-            string countryCode = vatNumber.Substring(0, 2);
-            string vat = vatNumber.Substring(2);
-            LabelResponse.Text = "Bezig...";
-            LabelResponseContent.Text = "Bezig...";
-
-            string url = "https://ec.europa.eu/taxation_customs/vies/rest-api/ms/" + countryCode + "/vat/" + vat;
-
-            connectionCheck = new HttpClient();
-
-            HttpResponseMessage response = await connectionCheck.GetAsync(url);
-            string responseContent = await response.Content.ReadAsStringAsync();
-            LabelResponse.Text = response.ToString();
-            LabelResponseContent.Text = responseContent;
-        }
-
+        
         private void ButtonClose_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void TextBoxVatNumber_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LabelResponse_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LabelResponseContent_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

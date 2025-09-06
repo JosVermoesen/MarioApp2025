@@ -44,7 +44,7 @@
             this.ListBoxCompanies.FormattingEnabled = true;
             this.ListBoxCompanies.Location = new System.Drawing.Point(8, 36);
             this.ListBoxCompanies.Name = "ListBoxCompanies";
-            this.ListBoxCompanies.Size = new System.Drawing.Size(472, 95);
+            this.ListBoxCompanies.Size = new System.Drawing.Size(472, 69);
             this.ListBoxCompanies.TabIndex = 0;
             this.ListBoxCompanies.Click += new System.EventHandler(this.ListBoxCompanies_Click);
             // 
@@ -60,7 +60,7 @@
             // CheckBoxIsAdmin
             // 
             this.CheckBoxIsAdmin.AutoSize = true;
-            this.CheckBoxIsAdmin.Location = new System.Drawing.Point(8, 188);
+            this.CheckBoxIsAdmin.Location = new System.Drawing.Point(8, 158);
             this.CheckBoxIsAdmin.Name = "CheckBoxIsAdmin";
             this.CheckBoxIsAdmin.Size = new System.Drawing.Size(81, 17);
             this.CheckBoxIsAdmin.TabIndex = 2;
@@ -70,7 +70,7 @@
             // 
             // TextBoxIsAdminPassword
             // 
-            this.TextBoxIsAdminPassword.Location = new System.Drawing.Point(106, 186);
+            this.TextBoxIsAdminPassword.Location = new System.Drawing.Point(106, 156);
             this.TextBoxIsAdminPassword.Name = "TextBoxIsAdminPassword";
             this.TextBoxIsAdminPassword.PasswordChar = '*';
             this.TextBoxIsAdminPassword.Size = new System.Drawing.Size(374, 20);
@@ -79,7 +79,7 @@
             // 
             // ButtonValidate
             // 
-            this.ButtonValidate.Location = new System.Drawing.Point(106, 212);
+            this.ButtonValidate.Location = new System.Drawing.Point(106, 182);
             this.ButtonValidate.Name = "ButtonValidate";
             this.ButtonValidate.Size = new System.Drawing.Size(74, 23);
             this.ButtonValidate.TabIndex = 4;
@@ -91,7 +91,7 @@
             // ButtonClose
             // 
             this.ButtonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.ButtonClose.Location = new System.Drawing.Point(405, 212);
+            this.ButtonClose.Location = new System.Drawing.Point(405, 182);
             this.ButtonClose.Name = "ButtonClose";
             this.ButtonClose.Size = new System.Drawing.Size(75, 23);
             this.ButtonClose.TabIndex = 5;
@@ -102,7 +102,7 @@
             // LabelUserGuid
             // 
             this.LabelUserGuid.AutoSize = true;
-            this.LabelUserGuid.Location = new System.Drawing.Point(8, 144);
+            this.LabelUserGuid.Location = new System.Drawing.Point(8, 114);
             this.LabelUserGuid.Name = "LabelUserGuid";
             this.LabelUserGuid.Size = new System.Drawing.Size(142, 13);
             this.LabelUserGuid.TabIndex = 6;
@@ -111,7 +111,7 @@
             // 
             // TextBoxGuidToValidate
             // 
-            this.TextBoxGuidToValidate.Location = new System.Drawing.Point(8, 160);
+            this.TextBoxGuidToValidate.Location = new System.Drawing.Point(8, 130);
             this.TextBoxGuidToValidate.Name = "TextBoxGuidToValidate";
             this.TextBoxGuidToValidate.PasswordChar = '*';
             this.TextBoxGuidToValidate.Size = new System.Drawing.Size(390, 20);
@@ -120,7 +120,7 @@
             // 
             // ButtonValidateGuid
             // 
-            this.ButtonValidateGuid.Location = new System.Drawing.Point(404, 157);
+            this.ButtonValidateGuid.Location = new System.Drawing.Point(404, 127);
             this.ButtonValidateGuid.Name = "ButtonValidateGuid";
             this.ButtonValidateGuid.Size = new System.Drawing.Size(74, 23);
             this.ButtonValidateGuid.TabIndex = 8;
@@ -134,7 +134,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.ButtonClose;
-            this.ClientSize = new System.Drawing.Size(494, 244);
+            this.ClientSize = new System.Drawing.Size(494, 213);
             this.Controls.Add(this.ButtonValidateGuid);
             this.Controls.Add(this.TextBoxGuidToValidate);
             this.Controls.Add(this.LabelUserGuid);

@@ -70,9 +70,15 @@
             this.ButtonGetUBLDocument = new System.Windows.Forms.Button();
             this.TextBoxTransmissionId = new System.Windows.Forms.TextBox();
             this.LabelTransmissionId = new System.Windows.Forms.Label();
+            this.TabCheckVatEU = new System.Windows.Forms.TabPage();
+            this.TextBoxVatNumber = new System.Windows.Forms.TextBox();
+            this.LabelResponseContent = new System.Windows.Forms.Label();
+            this.LabelResponse = new System.Windows.Forms.Label();
+            this.ButtonCheckVat = new System.Windows.Forms.Button();
             this.ButtonClose = new System.Windows.Forms.Button();
             this.StatusStrip = new System.Windows.Forms.StatusStrip();
             this.ToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ButtonMarVariables = new System.Windows.Forms.Button();
             this.TabControlVariousActions.SuspendLayout();
             this.TabMonitor.SuspendLayout();
             this.TabActions.SuspendLayout();
@@ -80,6 +86,7 @@
             this.TabResponse.SuspendLayout();
             this.TabSendDocument.SuspendLayout();
             this.TabReceiveDocument.SuspendLayout();
+            this.TabCheckVatEU.SuspendLayout();
             this.StatusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,11 +98,12 @@
             this.TabControlVariousActions.Controls.Add(this.TabResponse);
             this.TabControlVariousActions.Controls.Add(this.TabSendDocument);
             this.TabControlVariousActions.Controls.Add(this.TabReceiveDocument);
+            this.TabControlVariousActions.Controls.Add(this.TabCheckVatEU);
             this.TabControlVariousActions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabControlVariousActions.Location = new System.Drawing.Point(0, 0);
             this.TabControlVariousActions.Name = "TabControlVariousActions";
             this.TabControlVariousActions.SelectedIndex = 0;
-            this.TabControlVariousActions.Size = new System.Drawing.Size(584, 385);
+            this.TabControlVariousActions.Size = new System.Drawing.Size(646, 414);
             this.TabControlVariousActions.TabIndex = 0;
             // 
             // TabMonitor
@@ -112,7 +120,7 @@
             this.TabMonitor.Controls.Add(this.ListBoxMonitorPeppolOut);
             this.TabMonitor.Location = new System.Drawing.Point(4, 22);
             this.TabMonitor.Name = "TabMonitor";
-            this.TabMonitor.Size = new System.Drawing.Size(576, 359);
+            this.TabMonitor.Size = new System.Drawing.Size(638, 388);
             this.TabMonitor.TabIndex = 5;
             this.TabMonitor.Text = "Monitor";
             this.TabMonitor.UseVisualStyleBackColor = true;
@@ -157,7 +165,7 @@
             // 
             // ButtonCheckConnectivity
             // 
-            this.ButtonCheckConnectivity.Location = new System.Drawing.Point(466, 13);
+            this.ButtonCheckConnectivity.Location = new System.Drawing.Point(528, 13);
             this.ButtonCheckConnectivity.Name = "ButtonCheckConnectivity";
             this.ButtonCheckConnectivity.Size = new System.Drawing.Size(102, 23);
             this.ButtonCheckConnectivity.TabIndex = 17;
@@ -168,7 +176,7 @@
             // ButtonTimer
             // 
             this.ButtonTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonTimer.Location = new System.Drawing.Point(466, 143);
+            this.ButtonTimer.Location = new System.Drawing.Point(528, 143);
             this.ButtonTimer.Name = "ButtonTimer";
             this.ButtonTimer.Size = new System.Drawing.Size(102, 57);
             this.ButtonTimer.TabIndex = 11;
@@ -199,7 +207,7 @@
             this.ListBoxMonitorForPeppolIn.FormattingEnabled = true;
             this.ListBoxMonitorForPeppolIn.Location = new System.Drawing.Point(9, 243);
             this.ListBoxMonitorForPeppolIn.Name = "ListBoxMonitorForPeppolIn";
-            this.ListBoxMonitorForPeppolIn.Size = new System.Drawing.Size(560, 95);
+            this.ListBoxMonitorForPeppolIn.Size = new System.Drawing.Size(621, 95);
             this.ListBoxMonitorForPeppolIn.TabIndex = 8;
             // 
             // ListBoxMonitorPeppolOut
@@ -207,11 +215,12 @@
             this.ListBoxMonitorPeppolOut.FormattingEnabled = true;
             this.ListBoxMonitorPeppolOut.Location = new System.Drawing.Point(9, 42);
             this.ListBoxMonitorPeppolOut.Name = "ListBoxMonitorPeppolOut";
-            this.ListBoxMonitorPeppolOut.Size = new System.Drawing.Size(560, 95);
+            this.ListBoxMonitorPeppolOut.Size = new System.Drawing.Size(621, 95);
             this.ListBoxMonitorPeppolOut.TabIndex = 7;
             // 
             // TabActions
             // 
+            this.TabActions.Controls.Add(this.ButtonMarVariables);
             this.TabActions.Controls.Add(this.ButtonShowSharedGlobals);
             this.TabActions.Controls.Add(this.ButtonGetPeppolRegistrations);
             this.TabActions.Controls.Add(this.TextBoxCountryCode);
@@ -227,14 +236,14 @@
             this.TabActions.Location = new System.Drawing.Point(4, 22);
             this.TabActions.Name = "TabActions";
             this.TabActions.Padding = new System.Windows.Forms.Padding(3);
-            this.TabActions.Size = new System.Drawing.Size(576, 359);
+            this.TabActions.Size = new System.Drawing.Size(638, 388);
             this.TabActions.TabIndex = 0;
             this.TabActions.Text = "Opzoekingen";
             this.TabActions.UseVisualStyleBackColor = true;
             // 
             // ButtonShowSharedGlobals
             // 
-            this.ButtonShowSharedGlobals.Location = new System.Drawing.Point(320, 19);
+            this.ButtonShowSharedGlobals.Location = new System.Drawing.Point(519, 54);
             this.ButtonShowSharedGlobals.Name = "ButtonShowSharedGlobals";
             this.ButtonShowSharedGlobals.Size = new System.Drawing.Size(111, 41);
             this.ButtonShowSharedGlobals.TabIndex = 28;
@@ -344,7 +353,7 @@
             this.TabNotifications.Location = new System.Drawing.Point(4, 22);
             this.TabNotifications.Name = "TabNotifications";
             this.TabNotifications.Padding = new System.Windows.Forms.Padding(3);
-            this.TabNotifications.Size = new System.Drawing.Size(576, 359);
+            this.TabNotifications.Size = new System.Drawing.Size(638, 388);
             this.TabNotifications.TabIndex = 1;
             this.TabNotifications.Text = "Meldingen";
             this.TabNotifications.UseVisualStyleBackColor = true;
@@ -404,7 +413,7 @@
             this.TabResponse.Controls.Add(this.RichTextBoxResponses);
             this.TabResponse.Location = new System.Drawing.Point(4, 22);
             this.TabResponse.Name = "TabResponse";
-            this.TabResponse.Size = new System.Drawing.Size(576, 359);
+            this.TabResponse.Size = new System.Drawing.Size(638, 388);
             this.TabResponse.TabIndex = 4;
             this.TabResponse.Text = "Reacties/Antwoorden";
             this.TabResponse.UseVisualStyleBackColor = true;
@@ -414,7 +423,7 @@
             this.RichTextBoxResponses.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RichTextBoxResponses.Location = new System.Drawing.Point(0, 0);
             this.RichTextBoxResponses.Name = "RichTextBoxResponses";
-            this.RichTextBoxResponses.Size = new System.Drawing.Size(576, 359);
+            this.RichTextBoxResponses.Size = new System.Drawing.Size(638, 388);
             this.RichTextBoxResponses.TabIndex = 1;
             this.RichTextBoxResponses.Text = "";
             // 
@@ -427,7 +436,7 @@
             this.TabSendDocument.Controls.Add(this.ButtonCheckFile);
             this.TabSendDocument.Location = new System.Drawing.Point(4, 22);
             this.TabSendDocument.Name = "TabSendDocument";
-            this.TabSendDocument.Size = new System.Drawing.Size(576, 359);
+            this.TabSendDocument.Size = new System.Drawing.Size(638, 388);
             this.TabSendDocument.TabIndex = 2;
             this.TabSendDocument.Text = "Document Verzenden";
             this.TabSendDocument.UseVisualStyleBackColor = true;
@@ -479,7 +488,7 @@
             this.TabReceiveDocument.Controls.Add(this.LabelTransmissionId);
             this.TabReceiveDocument.Location = new System.Drawing.Point(4, 22);
             this.TabReceiveDocument.Name = "TabReceiveDocument";
-            this.TabReceiveDocument.Size = new System.Drawing.Size(576, 359);
+            this.TabReceiveDocument.Size = new System.Drawing.Size(638, 388);
             this.TabReceiveDocument.TabIndex = 3;
             this.TabReceiveDocument.Text = "Document ontvangen";
             this.TabReceiveDocument.UseVisualStyleBackColor = true;
@@ -511,6 +520,53 @@
             this.LabelTransmissionId.TabIndex = 3;
             this.LabelTransmissionId.Text = "Transmissie Id";
             // 
+            // TabCheckVatEU
+            // 
+            this.TabCheckVatEU.Controls.Add(this.TextBoxVatNumber);
+            this.TabCheckVatEU.Controls.Add(this.LabelResponseContent);
+            this.TabCheckVatEU.Controls.Add(this.LabelResponse);
+            this.TabCheckVatEU.Controls.Add(this.ButtonCheckVat);
+            this.TabCheckVatEU.Location = new System.Drawing.Point(4, 22);
+            this.TabCheckVatEU.Name = "TabCheckVatEU";
+            this.TabCheckVatEU.Size = new System.Drawing.Size(638, 388);
+            this.TabCheckVatEU.TabIndex = 6;
+            this.TabCheckVatEU.Text = "EU Btw Nummer";
+            this.TabCheckVatEU.UseVisualStyleBackColor = true;
+            // 
+            // TextBoxVatNumber
+            // 
+            this.TextBoxVatNumber.Location = new System.Drawing.Point(123, 5);
+            this.TextBoxVatNumber.Name = "TextBoxVatNumber";
+            this.TextBoxVatNumber.Size = new System.Drawing.Size(148, 20);
+            this.TextBoxVatNumber.TabIndex = 11;
+            this.TextBoxVatNumber.Text = "BE0440058217";
+            // 
+            // LabelResponseContent
+            // 
+            this.LabelResponseContent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LabelResponseContent.Location = new System.Drawing.Point(277, 30);
+            this.LabelResponseContent.Name = "LabelResponseContent";
+            this.LabelResponseContent.Size = new System.Drawing.Size(353, 327);
+            this.LabelResponseContent.TabIndex = 10;
+            // 
+            // LabelResponse
+            // 
+            this.LabelResponse.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LabelResponse.Location = new System.Drawing.Point(8, 30);
+            this.LabelResponse.Name = "LabelResponse";
+            this.LabelResponse.Size = new System.Drawing.Size(263, 327);
+            this.LabelResponse.TabIndex = 9;
+            // 
+            // ButtonCheckVat
+            // 
+            this.ButtonCheckVat.Location = new System.Drawing.Point(277, 3);
+            this.ButtonCheckVat.Name = "ButtonCheckVat";
+            this.ButtonCheckVat.Size = new System.Drawing.Size(155, 23);
+            this.ButtonCheckVat.TabIndex = 8;
+            this.ButtonCheckVat.Text = "BTW Nummer Opzoeken";
+            this.ButtonCheckVat.UseVisualStyleBackColor = true;
+            this.ButtonCheckVat.Click += new System.EventHandler(this.ButtonCheckVat_Click);
+            // 
             // ButtonClose
             // 
             this.ButtonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -526,9 +582,9 @@
             // 
             this.StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripStatusLabel});
-            this.StatusStrip.Location = new System.Drawing.Point(0, 363);
+            this.StatusStrip.Location = new System.Drawing.Point(0, 392);
             this.StatusStrip.Name = "StatusStrip";
-            this.StatusStrip.Size = new System.Drawing.Size(584, 22);
+            this.StatusStrip.Size = new System.Drawing.Size(646, 22);
             this.StatusStrip.TabIndex = 10;
             this.StatusStrip.Text = "statusStrip1";
             // 
@@ -538,16 +594,28 @@
             this.ToolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.ToolStripStatusLabel.Text = "Ready";
             // 
+            // ButtonMarVariables
+            // 
+            this.ButtonMarVariables.Location = new System.Drawing.Point(519, 6);
+            this.ButtonMarVariables.Name = "ButtonMarVariables";
+            this.ButtonMarVariables.Size = new System.Drawing.Size(111, 41);
+            this.ButtonMarVariables.TabIndex = 29;
+            this.ButtonMarVariables.Text = "MarIntegraal Variabelen Tonen";
+            this.ButtonMarVariables.UseVisualStyleBackColor = true;
+            this.ButtonMarVariables.Click += new System.EventHandler(this.ButtonMarVariables_Click);
+            // 
             // FormPeppolClientActions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.ButtonClose;
-            this.ClientSize = new System.Drawing.Size(584, 385);
+            this.ClientSize = new System.Drawing.Size(646, 414);
             this.Controls.Add(this.StatusStrip);
             this.Controls.Add(this.TabControlVariousActions);
             this.Controls.Add(this.ButtonClose);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormPeppolClientActions";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormPeppolClientActions";
@@ -564,6 +632,8 @@
             this.TabSendDocument.PerformLayout();
             this.TabReceiveDocument.ResumeLayout(false);
             this.TabReceiveDocument.PerformLayout();
+            this.TabCheckVatEU.ResumeLayout(false);
+            this.TabCheckVatEU.PerformLayout();
             this.StatusStrip.ResumeLayout(false);
             this.StatusStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -618,5 +688,11 @@
         private System.Windows.Forms.Label LabelListPeppolOut;
         private System.Windows.Forms.Label LabelTotalOutToRemoveFromNotifications;
         private System.Windows.Forms.Label LabelTotalnMapOut;
+        private System.Windows.Forms.TabPage TabCheckVatEU;
+        private System.Windows.Forms.TextBox TextBoxVatNumber;
+        private System.Windows.Forms.Label LabelResponseContent;
+        private System.Windows.Forms.Label LabelResponse;
+        private System.Windows.Forms.Button ButtonCheckVat;
+        private System.Windows.Forms.Button ButtonMarVariables;
     }
 }

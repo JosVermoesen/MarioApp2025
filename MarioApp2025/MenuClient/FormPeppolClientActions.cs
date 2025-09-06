@@ -20,7 +20,8 @@ namespace MarioApp2025.MarioMenu.Actions
     {
         private readonly Timer _timer;
 
-        private readonly HttpClient httpCheck;
+        // Change the declaration of the `httpCheck` field to remove the `readonly` modifier
+        private HttpClient httpCheck;
 
         public string activeSellerDocument = "";
 
@@ -35,6 +36,7 @@ namespace MarioApp2025.MarioMenu.Actions
         public int totalReceivedInMap = 0;
         public int totalReceivedToRemoveFromNotifications = 0;
 
+        // Update the constructor to initialize the `httpCheck` field
         public FormPeppolClientActions()
         {
             InitializeComponent();
@@ -46,7 +48,7 @@ namespace MarioApp2025.MarioMenu.Actions
             _timer.Stop();
 
             Text = "Peppol Verrichtingen [ " + SharedGlobals.CompanyName + "]";
-            httpCheck = new HttpClient();
+            httpCheck = new HttpClient(); // Initialize here
             FormDataGridJsonPopUp = new FormDataGridJsonPopUp { };
             RadioButtonGetReceived.Checked = true;
             TextBoxLegalEntityId.Text = ""; // Default to empty to enable country/scheme/identifier fields
@@ -116,13 +118,24 @@ namespace MarioApp2025.MarioMenu.Actions
                 $"Contactpersoon: {SharedGlobals.CompanyContactPerson}\n" +
                 $"Email Adres Contactpersoon: {SharedGlobals.CompanyContactEmailAddress}\n\n" +
                 $"Peppol Documenten in map OUT: {SharedGlobals.PeppolOutFiles}\n\n" +
-            $"Mapnummer Actief Bedrijf: {SharedGlobals.ActiveCompany}\n" +
+                $"Mapnummer Actief Bedrijf: {SharedGlobals.ActiveCompany}\n" +
                 $"Inhoudsopgave Mar Mdv Bestand: {SharedGlobals.MarntMdvLocation}\n" +
                 $"Inhoudsopgave Mar Data: {SharedGlobals.MimDataLocation}\n",
                 "Variabele gegevens van actief bedrijf",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
+        }
 
+        private void ButtonMarVariables_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+                $"Inhoudsopgave Mar Data: {SharedGlobals.MimDataLocation}\n" +
+                $"Inhoudsopgave Marnt Cloud: {SharedGlobals.MarntCloudLocation}\n" +
+                $"Inhoudsopgave Archief Cloud: {SharedGlobals.MarntCLoudArchiveLocation}\n" +
+                $"Inhoudsopgave Mario Cloud: {SharedGlobals.MarntCloudMarioLocation}\n",
+                "Variabele gegevens van MarIntegraal op dit toestel",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
 
         async private void ButtonGetPeppolRegistrations_Click(object sender, EventArgs e)
@@ -903,6 +916,24 @@ namespace MarioApp2025.MarioMenu.Actions
             }
             return documentId;
         }
+
+        async private void ButtonCheckVat_Click(object sender, EventArgs e)
+        {
+            string vatNumber = TextBoxVatNumber.Text;
+            string countryCode = vatNumber.Substring(0, 2);
+            string vat = vatNumber.Substring(2);
+            LabelResponse.Text = "Bezig...";
+            LabelResponseContent.Text = "Bezig...";
+
+            string url = "https://ec.europa.eu/taxation_customs/vies/rest-api/ms/" + countryCode + "/vat/" + vat;
+
+            httpCheck = new HttpClient();
+
+            HttpResponseMessage response = await httpCheck.GetAsync(url);
+            string responseContent = await response.Content.ReadAsStringAsync();
+            LabelResponse.Text = response.ToString();
+            LabelResponseContent.Text = responseContent;
+        }        
     }
 }
 

@@ -46,12 +46,6 @@
             this.rbHosted = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabQR = new System.Windows.Forms.TabControl();
-            this.TabPagePeppol = new System.Windows.Forms.TabPage();
-            this.tabPageCheckVat = new System.Windows.Forms.TabPage();
-            this.TextBoxVatNumber = new System.Windows.Forms.TextBox();
-            this.LabelResponseContent = new System.Windows.Forms.Label();
-            this.LabelResponse = new System.Windows.Forms.Label();
-            this.ButtonCheckVat = new System.Windows.Forms.Button();
             this.tabPageQRCodeGenerator = new System.Windows.Forms.TabPage();
             this.btnDemoContent = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -79,7 +73,6 @@
             this.ButtonClose = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabQR.SuspendLayout();
-            this.tabPageCheckVat.SuspendLayout();
             this.tabPageQRCodeGenerator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).BeginInit();
             this.tabPageBarCodeReader.SuspendLayout();
@@ -264,73 +257,15 @@
             // 
             // tabQR
             // 
-            this.tabQR.Controls.Add(this.TabPagePeppol);
-            this.tabQR.Controls.Add(this.tabPageCheckVat);
+            this.tabQR.Controls.Add(this.tabPageMario);
             this.tabQR.Controls.Add(this.tabPageQRCodeGenerator);
             this.tabQR.Controls.Add(this.tabPageBarCodeReader);
-            this.tabQR.Controls.Add(this.tabPageMario);
             this.tabQR.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabQR.Location = new System.Drawing.Point(0, 0);
             this.tabQR.Name = "tabQR";
             this.tabQR.SelectedIndex = 0;
-            this.tabQR.Size = new System.Drawing.Size(745, 427);
+            this.tabQR.Size = new System.Drawing.Size(656, 427);
             this.tabQR.TabIndex = 88;
-            // 
-            // TabPagePeppol
-            // 
-            this.TabPagePeppol.Location = new System.Drawing.Point(4, 22);
-            this.TabPagePeppol.Name = "TabPagePeppol";
-            this.TabPagePeppol.Size = new System.Drawing.Size(737, 401);
-            this.TabPagePeppol.TabIndex = 5;
-            this.TabPagePeppol.Text = "Peppol";
-            this.TabPagePeppol.UseVisualStyleBackColor = true;
-            // 
-            // tabPageCheckVat
-            // 
-            this.tabPageCheckVat.Controls.Add(this.TextBoxVatNumber);
-            this.tabPageCheckVat.Controls.Add(this.LabelResponseContent);
-            this.tabPageCheckVat.Controls.Add(this.LabelResponse);
-            this.tabPageCheckVat.Controls.Add(this.ButtonCheckVat);
-            this.tabPageCheckVat.Location = new System.Drawing.Point(4, 22);
-            this.tabPageCheckVat.Name = "tabPageCheckVat";
-            this.tabPageCheckVat.Size = new System.Drawing.Size(737, 401);
-            this.tabPageCheckVat.TabIndex = 4;
-            this.tabPageCheckVat.Text = "Check VAT";
-            this.tabPageCheckVat.UseVisualStyleBackColor = true;
-            // 
-            // TextBoxVatNumber
-            // 
-            this.TextBoxVatNumber.Location = new System.Drawing.Point(8, 5);
-            this.TextBoxVatNumber.Name = "TextBoxVatNumber";
-            this.TextBoxVatNumber.Size = new System.Drawing.Size(177, 20);
-            this.TextBoxVatNumber.TabIndex = 7;
-            this.TextBoxVatNumber.Text = "BE0440058217";
-            // 
-            // LabelResponseContent
-            // 
-            this.LabelResponseContent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LabelResponseContent.Location = new System.Drawing.Point(341, 29);
-            this.LabelResponseContent.Name = "LabelResponseContent";
-            this.LabelResponseContent.Size = new System.Drawing.Size(417, 368);
-            this.LabelResponseContent.TabIndex = 6;
-            // 
-            // LabelResponse
-            // 
-            this.LabelResponse.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LabelResponse.Location = new System.Drawing.Point(8, 29);
-            this.LabelResponse.Name = "LabelResponse";
-            this.LabelResponse.Size = new System.Drawing.Size(327, 368);
-            this.LabelResponse.TabIndex = 5;
-            // 
-            // ButtonCheckVat
-            // 
-            this.ButtonCheckVat.Location = new System.Drawing.Point(191, 3);
-            this.ButtonCheckVat.Name = "ButtonCheckVat";
-            this.ButtonCheckVat.Size = new System.Drawing.Size(75, 23);
-            this.ButtonCheckVat.TabIndex = 4;
-            this.ButtonCheckVat.Text = "Check VAT";
-            this.ButtonCheckVat.UseVisualStyleBackColor = true;
-            this.ButtonCheckVat.Click += new System.EventHandler(this.ButtonCheckVat_Click);
             // 
             // tabPageQRCodeGenerator
             // 
@@ -342,7 +277,7 @@
             this.tabPageQRCodeGenerator.Controls.Add(this.label5);
             this.tabPageQRCodeGenerator.Location = new System.Drawing.Point(4, 22);
             this.tabPageQRCodeGenerator.Name = "tabPageQRCodeGenerator";
-            this.tabPageQRCodeGenerator.Size = new System.Drawing.Size(737, 401);
+            this.tabPageQRCodeGenerator.Size = new System.Drawing.Size(648, 401);
             this.tabPageQRCodeGenerator.TabIndex = 2;
             this.tabPageQRCodeGenerator.Text = "QR Code Generator";
             this.tabPageQRCodeGenerator.UseVisualStyleBackColor = true;
@@ -416,7 +351,7 @@
             this.tabPageBarCodeReader.Controls.Add(this.btnStartScan);
             this.tabPageBarCodeReader.Location = new System.Drawing.Point(4, 22);
             this.tabPageBarCodeReader.Name = "tabPageBarCodeReader";
-            this.tabPageBarCodeReader.Size = new System.Drawing.Size(737, 401);
+            this.tabPageBarCodeReader.Size = new System.Drawing.Size(648, 401);
             this.tabPageBarCodeReader.TabIndex = 3;
             this.tabPageBarCodeReader.Text = "Barcode Reader";
             this.tabPageBarCodeReader.UseVisualStyleBackColor = true;
@@ -509,9 +444,9 @@
             this.tabPageMario.Location = new System.Drawing.Point(4, 22);
             this.tabPageMario.Name = "tabPageMario";
             this.tabPageMario.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMario.Size = new System.Drawing.Size(737, 401);
+            this.tabPageMario.Size = new System.Drawing.Size(648, 401);
             this.tabPageMario.TabIndex = 0;
-            this.tabPageMario.Text = "Mario";
+            this.tabPageMario.Text = "Mario SQL Server";
             this.tabPageMario.UseVisualStyleBackColor = true;
             // 
             // BtnResyncAll
@@ -587,7 +522,7 @@
             this.ToolStripStatusLabel});
             this.StatusStrip.Location = new System.Drawing.Point(0, 427);
             this.StatusStrip.Name = "StatusStrip";
-            this.StatusStrip.Size = new System.Drawing.Size(745, 22);
+            this.StatusStrip.Size = new System.Drawing.Size(656, 22);
             this.StatusStrip.TabIndex = 89;
             // 
             // ToolStripStatusLabel
@@ -612,7 +547,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.ButtonClose;
-            this.ClientSize = new System.Drawing.Size(745, 449);
+            this.ClientSize = new System.Drawing.Size(656, 449);
             this.Controls.Add(this.tabQR);
             this.Controls.Add(this.StatusStrip);
             this.Controls.Add(this.ButtonClose);
@@ -624,8 +559,6 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabQR.ResumeLayout(false);
-            this.tabPageCheckVat.ResumeLayout(false);
-            this.tabPageCheckVat.PerformLayout();
             this.tabPageQRCodeGenerator.ResumeLayout(false);
             this.tabPageQRCodeGenerator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).EndInit();
@@ -683,12 +616,6 @@
         private System.Windows.Forms.Button BtnResyncAll;
         private System.Windows.Forms.StatusStrip StatusStrip;
         private System.Windows.Forms.ToolStripStatusLabel ToolStripStatusLabel;
-        private System.Windows.Forms.TabPage tabPageCheckVat;
-        private System.Windows.Forms.TextBox TextBoxVatNumber;
-        private System.Windows.Forms.Label LabelResponseContent;
-        private System.Windows.Forms.Label LabelResponse;
-        private System.Windows.Forms.Button ButtonCheckVat;
-        private System.Windows.Forms.TabPage TabPagePeppol;
         private System.Windows.Forms.Button ButtonClose;
     }
 }
