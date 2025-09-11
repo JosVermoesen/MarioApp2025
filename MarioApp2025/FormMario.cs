@@ -1,14 +1,14 @@
-﻿using IDEALSoftware.VpeCommunity;
-using MarioApp2025.Classes.Ademico;
-using MarioApp2025.MarioMenu.Actions;
-using MarioApp2025.MarioMenu.Admin;
-using Microsoft.VisualBasic;
+﻿using Microsoft.VisualBasic;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using static QRCoder.QRCodeGenerator;
+
+using IDEALSoftware.VpeCommunity;
+using MarioApp2025.Classes.Ademico;
+using MarioApp2025.MarioMenu.Actions;
+using MarioApp2025.MarioMenu.Admin;
 
 namespace MarioApp2025
 {
@@ -16,7 +16,7 @@ namespace MarioApp2025
     {
         private readonly VpeControl AutoPageBreak;
         
-        public Form FormDataGridJsonPopUp { get; set; }
+        // public Form FormDataGridJsonPopUp { get; set; }
 
         public FormMario()
         {
@@ -58,9 +58,20 @@ namespace MarioApp2025
                 this.Width = Properties.Settings.Default.MainWidth;
                 this.Height = Properties.Settings.Default.MainHeight;
             }
-            SharedGlobals.UserGuid = Properties.Settings.Default.GuidToControl;
-            MarHelpers.SetApiMode(SharedGlobals.ApiModus);
+            SharedGlobals.UserGuid = Properties.Settings.Default.GuidToControl;   
+
+            bool apiModeTest = Properties.Settings.Default.peppolTestMode;
+
+            if (apiModeTest)
+                {
+                MarHelpers.SetApiMode("TESTMODE");
+            }
+            else
+            {
+                MarHelpers.SetApiMode("PRODUCTION");
+            }
         }
+
         private void FormMario_FormClosing(object sender, FormClosingEventArgs e)
         {
             Properties.Settings.Default.MainTop = this.Top;
@@ -93,23 +104,28 @@ namespace MarioApp2025
 
             // Load MimDataLocation from marIntegraal settings
             // Value must contains "\marnt\data"
-            string value = Interaction.GetSetting(
+            string valuePath = Interaction.GetSetting(
                 "marINTEGRAAL",       // AppName
                 "marIntegraal",     // Section
                 "Bedrijfsinhoudsopgave2025",
                 "" // Default if not found
                 ) ?? ""; // Ensure null-coalescing operator to handle possible null value.
 
-            bool containsPath = value.ToLower().Contains(@"\marnt\data".ToLower());
+
+            bool containsPath = valuePath.ToLower().Contains(@"\marnt\data".ToLower());
             if (!containsPath)
             {
                 MessageBox.Show("De locatie van de bedrijfsinhoudsopgave is niet correct ingesteld.\n\nDuidt in marIntegraal een correcte locatie aan a.u.b.", "Fout in locatie", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Close();
             }
-            SharedGlobals.SetMimDataLocation(value);
+            if (!Directory.Exists(valuePath))
+            {
+                MessageBox.Show($"marnt\\data niet gevonden:\n\n {valuePath}");
+            }
+            SharedGlobals.SetMimDataLocation(valuePath);
 
             // Load MarNT CloudLocation from settings
-            value = Interaction.GetSetting(
+            valuePath = Interaction.GetSetting(
                 "marINTEGRAAL",       // AppName
                 "dnnInstellingen",     // Section
                 "Cloud",
@@ -117,16 +133,20 @@ namespace MarioApp2025
                 ) ?? ""; // Ensure null-coalescing operator to handle possible null value.
 
             // A marNT Clouddrive Location must ends with  "\marnt"                        
-            containsPath = value.ToLower().EndsWith(@"\marnt".ToLower());
+            containsPath = valuePath.ToLower().EndsWith(@"\marnt".ToLower());
             if (!containsPath)
             {
                 MessageBox.Show("De locatie van de bedrijfsinhoudsopgave is niet correct ingesteld.\n\nDuidt in marIntegraal een correcte locatie aan a.u.b.", "Fout in locatie", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Close();
             }
-            SharedGlobals.MarntCloudLocation = value;
+            if (!Directory.Exists(valuePath))
+            {
+                MessageBox.Show($"inhoudsopgave cloud niet gevonden:\n\n {valuePath}");
+            }
+            SharedGlobals.MarntCloudLocation = valuePath;
 
             // Load MarNT Archive CloudLocation from settings
-            value = Interaction.GetSetting(
+            valuePath = Interaction.GetSetting(
                 "marINTEGRAAL",       // AppName
                 "dnnInstellingen",     // Section
                 "Archief",
@@ -134,16 +154,20 @@ namespace MarioApp2025
                 ) ?? ""; // Ensure null-coalescing operator to handle possible null value.
 
             // A Clouddrive marNT archive Location must end with "\marnt\archief"                        
-            containsPath = value.ToLower().EndsWith(@"\marnt\archief".ToLower());
+            containsPath = valuePath.ToLower().EndsWith(@"\marnt\archief".ToLower());
             if (!containsPath)
             {
                 MessageBox.Show("De locatie van de bedrijfsinhoudsopgave is niet correct ingesteld.\n\nDuidt in marIntegraal een correcte locatie aan a.u.b.", "Fout in locatie", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Close();
             }
-            SharedGlobals.MarntCLoudArchiveLocation = value;
+            if (!Directory.Exists(valuePath))
+            {
+                MessageBox.Show($"inhoudsopgave archief niet gevonden:\n\n {valuePath}");
+            }
+            SharedGlobals.MarntCLoudArchiveLocation = valuePath;
 
             // A Clouddrive MarNT Mario Location must end with "\marnt\mario"                        
-            value = Interaction.GetSetting(
+            valuePath = Interaction.GetSetting(
                 "marINTEGRAAL",       // AppName
                 "dnnInstellingen",     // Section
                 "Mario",
@@ -151,13 +175,17 @@ namespace MarioApp2025
                 ) ?? ""; // Ensure null-coalescing operator to handle possible null value.
 
             // A Clouddrive marNT Location must end with "\marnt"                        
-            containsPath = value.ToLower().EndsWith(@"\marnt\mario".ToLower());
+            containsPath = valuePath.ToLower().EndsWith(@"\marnt\mario".ToLower());
             if (!containsPath)
             {
                 MessageBox.Show("De locatie van de bedrijfsinhoudsopgave is niet correct ingesteld.\n\nDuidt in marIntegraal een correcte locatie aan a.u.b.", "Fout in locatie", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Close();
             }
-            SharedGlobals.MarntCloudMarioLocation = value;
+            if (!Directory.Exists(valuePath))
+            {
+                MessageBox.Show($"inhoudsopgave mario niet gevonden:\n\n {valuePath}");
+            }
+            SharedGlobals.MarntCloudMarioLocation = valuePath;
 
             // Trigger the user settings to set the company if needed
             MenuItemUserSettings_Click(string.Empty, EventArgs.Empty);
@@ -176,8 +204,10 @@ namespace MarioApp2025
                 return;
             }
 
+            
             var form = new FormPeppolClientActions();
             form.ShowDialog(this);
+            
         }
 
         private void MenuItemPeppolTesting_Click(object sender, EventArgs e)

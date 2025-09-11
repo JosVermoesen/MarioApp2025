@@ -1,23 +1,10 @@
-﻿// To resolve the CS0246 error, you need to add a reference to the "Microsoft Jet and Replication Objects 2.6 Library" (JRO) in your project.
-// This library is a COM component and is not included by default in .NET projects.
-// Follow these steps to fix the issue:
-
-// 1. Open your project in Visual Studio.
-// 2. Right-click on your project in the Solution Explorer and select "Add" -> "Reference".
-// 3. In the "Reference Manager" window, go to the "COM" tab.
-// 4. Search for "Microsoft Jet and Replication Objects 2.6 Library" in the list.
-// 5. Select it and click "OK" to add the reference to your project.
-// 6. Save and rebuild your project.
-
-// After adding the reference, the `using JRO;` directive will work without errors.
-using JRO; // Add this namespace to resolve the 'JRO' reference
+﻿using JRO; // Add this namespace to resolve the 'JRO' reference
 using MarioApp2025.Classes.Ademico;
 using System;
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
 using System.IO.Compression;
-
 
 namespace MarioApp2025
 {
@@ -43,6 +30,7 @@ namespace MarioApp2025
             }
 
         }
+
         public static void ResetCompanyGlobals()
         {
             SharedGlobals.ActiveCompany = "";
@@ -59,6 +47,7 @@ namespace MarioApp2025
             SharedGlobals.CompanyContactPerson = ""; // default values
             SharedGlobals.CompanyContactEmailAddress = ""; // default values
         }
+
         public static void SetCompanyGlobals(string selectedCompany)
         {
             SharedGlobals.ActiveCompany = selectedCompany;
@@ -255,6 +244,7 @@ namespace MarioApp2025
             }
         }
     }
+
     public class DatabaseHelper
     {
         public static string CompactAccessDatabase(string databasePath)

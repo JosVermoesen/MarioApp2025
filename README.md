@@ -23,12 +23,17 @@ namespace MarioApp.MarioClasses
 {
     internal class AdemicoSecrets
     {
-        internal static readonly string ademicoUrl = "https://example.com";
-        internal static readonly string accessToken = "your-access-token";
-        internal static readonly string username = "your-username";
-        internal static readonly string password = "your-password";
+        internal static readonly string testBaseUrl = "https://test.com/api/v1";
+        internal static readonly string testAccessToken = "test-access-token";
+        internal static readonly string testUsername = "test-username";
+        internal static readonly string testPassword = "test-password";
 
-        internal static readonly string guidToControl = "your-guid";
+        internal static readonly string prodBaseUrl = "https://production.com/api/v1";
+        internal static readonly string prodAccessToken = "production-access-token";
+        internal static readonly string prodUsername = "production-username";
+        internal static readonly string prodPassword = "production-password";
+
+        internal static readonly string guidToAccess = "a guid to validate the user";        
     }
 }
 ```

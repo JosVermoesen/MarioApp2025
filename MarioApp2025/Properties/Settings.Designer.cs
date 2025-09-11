@@ -166,5 +166,17 @@ namespace MarioApp2025.Properties {
                 this["GuidToControl"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool peppolTestMode {
+            get {
+                return ((bool)(this["peppolTestMode"]));
+            }
+            set {
+                this["peppolTestMode"] = value;
+            }
+        }
     }
 }

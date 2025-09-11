@@ -1,17 +1,18 @@
-﻿using System;
+﻿using ADODB;
+using MarioApp2025.Classes.Ademico;
+using MarioApp2025.MarioMenu.Admin;
+using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
-using ADODB;
-using Newtonsoft.Json;
-
-using MarioApp2025.Classes.Ademico;
-using MarioApp2025.MarioMenu.Admin;
+using Timer = System.Windows.Forms.Timer;
 
 
 namespace MarioApp2025.MarioMenu.Actions
@@ -84,19 +85,21 @@ namespace MarioApp2025.MarioMenu.Actions
             if (_timer.Enabled)
             {
                 _timer.Stop();
-                ButtonTimer.Text = "Start Vernieuwen";
+                ButtonTimer.Text = "Start Automatisch Vernieuwen";
                 ToolStripStatusLabel.Text = "Timer is gestopt.";
+                ButtonRefreshAll.Enabled = true;
                 return;
             }
             else
             {
-                ButtonTimer.Text = "Stop Vernieuwen";
+                ButtonTimer.Text = "Stop Automatisch Vernieuwen";
                 Timer timer = new Timer
                 {
-                    Interval = 600000 // 10 minutes in milliseconds
+                    Interval = 5 * 60 * 1000 // 5 minutes in milliseconds
                 };
                 timer.Tick += Timer_Tick;
                 ToolStripStatusLabel.Text = "Timer is gestart. Automatisch bijwerken om de 5 minuten.";
+                ButtonRefreshAll.Enabled = false;
                 _timer.Start();
             }
 
@@ -933,7 +936,39 @@ namespace MarioApp2025.MarioMenu.Actions
             string responseContent = await response.Content.ReadAsStringAsync();
             LabelResponse.Text = response.ToString();
             LabelResponseContent.Text = responseContent;
-        }        
+        }
+
+        async private void ButtonPublicSearch_Click(object sender, EventArgs e)
+        {
+            string toSearch;
+
+            if (RadioButtonGetReceived.Checked)
+            {
+                toSearch = TextBoxReceiver.Text.Trim();
+            }
+            else
+            {
+                toSearch = TextBoxSender.Text.Trim();
+            }
+
+            string result = await AdemicoClient.GetPublicPeppolRegistrationAsync(toSearch);            
+            if (result != null)
+            {
+                ToolStripStatusLabel.Text = "Notifications retrieved successfully.";
+                var deserializedString = JsonConvert.DeserializeObject(result);
+                RichTextBoxResponses.Text = JsonConvert.SerializeObject(deserializedString, Newtonsoft.Json.Formatting.Indented);
+                MessageBox.Show(
+                RichTextBoxResponses.Text,
+                "Public Peppol Registration Search Result",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+            else
+            {
+                ToolStripStatusLabel.Text = "Failed Public Peppol Registration Search";
+                RichTextBoxResponses.Text = "";
+            }
+        }
     }
 }
 

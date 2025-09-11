@@ -33,7 +33,7 @@
             this.LabelTotalOutToRemoveFromNotifications = new System.Windows.Forms.Label();
             this.LabelTotalnMapOut = new System.Windows.Forms.Label();
             this.LabelPeppelOutDone = new System.Windows.Forms.Label();
-            this.LabelListPeppolOut = new System.Windows.Forms.Label();
+            this.LabelMapPeppolOut = new System.Windows.Forms.Label();
             this.ButtonCheckConnectivity = new System.Windows.Forms.Button();
             this.ButtonTimer = new System.Windows.Forms.Button();
             this.LabelMonitorReceived = new System.Windows.Forms.Label();
@@ -41,6 +41,7 @@
             this.ListBoxMonitorForPeppolIn = new System.Windows.Forms.ListBox();
             this.ListBoxMonitorPeppolOut = new System.Windows.Forms.ListBox();
             this.TabActions = new System.Windows.Forms.TabPage();
+            this.ButtonMarVariables = new System.Windows.Forms.Button();
             this.ButtonShowSharedGlobals = new System.Windows.Forms.Button();
             this.ButtonGetPeppolRegistrations = new System.Windows.Forms.Button();
             this.TextBoxCountryCode = new System.Windows.Forms.TextBox();
@@ -54,6 +55,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.TabNotifications = new System.Windows.Forms.TabPage();
+            this.ButtonPublicSearch = new System.Windows.Forms.Button();
             this.TextBoxSender = new System.Windows.Forms.TextBox();
             this.TextBoxReceiver = new System.Windows.Forms.TextBox();
             this.RadioButtonGetSent = new System.Windows.Forms.RadioButton();
@@ -78,7 +80,11 @@
             this.ButtonClose = new System.Windows.Forms.Button();
             this.StatusStrip = new System.Windows.Forms.StatusStrip();
             this.ToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ButtonMarVariables = new System.Windows.Forms.Button();
+            this.ButtonRefreshAll = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.LabelTotalInMapIn = new System.Windows.Forms.Label();
+            this.LabelPeppolInToDo = new System.Windows.Forms.Label();
+            this.LabelMapPeppolIn = new System.Windows.Forms.Label();
             this.TabControlVariousActions.SuspendLayout();
             this.TabMonitor.SuspendLayout();
             this.TabActions.SuspendLayout();
@@ -108,10 +114,15 @@
             // 
             // TabMonitor
             // 
+            this.TabMonitor.Controls.Add(this.label6);
+            this.TabMonitor.Controls.Add(this.LabelTotalInMapIn);
+            this.TabMonitor.Controls.Add(this.LabelPeppolInToDo);
+            this.TabMonitor.Controls.Add(this.LabelMapPeppolIn);
+            this.TabMonitor.Controls.Add(this.ButtonRefreshAll);
             this.TabMonitor.Controls.Add(this.LabelTotalOutToRemoveFromNotifications);
             this.TabMonitor.Controls.Add(this.LabelTotalnMapOut);
             this.TabMonitor.Controls.Add(this.LabelPeppelOutDone);
-            this.TabMonitor.Controls.Add(this.LabelListPeppolOut);
+            this.TabMonitor.Controls.Add(this.LabelMapPeppolOut);
             this.TabMonitor.Controls.Add(this.ButtonCheckConnectivity);
             this.TabMonitor.Controls.Add(this.ButtonTimer);
             this.TabMonitor.Controls.Add(this.LabelMonitorReceived);
@@ -128,9 +139,9 @@
             // LabelTotalOutToRemoveFromNotifications
             // 
             this.LabelTotalOutToRemoveFromNotifications.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LabelTotalOutToRemoveFromNotifications.Location = new System.Drawing.Point(137, 174);
+            this.LabelTotalOutToRemoveFromNotifications.Location = new System.Drawing.Point(89, 174);
             this.LabelTotalOutToRemoveFromNotifications.Name = "LabelTotalOutToRemoveFromNotifications";
-            this.LabelTotalOutToRemoveFromNotifications.Size = new System.Drawing.Size(74, 13);
+            this.LabelTotalOutToRemoveFromNotifications.Size = new System.Drawing.Size(74, 23);
             this.LabelTotalOutToRemoveFromNotifications.TabIndex = 21;
             this.LabelTotalOutToRemoveFromNotifications.Text = "0";
             this.LabelTotalOutToRemoveFromNotifications.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -140,7 +151,7 @@
             this.LabelTotalnMapOut.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LabelTotalnMapOut.Location = new System.Drawing.Point(9, 174);
             this.LabelTotalnMapOut.Name = "LabelTotalnMapOut";
-            this.LabelTotalnMapOut.Size = new System.Drawing.Size(74, 13);
+            this.LabelTotalnMapOut.Size = new System.Drawing.Size(74, 23);
             this.LabelTotalnMapOut.TabIndex = 20;
             this.LabelTotalnMapOut.Text = "0";
             this.LabelTotalnMapOut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -148,20 +159,20 @@
             // LabelPeppelOutDone
             // 
             this.LabelPeppelOutDone.AutoSize = true;
-            this.LabelPeppelOutDone.Location = new System.Drawing.Point(99, 152);
+            this.LabelPeppelOutDone.Location = new System.Drawing.Point(86, 152);
             this.LabelPeppelOutDone.Name = "LabelPeppelOutDone";
-            this.LabelPeppelOutDone.Size = new System.Drawing.Size(112, 13);
+            this.LabelPeppelOutDone.Size = new System.Drawing.Size(83, 13);
             this.LabelPeppelOutDone.TabIndex = 19;
-            this.LabelPeppelOutDone.Text = "OUT reeds verzonden";
+            this.LabelPeppelOutDone.Text = "OUT verzonden";
             // 
-            // LabelListPeppolOut
+            // LabelMapPeppolOut
             // 
-            this.LabelListPeppolOut.AutoSize = true;
-            this.LabelListPeppolOut.Location = new System.Drawing.Point(9, 152);
-            this.LabelListPeppolOut.Name = "LabelListPeppolOut";
-            this.LabelListPeppolOut.Size = new System.Drawing.Size(74, 13);
-            this.LabelListPeppolOut.TabIndex = 18;
-            this.LabelListPeppolOut.Text = "Totaal in OUT";
+            this.LabelMapPeppolOut.AutoSize = true;
+            this.LabelMapPeppolOut.Location = new System.Drawing.Point(8, 152);
+            this.LabelMapPeppolOut.Name = "LabelMapPeppolOut";
+            this.LabelMapPeppolOut.Size = new System.Drawing.Size(74, 13);
+            this.LabelMapPeppolOut.TabIndex = 18;
+            this.LabelMapPeppolOut.Text = "Aantal in OUT";
             // 
             // ButtonCheckConnectivity
             // 
@@ -175,12 +186,12 @@
             // 
             // ButtonTimer
             // 
-            this.ButtonTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonTimer.Location = new System.Drawing.Point(528, 143);
+            this.ButtonTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ButtonTimer.Location = new System.Drawing.Point(528, 152);
             this.ButtonTimer.Name = "ButtonTimer";
-            this.ButtonTimer.Size = new System.Drawing.Size(102, 57);
+            this.ButtonTimer.Size = new System.Drawing.Size(102, 54);
             this.ButtonTimer.TabIndex = 11;
-            this.ButtonTimer.Text = "Start Vernieuwen";
+            this.ButtonTimer.Text = "Start Automatisch Vernieuwen";
             this.ButtonTimer.UseVisualStyleBackColor = true;
             this.ButtonTimer.Click += new System.EventHandler(this.ButtonTimer_Click);
             // 
@@ -240,6 +251,16 @@
             this.TabActions.TabIndex = 0;
             this.TabActions.Text = "Opzoekingen";
             this.TabActions.UseVisualStyleBackColor = true;
+            // 
+            // ButtonMarVariables
+            // 
+            this.ButtonMarVariables.Location = new System.Drawing.Point(519, 6);
+            this.ButtonMarVariables.Name = "ButtonMarVariables";
+            this.ButtonMarVariables.Size = new System.Drawing.Size(111, 41);
+            this.ButtonMarVariables.TabIndex = 29;
+            this.ButtonMarVariables.Text = "MarIntegraal Variabelen Tonen";
+            this.ButtonMarVariables.UseVisualStyleBackColor = true;
+            this.ButtonMarVariables.Click += new System.EventHandler(this.ButtonMarVariables_Click);
             // 
             // ButtonShowSharedGlobals
             // 
@@ -345,6 +366,7 @@
             // 
             // TabNotifications
             // 
+            this.TabNotifications.Controls.Add(this.ButtonPublicSearch);
             this.TabNotifications.Controls.Add(this.TextBoxSender);
             this.TabNotifications.Controls.Add(this.TextBoxReceiver);
             this.TabNotifications.Controls.Add(this.RadioButtonGetSent);
@@ -357,6 +379,16 @@
             this.TabNotifications.TabIndex = 1;
             this.TabNotifications.Text = "Meldingen";
             this.TabNotifications.UseVisualStyleBackColor = true;
+            // 
+            // ButtonPublicSearch
+            // 
+            this.ButtonPublicSearch.Location = new System.Drawing.Point(141, 100);
+            this.ButtonPublicSearch.Name = "ButtonPublicSearch";
+            this.ButtonPublicSearch.Size = new System.Drawing.Size(247, 23);
+            this.ButtonPublicSearch.TabIndex = 10;
+            this.ButtonPublicSearch.Text = "Publiek zoeken";
+            this.ButtonPublicSearch.UseVisualStyleBackColor = true;
+            this.ButtonPublicSearch.Click += new System.EventHandler(this.ButtonPublicSearch_Click);
             // 
             // TextBoxSender
             // 
@@ -594,15 +626,53 @@
             this.ToolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.ToolStripStatusLabel.Text = "Ready";
             // 
-            // ButtonMarVariables
+            // ButtonRefreshAll
             // 
-            this.ButtonMarVariables.Location = new System.Drawing.Point(519, 6);
-            this.ButtonMarVariables.Name = "ButtonMarVariables";
-            this.ButtonMarVariables.Size = new System.Drawing.Size(111, 41);
-            this.ButtonMarVariables.TabIndex = 29;
-            this.ButtonMarVariables.Text = "MarIntegraal Variabelen Tonen";
-            this.ButtonMarVariables.UseVisualStyleBackColor = true;
-            this.ButtonMarVariables.Click += new System.EventHandler(this.ButtonMarVariables_Click);
+            this.ButtonRefreshAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ButtonRefreshAll.Location = new System.Drawing.Point(188, 152);
+            this.ButtonRefreshAll.Name = "ButtonRefreshAll";
+            this.ButtonRefreshAll.Size = new System.Drawing.Size(78, 54);
+            this.ButtonRefreshAll.TabIndex = 22;
+            this.ButtonRefreshAll.Text = "Manueel Verversen";
+            this.ButtonRefreshAll.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label6.Location = new System.Drawing.Point(372, 174);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(74, 23);
+            this.label6.TabIndex = 26;
+            this.label6.Text = "0";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // LabelTotalInMapIn
+            // 
+            this.LabelTotalInMapIn.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.LabelTotalInMapIn.Location = new System.Drawing.Point(292, 174);
+            this.LabelTotalInMapIn.Name = "LabelTotalInMapIn";
+            this.LabelTotalInMapIn.Size = new System.Drawing.Size(74, 23);
+            this.LabelTotalInMapIn.TabIndex = 25;
+            this.LabelTotalInMapIn.Text = "0";
+            this.LabelTotalInMapIn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // LabelPeppolInToDo
+            // 
+            this.LabelPeppolInToDo.AutoSize = true;
+            this.LabelPeppolInToDo.Location = new System.Drawing.Point(369, 152);
+            this.LabelPeppolInToDo.Name = "LabelPeppolInToDo";
+            this.LabelPeppolInToDo.Size = new System.Drawing.Size(84, 13);
+            this.LabelPeppolInToDo.TabIndex = 24;
+            this.LabelPeppolInToDo.Text = "IN te ontvangen";
+            // 
+            // LabelMapPeppolIn
+            // 
+            this.LabelMapPeppolIn.AutoSize = true;
+            this.LabelMapPeppolIn.Location = new System.Drawing.Point(289, 152);
+            this.LabelMapPeppolIn.Name = "LabelMapPeppolIn";
+            this.LabelMapPeppolIn.Size = new System.Drawing.Size(51, 13);
+            this.LabelMapPeppolIn.TabIndex = 23;
+            this.LabelMapPeppolIn.Text = "Aantal IN";
             // 
             // FormPeppolClientActions
             // 
@@ -615,7 +685,6 @@
             this.Controls.Add(this.ButtonClose);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "FormPeppolClientActions";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormPeppolClientActions";
@@ -685,7 +754,7 @@
         private System.Windows.Forms.Button ButtonTimer;
         private System.Windows.Forms.Button ButtonCheckConnectivity;
         private System.Windows.Forms.Label LabelPeppelOutDone;
-        private System.Windows.Forms.Label LabelListPeppolOut;
+        private System.Windows.Forms.Label LabelMapPeppolOut;
         private System.Windows.Forms.Label LabelTotalOutToRemoveFromNotifications;
         private System.Windows.Forms.Label LabelTotalnMapOut;
         private System.Windows.Forms.TabPage TabCheckVatEU;
@@ -694,5 +763,11 @@
         private System.Windows.Forms.Label LabelResponse;
         private System.Windows.Forms.Button ButtonCheckVat;
         private System.Windows.Forms.Button ButtonMarVariables;
+        private System.Windows.Forms.Button ButtonPublicSearch;
+        private System.Windows.Forms.Button ButtonRefreshAll;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label LabelTotalInMapIn;
+        private System.Windows.Forms.Label LabelPeppolInToDo;
+        private System.Windows.Forms.Label LabelMapPeppolIn;
     }
 }

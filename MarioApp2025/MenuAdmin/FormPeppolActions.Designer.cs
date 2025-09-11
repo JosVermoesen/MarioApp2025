@@ -60,6 +60,7 @@
             this.TabResponse = new System.Windows.Forms.TabPage();
             this.RichTextBoxResult = new System.Windows.Forms.RichTextBox();
             this.TabEntities = new System.Windows.Forms.TabPage();
+            this.CheckBoxPublishDetails = new System.Windows.Forms.CheckBox();
             this.RadioButtonBothSchemes = new System.Windows.Forms.RadioButton();
             this.RadioButtonOnlyScheme0208 = new System.Windows.Forms.RadioButton();
             this.TextBoxPhone = new System.Windows.Forms.TextBox();
@@ -82,7 +83,6 @@
             this.ButtonEntityNew = new System.Windows.Forms.Button();
             this.StatusStrip = new System.Windows.Forms.StatusStrip();
             this.ToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.CheckBoxPublishDetails = new System.Windows.Forms.CheckBox();
             this.TabControlVariousActions.SuspendLayout();
             this.TabActions.SuspendLayout();
             this.TabNotifications.SuspendLayout();
@@ -136,7 +136,7 @@
             this.TabActions.Location = new System.Drawing.Point(4, 22);
             this.TabActions.Name = "TabActions";
             this.TabActions.Padding = new System.Windows.Forms.Padding(3);
-            this.TabActions.Size = new System.Drawing.Size(521, 316);
+            this.TabActions.Size = new System.Drawing.Size(632, 316);
             this.TabActions.TabIndex = 0;
             this.TabActions.Text = "Opzoekingen";
             this.TabActions.UseVisualStyleBackColor = true;
@@ -253,7 +253,7 @@
             this.TabNotifications.Location = new System.Drawing.Point(4, 22);
             this.TabNotifications.Name = "TabNotifications";
             this.TabNotifications.Padding = new System.Windows.Forms.Padding(3);
-            this.TabNotifications.Size = new System.Drawing.Size(521, 316);
+            this.TabNotifications.Size = new System.Drawing.Size(632, 316);
             this.TabNotifications.TabIndex = 1;
             this.TabNotifications.Text = "Meldingen";
             this.TabNotifications.UseVisualStyleBackColor = true;
@@ -313,7 +313,7 @@
             this.TabSendDocument.Controls.Add(this.ButtonCheckFile);
             this.TabSendDocument.Location = new System.Drawing.Point(4, 22);
             this.TabSendDocument.Name = "TabSendDocument";
-            this.TabSendDocument.Size = new System.Drawing.Size(521, 316);
+            this.TabSendDocument.Size = new System.Drawing.Size(632, 316);
             this.TabSendDocument.TabIndex = 2;
             this.TabSendDocument.Text = "Document Verzenden";
             this.TabSendDocument.UseVisualStyleBackColor = true;
@@ -359,7 +359,7 @@
             this.TabReceiveDocument.Controls.Add(this.LabelTransmissionId);
             this.TabReceiveDocument.Location = new System.Drawing.Point(4, 22);
             this.TabReceiveDocument.Name = "TabReceiveDocument";
-            this.TabReceiveDocument.Size = new System.Drawing.Size(521, 316);
+            this.TabReceiveDocument.Size = new System.Drawing.Size(632, 316);
             this.TabReceiveDocument.TabIndex = 3;
             this.TabReceiveDocument.Text = "Document Ontvangen";
             this.TabReceiveDocument.UseVisualStyleBackColor = true;
@@ -397,7 +397,7 @@
             this.TabResponse.Controls.Add(this.RichTextBoxResult);
             this.TabResponse.Location = new System.Drawing.Point(4, 22);
             this.TabResponse.Name = "TabResponse";
-            this.TabResponse.Size = new System.Drawing.Size(521, 316);
+            this.TabResponse.Size = new System.Drawing.Size(632, 316);
             this.TabResponse.TabIndex = 4;
             this.TabResponse.Text = "Antwoorden";
             this.TabResponse.UseVisualStyleBackColor = true;
@@ -439,6 +439,19 @@
             this.TabEntities.TabIndex = 5;
             this.TabEntities.Text = "Entiteiten";
             this.TabEntities.UseVisualStyleBackColor = true;
+            // 
+            // CheckBoxPublishDetails
+            // 
+            this.CheckBoxPublishDetails.AutoSize = true;
+            this.CheckBoxPublishDetails.Checked = true;
+            this.CheckBoxPublishDetails.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CheckBoxPublishDetails.Location = new System.Drawing.Point(180, 254);
+            this.CheckBoxPublishDetails.Name = "CheckBoxPublishDetails";
+            this.CheckBoxPublishDetails.Size = new System.Drawing.Size(131, 17);
+            this.CheckBoxPublishDetails.TabIndex = 21;
+            this.CheckBoxPublishDetails.Text = "Details Publiek maken";
+            this.CheckBoxPublishDetails.UseVisualStyleBackColor = true;
+            this.CheckBoxPublishDetails.CheckedChanged += new System.EventHandler(this.CheckBoxPublishDetails_CheckedChanged);
             // 
             // RadioButtonBothSchemes
             // 
@@ -628,17 +641,6 @@
             this.ToolStripStatusLabel.Name = "ToolStripStatusLabel";
             this.ToolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.ToolStripStatusLabel.Text = "Ready";
-            // 
-            // CheckBoxPublishDetails
-            // 
-            this.CheckBoxPublishDetails.AutoSize = true;
-            this.CheckBoxPublishDetails.Location = new System.Drawing.Point(180, 254);
-            this.CheckBoxPublishDetails.Name = "CheckBoxPublishDetails";
-            this.CheckBoxPublishDetails.Size = new System.Drawing.Size(131, 17);
-            this.CheckBoxPublishDetails.TabIndex = 21;
-            this.CheckBoxPublishDetails.Text = "Details Publiek maken";
-            this.CheckBoxPublishDetails.UseVisualStyleBackColor = true;
-            this.CheckBoxPublishDetails.CheckedChanged += new System.EventHandler(this.CheckBoxPublishDetails_CheckedChanged);
             // 
             // FormPeppolActions
             // 

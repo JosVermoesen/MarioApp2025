@@ -20,6 +20,27 @@ namespace MarioApp2025
         static readonly string username = SharedGlobals.AdemicoUsername;
         static readonly string password = SharedGlobals.AdemicoPassword;
 
+
+        public static async Task<string> GetPublicPeppolRegistrationAsync(
+            string query,            
+            CancellationToken cancellationToken = default)
+        {
+            var baseUrl = "https://directory.peppol.eu/search/1.0/json";
+            var requestUri = baseUrl + "?q=" + Uri.EscapeDataString("iso6523-actorid-upis:" + query);
+
+            using (var httpClient = new HttpClient())
+            using (var request = new HttpRequestMessage(HttpMethod.Get, requestUri))
+            {
+                // Set Accept header
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                                
+                using (var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false))
+                {
+                    response.EnsureSuccessStatusCode();
+                    return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+            }
+        }
         public static class PeppolInvoiceSender
         {
             public sealed class ApiResult

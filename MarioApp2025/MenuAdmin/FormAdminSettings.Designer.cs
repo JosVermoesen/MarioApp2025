@@ -38,9 +38,9 @@
             // ButtonClose
             // 
             this.ButtonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.ButtonClose.Location = new System.Drawing.Point(295, 239);
+            this.ButtonClose.Location = new System.Drawing.Point(270, 221);
             this.ButtonClose.Name = "ButtonClose";
-            this.ButtonClose.Size = new System.Drawing.Size(75, 23);
+            this.ButtonClose.Size = new System.Drawing.Size(100, 41);
             this.ButtonClose.TabIndex = 6;
             this.ButtonClose.Text = "Sluiten";
             this.ButtonClose.UseVisualStyleBackColor = true;
@@ -75,6 +75,7 @@
             this.RadioButtonTestMode.Text = "Test Modus";
             this.RadioButtonTestMode.UseVisualStyleBackColor = true;
             this.RadioButtonTestMode.CheckedChanged += new System.EventHandler(this.RadioButtonTestMode_CheckedChanged);
+            this.RadioButtonTestMode.Click += new System.EventHandler(this.RadioButtonTestMode_Click);
             // 
             // RadioButtonProductionMode
             // 
@@ -87,6 +88,7 @@
             this.RadioButtonProductionMode.Text = "Productie Modus";
             this.RadioButtonProductionMode.UseVisualStyleBackColor = true;
             this.RadioButtonProductionMode.CheckedChanged += new System.EventHandler(this.RadioButtonProductionMode_CheckedChanged);
+            this.RadioButtonProductionMode.Click += new System.EventHandler(this.RadioButtonProductionMode_Click);
             // 
             // FormAdminSettings
             // 

@@ -182,6 +182,7 @@
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.MenuStripFormMario;
             this.Name = "FormMario";
+            this.ShowInTaskbar = false;
             this.Text = "FormMario";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMario_FormClosing);
             this.Load += new System.EventHandler(this.FormMario_Load);

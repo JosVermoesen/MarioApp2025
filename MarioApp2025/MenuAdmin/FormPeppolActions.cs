@@ -367,24 +367,24 @@ namespace MarioApp2025.MarioMenu.Admin
                     },
                     PeppolRegistrations = new List<PeppolRegistration>
                 {
-                    //new PeppolRegistration
-                    //{
-                    //    PeppolIdentifier = new PeppolIdentifier
-                    //    {
-                    //        Scheme = "0208",
-                    //            Identifier = identifier0208 // "0421132626"
-                    //    },
-                    //    SupportedDocuments = new List<string>
-                    //    {
-                    //        "UBL_BE_INVOICE_3_0",
-                    //        "UBL_BE_CREDIT_NOTE_3_0",
-                    //        "PEPPOL_BIS_BILLING_UBL_INVOICE_V3",
-                    //        "PEPPOL_BIS_BILLING_UBL_CREDIT_NOTE_V3",
-                    //        "PEPPOL_MESSAGE_LEVEL_RESPONSE_TRANSACTION_3_0",
-                    //        "PEPPOL_INVOICE_RESPONSE_TRANSACTION_3_0"
-                    //    },
-                    //    PublishInSmp = true
-                    //},
+                    new PeppolRegistration
+                    {
+                        PeppolIdentifier = new PeppolIdentifier
+                        {
+                            Scheme = "0208",
+                                Identifier = identifier0208 // "0421132626"
+                        },
+                        SupportedDocuments = new List<string>
+                        {
+                            "UBL_BE_INVOICE_3_0",
+                            "UBL_BE_CREDIT_NOTE_3_0",
+                            "PEPPOL_BIS_BILLING_UBL_INVOICE_V3",
+                            "PEPPOL_BIS_BILLING_UBL_CREDIT_NOTE_V3",
+                            "PEPPOL_MESSAGE_LEVEL_RESPONSE_TRANSACTION_3_0",
+                            "PEPPOL_INVOICE_RESPONSE_TRANSACTION_3_0"
+                        },
+                        PublishInSmp = true
+                    },
                     new PeppolRegistration
                     {
                         PeppolIdentifier = new PeppolIdentifier
