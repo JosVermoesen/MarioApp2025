@@ -132,16 +132,10 @@ namespace MarioApp2025
                 "" // Default if not found
                 ) ?? ""; // Ensure null-coalescing operator to handle possible null value.
 
-            // A marNT Clouddrive Location must ends with  "\marnt"                        
-            containsPath = valuePath.ToLower().EndsWith(@"\marnt".ToLower());
-            if (!containsPath)
-            {
-                MessageBox.Show("De locatie van de bedrijfsinhoudsopgave is niet correct ingesteld.\n\nDuidt in marIntegraal een correcte locatie aan a.u.b.", "Fout in locatie", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                Close();
-            }
+            // A marNT Clouddrive Location must ends with  "\marnt"                                    
             if (!Directory.Exists(valuePath))
             {
-                MessageBox.Show($"inhoudsopgave cloud niet gevonden:\n\n {valuePath}");
+                MessageBox.Show($"inhoudsopgave voor cloud niet gevonden:\n\n {valuePath}");
             }
             SharedGlobals.MarntCloudLocation = valuePath;
 
@@ -153,13 +147,7 @@ namespace MarioApp2025
                 "" // Default if not found
                 ) ?? ""; // Ensure null-coalescing operator to handle possible null value.
 
-            // A Clouddrive marNT archive Location must end with "\marnt\archief"                        
-            containsPath = valuePath.ToLower().EndsWith(@"\marnt\archief".ToLower());
-            if (!containsPath)
-            {
-                MessageBox.Show("De locatie van de bedrijfsinhoudsopgave is niet correct ingesteld.\n\nDuidt in marIntegraal een correcte locatie aan a.u.b.", "Fout in locatie", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                Close();
-            }
+            // A Clouddrive marNT archive Location
             if (!Directory.Exists(valuePath))
             {
                 MessageBox.Show($"inhoudsopgave archief niet gevonden:\n\n {valuePath}");
@@ -175,15 +163,9 @@ namespace MarioApp2025
                 ) ?? ""; // Ensure null-coalescing operator to handle possible null value.
 
             // A Clouddrive marNT Location must end with "\marnt"                        
-            containsPath = valuePath.ToLower().EndsWith(@"\marnt\mario".ToLower());
-            if (!containsPath)
-            {
-                MessageBox.Show("De locatie van de bedrijfsinhoudsopgave is niet correct ingesteld.\n\nDuidt in marIntegraal een correcte locatie aan a.u.b.", "Fout in locatie", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                Close();
-            }
             if (!Directory.Exists(valuePath))
             {
-                MessageBox.Show($"inhoudsopgave mario niet gevonden:\n\n {valuePath}");
+                MessageBox.Show($"inhoudsopgave voor manueel niet gevonden:\n\n {valuePath}");
             }
             SharedGlobals.MarntCloudMarioLocation = valuePath;
 

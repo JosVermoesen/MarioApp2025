@@ -559,7 +559,6 @@
             // 
             this.TextBoxGeographicalInformation.Location = new System.Drawing.Point(180, 62);
             this.TextBoxGeographicalInformation.Name = "TextBoxGeographicalInformation";
-            this.TextBoxGeographicalInformation.ReadOnly = true;
             this.TextBoxGeographicalInformation.Size = new System.Drawing.Size(429, 20);
             this.TextBoxGeographicalInformation.TabIndex = 7;
             // 

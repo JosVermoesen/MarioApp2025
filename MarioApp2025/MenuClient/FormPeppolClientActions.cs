@@ -135,7 +135,7 @@ namespace MarioApp2025.MarioMenu.Actions
                 $"Inhoudsopgave Mar Data: {SharedGlobals.MimDataLocation}\n" +
                 $"Inhoudsopgave Marnt Cloud: {SharedGlobals.MarntCloudLocation}\n" +
                 $"Inhoudsopgave Archief Cloud: {SharedGlobals.MarntCLoudArchiveLocation}\n" +
-                $"Inhoudsopgave Mario Cloud: {SharedGlobals.MarntCloudMarioLocation}\n",
+                $"Inhoudsopgave Manueel Cloud: {SharedGlobals.MarntCloudMarioLocation}\n",
                 "Variabele gegevens van MarIntegraal op dit toestel",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
@@ -293,7 +293,7 @@ namespace MarioApp2025.MarioMenu.Actions
         {
             string folderInPath = SharedGlobals.MimDataLocation + "\\" + SharedGlobals.ActiveCompany + "\\peppol\\in";
             listboxIn.Items.Clear();
-            MessageBox.Show(folderInPath);
+            // MessageBox.Show(folderInPath);
 
             // Check the API notifications for received documents for this company and fill the listbox
 
@@ -336,7 +336,7 @@ namespace MarioApp2025.MarioMenu.Actions
             }
         }
 
-        private void ListBoxDocumentsToSend_SelectedIndexChanged(object sender, EventArgs e)
+        async private void ListBoxDocumentsToSend_SelectedIndexChanged(object sender, EventArgs e)
         {
             ButtonSendUblDocument.Enabled = false; // Disable the button when selecting a new file
             LabelFile.Text = "";
@@ -346,6 +346,8 @@ namespace MarioApp2025.MarioMenu.Actions
                 LabelFile.Text = ListBoxDocumentsPeppolOut.SelectedItem.ToString().ToUpper();
                 string checkResult = ReadUBLInvoice(LabelFile.Text, false, false);
                 string existingResult = GetSellersDocumentResultRS(checkResult.ToUpper());
+                string notificationResult = "";
+
                 if (existingResult == "")
                 {
                     ToolStripStatusLabel.Text = checkResult + " verkoopdocument nog te verzenden.";
@@ -354,12 +356,49 @@ namespace MarioApp2025.MarioMenu.Actions
                 }
                 else
                 {
-                    ToolStripStatusLabel.Text = checkResult + " verkoopdocument is reeds verzonden.";
+                    // Check V405 field in marnt.mdv table for this document
+                    // Check if the document result state in marnt.mdv table conforms that it was really sent
+                    // If already sent but stated as error, refresh the database if needed
+                    // With error, show the error message from the response body in the database
+                    
+                    notificationResult = await InvoiceNotificationState(checkResult); // Wait for the async task to complete
+
                     ButtonSendUblDocument.Enabled = false; // Disable the button if the file was already sent                    
                     RichTextBoxResponses.Text = existingResult;
                     Application.DoEvents();
-                    MessageBox.Show("Verzendbewijs aanwezig in boekhouding:\n\n" + existingResult, checkResult + " reeds verzonden");
+                    // MessageBox.Show("Verzendbewijs aanwezig in boekhouding:\n\n" + existingResult, checkResult + " reeds verzonden");
+                    ToolStripStatusLabel.Text = checkResult + " verkoopdocument is reeds verzonden.";
                 }
+            }
+        }
+                
+        async private Task<string> InvoiceNotificationState(string documentId)
+        {            
+            // Check later the notification state of the invoice with the given document ID
+            // This is a placeholder implementation; replace with actual logic as needed
+            // Possible states: PENDING, SENT, FAILED, etc.
+
+            var jsonResponse = await AdemicoClient.GetNotificationsAsync(
+                transmissionId: "", // "f8a591c77b2211f0b1ed0af13d778bd4"
+                documentId: documentId,
+                eventType: "", // "DOCUMENT_RECEIVED" or "DOCUMENT_SENT"
+                peppolDocumentType: "", // "INVOICE"
+                sender: "0208:" + SharedGlobals.CompanyKBONumber, // "9925:BE0440058217",
+                receiver: "", // "0208:0440058217",
+                startDateTime: "", // "2023-07-25T11:03:26.688Z"
+                endDateTime: "", // "2023-07-29T11:03:26.688Z"
+                page: "",
+                pageSize: ""
+            );
+
+            if (jsonResponse != null)
+            {
+                var deserializedString = JsonConvert.DeserializeObject(jsonResponse);
+                return JsonConvert.SerializeObject(deserializedString, Newtonsoft.Json.Formatting.Indented);
+            }
+            else
+            {
+                return "Failed to retrieve notification";
             }
         }
 
@@ -639,7 +678,7 @@ namespace MarioApp2025.MarioMenu.Actions
             }
 
         }
-
+        
         private void DoPopUpEntitiesData(string messageAsJson)
         {
             FormDataGridJsonPopUp formJsonTable = new FormDataGridJsonPopUp
@@ -951,7 +990,7 @@ namespace MarioApp2025.MarioMenu.Actions
                 toSearch = TextBoxSender.Text.Trim();
             }
 
-            string result = await AdemicoClient.GetPublicPeppolRegistrationAsync(toSearch);            
+            string result = await MarHelpers.GetPublicPeppolRegistrationAsync(toSearch, true);            
             if (result != null)
             {
                 ToolStripStatusLabel.Text = "Notifications retrieved successfully.";
@@ -967,6 +1006,82 @@ namespace MarioApp2025.MarioMenu.Actions
             {
                 ToolStripStatusLabel.Text = "Failed Public Peppol Registration Search";
                 RichTextBoxResponses.Text = "";
+            }
+        }
+
+        async public Task<int> RefreshSupportedDocumentsCustomersRS()
+        {
+            int numberUpdated = 0;
+            string sSQL =
+                "SELECT DISTINCT Klanten.A110, Klanten.A100, Klanten.v404, Klanten.v150, Klanten.v407, Klanten.dnnSync FROM Klanten, Dokumenten WHERE trim(Klanten.v150) = 'BE' AND len(trim(Klanten.v404)) = 10;";
+
+            string connectionString = SharedGlobals.DbJetProvider + SharedGlobals.MimDataLocation + SharedGlobals.MarntMdvLocation;
+            DocumentRS = new Recordset()
+            {
+                CursorLocation = CursorLocationEnum.adUseClient
+            };
+            DocumentRS.Open(sSQL, connectionString, CursorTypeEnum.adOpenDynamic, LockTypeEnum.adLockOptimistic);            
+            if (DocumentRS.RecordCount > 0)
+            {
+                try
+                {
+                    DocumentRS.MoveFirst();
+                    while (!DocumentRS.EOF)
+                    {
+                        string customerId = DocumentRS.Fields["A110"].Value.ToString().Trim();
+                        string customerName = DocumentRS.Fields["A100"].Value.ToString().Trim();
+                        string customerKbo = DocumentRS.Fields["v404"].Value.ToString().Trim();
+                        string customerCountry = DocumentRS.Fields["v150"].Value.ToString().Trim();
+
+                        if (customerKbo.Length == 10)                            
+                        {
+                            string result = await MarHelpers.GetPublicPeppolRegistrationAsync("0208:" + customerKbo, false);
+                            if (result != "")
+                            {
+                                if (result.ToString() != DocumentRS.Fields["V407"].Value.ToString())
+                                {
+                                    // Only update if the result is different to avoid unnecessary updates
+                                    DocumentRS.Fields["V407"].Value = result; // Set the field to the JSON result
+                                    DocumentRS.Fields["dnnSync"].Value = "False"; // Mark as to be synced 
+                                    numberUpdated++;
+                                    DocumentRS.Update();
+                                    ToolStripStatusLabel.Text = "Bezig... " + numberUpdated ;
+                                    Application.DoEvents();
+                                }
+                            }
+                        }
+                        DocumentRS.MoveNext();
+                    }
+                    DocumentRS?.Close();         
+                    return numberUpdated; // Return the number of updated records 
+                }
+                catch (Exception)
+                {                    
+                    return 0;
+                }
+            }
+            else
+            {                
+                return 0;
+            }
+        }
+
+        private async void ButtonUpdateBECustomersSupported_Click(object sender, EventArgs e)
+        {
+            ToolStripStatusLabel.Text = "Bezig...";
+            Application.UseWaitCursor = true;
+            Application.DoEvents();
+            int updated = await RefreshSupportedDocumentsCustomersRS(); // Await the Task<bool> to get the result
+            Application.UseWaitCursor = false;
+            if (updated > 0)
+            {
+                ToolStripStatusLabel.Text = updated + " Customers Supported Documents updated successfully.";
+                MessageBox.Show("Customers Supported Documents updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                ToolStripStatusLabel.Text = "Failed to update Customers Supported Documents.";
+                MessageBox.Show("Failed to update Customers Supported Documents.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

@@ -5,11 +5,55 @@ using System.Data;
 using System.Data.OleDb;
 using System.IO;
 using System.IO.Compression;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MarioApp2025
 {
     public class MarHelpers
     {
+        public static async Task<string> GetPublicPeppolRegistrationAsync(
+            string query, bool asJson,
+            CancellationToken cancellationToken = default)
+        {
+            var baseUrlJson = "https://directory.peppol.eu/search/1.0/json";
+            var requestUri = baseUrlJson + "?q=" + Uri.EscapeDataString("iso6523-actorid-upis:" + query);
+
+            var baseUrlXml = "https://directory.peppol.eu/search/1.0/xml";
+            var requestUriXml = baseUrlXml + "?q=" + Uri.EscapeDataString("iso6523-actorid-upis:" + query);
+
+            if (!asJson)
+            {
+                // Using XML version
+                using (var httpClient = new HttpClient())
+                using (var request = new HttpRequestMessage(HttpMethod.Get, requestUriXml))
+                {
+                    // Set Accept header
+                    request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
+                    using (var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false))
+                    {
+                        response.EnsureSuccessStatusCode();
+                        return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    }
+                }
+            }
+
+            // Using JSON version
+            using (var httpClient = new HttpClient())
+            using (var request = new HttpRequestMessage(HttpMethod.Get, requestUri))
+            {
+                // Set Accept header
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                using (var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false))
+                {
+                    response.EnsureSuccessStatusCode();
+                    return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+            }
+        }
         public static void SetApiMode(string apiMode)
         {
             if (apiMode == "TESTMODE")

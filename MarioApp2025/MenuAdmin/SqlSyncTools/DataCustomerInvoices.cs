@@ -289,6 +289,8 @@ namespace MarioApp2025
 
                             E069 = readerNew["e069"].ToString().Trim(' '),
                             RvDm = readerNew["rvDM"].ToString().Trim(' '),
+                            V405 = readerNew["v405"].ToString().Trim(' '),
+                            V406 = readerNew["v406"].ToString().Trim(' '),
                             // BstndNaam37 = readerNew["bstndNaam37"].ToString().Trim(' '),
                             // TypeZending37 = readerNew["typeZending37"].ToString().Trim(' '),
                             // If IsDBNull(adoRS.Fields("bstBLOB37").Value) Then
@@ -307,7 +309,7 @@ namespace MarioApp2025
                     try
                     {
                         // connection.Execute("dbo.spVsoftCustomers_InsertFull @Id, @A107, @A108, @A100", customers);                    
-                        connection.Execute("spVsoftCustomerInvoices_InsertFull @V033, @A110, @V035, @V066, @V036, @V037, @V038, @V249, @Decv249, @V039, @Vs03, @V040, @Decv040, @V041, @V245, @V246, @A000, @B010, @DecB010, @B014, @DecB014, @B090, @DecB090, @B094, @DecB094, @V065, @Decv065, @E069, @Dece069, @E071, @E072, @V055, @Decv055, @V056, @Decv056, @V057, @Decv057, @V058, @Decv058, @V059, @Decv059, @V060, @Decv060, @V061, @Decv061, @V062, @Decv062, @V063, @Decv063, @V064, @Decv064, @RvDm, @RvXmltb2, @VsoftCustomerId", customerInvoicesNew);
+                        connection.Execute("spVsoftCustomerInvoices_InsertFull @V033, @A110, @V035, @V066, @V036, @V037, @V038, @V249, @Decv249, @V039, @Vs03, @V040, @Decv040, @V041, @V245, @V246, @A000, @B010, @DecB010, @B014, @DecB014, @B090, @DecB090, @B094, @DecB094, @V065, @Decv065, @E069, @Dece069, @E071, @E072, @V055, @Decv055, @V056, @Decv056, @V057, @Decv057, @V058, @Decv058, @V059, @Decv059, @V060, @Decv060, @V061, @Decv061, @V062, @Decv062, @V063, @Decv063, @V064, @Decv064, @RvDm, @RvXmltb2, @V405, @V406, @VsoftCustomerId", customerInvoicesNew);
                     }
                     catch (Exception)
                     {
@@ -563,6 +565,8 @@ namespace MarioApp2025
 
                             E069 = readerUpdate["e069"].ToString().Trim(' '),
                             RvDm = readerUpdate["rvDM"].ToString().Trim(' '),
+                            V405 = readerUpdate["v405"].ToString().Trim(' '),
+                            V406 = readerUpdate["v406"].ToString().Trim(' '),
                             // BstndNaam37 = readerUpdate["bstndNaam37"].ToString().Trim(' '),
                             // TypeZending37 = readerUpdate["typeZending37"].ToString().Trim(' '),
                             // If IsDBNull(adoRS.Fields("bstBLOB37").Value) Then
@@ -580,7 +584,7 @@ namespace MarioApp2025
                     try
                     {
                         // connection.Execute("dbo.spVsoftCustomers_InsertFull @Id, @A107, @A108, @A100", customers);                    
-                        connection.Execute("spVsoftCustomerInvoices_UpdateFull @V033, @A110, @V035, @V066, @V036, @V037, @V038, @V249, @Decv249, @V039, @Vs03, @V040, @Decv040, @V041, @V245, @V246, @A000, @B010, @DecB010, @B014, @DecB014, @B090, @DecB090, @B094, @DecB094, @V065, @Decv065, @E069, @Dece069, @E071, @E072, @V055, @Decv055, @V056, @Decv056, @V057, @Decv057, @V058, @Decv058, @V059, @Decv059, @V060, @Decv060, @V061, @Decv061, @V062, @Decv062, @V063, @Decv063, @V064, @Decv064, @RvDm, @RvXmltb2, @VsoftCustomerId", customerInvoicesUpdate);
+                        connection.Execute("spVsoftCustomerInvoices_UpdateFull @V033, @A110, @V035, @V066, @V036, @V037, @V038, @V249, @Decv249, @V039, @Vs03, @V040, @Decv040, @V041, @V245, @V246, @A000, @B010, @DecB010, @B014, @DecB014, @B090, @DecB090, @B094, @DecB094, @V065, @Decv065, @E069, @Dece069, @E071, @E072, @V055, @Decv055, @V056, @Decv056, @V057, @Decv057, @V058, @Decv058, @V059, @Decv059, @V060, @Decv060, @V061, @Decv061, @V062, @Decv062, @V063, @Decv063, @V064, @Decv064, @RvDm, @RvXmltb2, @V405, @V406, @VsoftCustomerId", customerInvoicesUpdate);
                     }
                     catch (Exception)
                     {

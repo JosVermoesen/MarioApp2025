@@ -133,6 +133,7 @@ namespace MarioApp2025
                             Uxxx = readerNew["uxxx"].ToString().Trim(' '),
                             V262 = readerNew["v262"].ToString().Trim(' '),
                             V263 = readerNew["v263"].ToString().Trim(' '),
+                            V407 = readerNew["v407"].ToString().Trim(' '),
                             // RvID = (int?)readerNew["RvID"]
                         });
                     }
@@ -140,7 +141,7 @@ namespace MarioApp2025
                     try
                     {
                         // connection.Execute("dbo.spVsoftCustomers_InsertFull @Id, @A107, @A108, @A100", customers);                    
-                        connection.Execute("spVsoftCustomers_InsertFull @A110, @E072, @G101, @G102, @G103, @G104, @G105, @G106, @A10c, @A104, @A105, @A106, @A107, @A108, @V149, @A109, @V150, @Vs03, @V161, @A161, @V404, @V151, @V111, @V254, @V255, @V256, @A170, @Vs04, @Vs05, @Vs06, @Vs07, @V225, @V227, @V247, @A10a, @Vs02, @V224, @A123, @A124, @A121, @A122, @V259, @V260, @E070, @E071, @V252, @A191, @A192, @A193, @A194, @A197, @_510z, @A130, @V301, @A102, @A100, @A101, @V226, @V243, @V302, @Vs01, @A125, @A127, @V002, @V257, @V258, @V244, @V251, @A120, @V201, @V202, @V203, @V204, @V205, @V206, @V207, @V208, @V209, @V210, @V211, @V245, @V246, @V253, @Uxxx, @V262, @V263", customersNew);
+                        connection.Execute("spVsoftCustomers_InsertFull @A110, @E072, @G101, @G102, @G103, @G104, @G105, @G106, @A10c, @A104, @A105, @A106, @A107, @A108, @V149, @A109, @V150, @Vs03, @V161, @A161, @V404, @V151, @V111, @V254, @V255, @V256, @A170, @Vs04, @Vs05, @Vs06, @Vs07, @V225, @V227, @V247, @A10a, @Vs02, @V224, @A123, @A124, @A121, @A122, @V259, @V260, @E070, @E071, @V252, @A191, @A192, @A193, @A194, @A197, @_510z, @A130, @V301, @A102, @A100, @A101, @V226, @V243, @V302, @Vs01, @A125, @A127, @V002, @V257, @V258, @V244, @V251, @A120, @V201, @V202, @V203, @V204, @V205, @V206, @V207, @V208, @V209, @V210, @V211, @V245, @V246, @V253, @Uxxx, @V262, @V263, @V407", customersNew);
                     }
                     catch (Exception)
                     {
@@ -258,6 +259,7 @@ namespace MarioApp2025
                             E071 = readerUpdate["e071"].ToString().Trim(' '),
                             V262 = readerUpdate["v262"].ToString().Trim(' '),
                             V263 = readerUpdate["v263"].ToString().Trim(' '),
+                            V407 = readerUpdate["v407"].ToString().Trim(' '),
                             // RvID = (int?)readerUpdate["RvID"]
                         });
                     }
@@ -265,7 +267,7 @@ namespace MarioApp2025
                     try
                     {
                         // connection.Execute("dbo.spVsoftCustomers_InsertFull @Id, @A107, @A108, @A100", customers);                    
-                        connection.Execute("spVsoftCustomers_UpdateFull @A110, @E072, @G101, @G102, @G103, @G104, @G105, @G106, @A10c, @A104, @A105, @A106, @A107, @A108, @V149, @A109, @V150, @Vs03, @V161, @A161, @V404, @V151, @V111, @V254, @V255, @V256, @A170, @Vs04, @Vs05, @Vs06, @Vs07, @V225, @V227, @V247, @A10a, @Vs02, @V224, @A123, @A124, @A121, @A122, @V259, @V260, @E070, @E071, @V252, @A191, @A192, @A193, @A194, @A197, @_510z, @A130, @V301, @A102, @A100, @A101, @V226, @V243, @V302, @Vs01, @A125, @A127, @V002, @V257, @V258, @V244, @V251, @A120, @V201, @V202, @V203, @V204, @V205, @V206, @V207, @V208, @V209, @V210, @V211, @V245, @V246, @V253, @Uxxx, @V262, @V263", customersUpdate);
+                        connection.Execute("spVsoftCustomers_UpdateFull @A110, @E072, @G101, @G102, @G103, @G104, @G105, @G106, @A10c, @A104, @A105, @A106, @A107, @A108, @V149, @A109, @V150, @Vs03, @V161, @A161, @V404, @V151, @V111, @V254, @V255, @V256, @A170, @Vs04, @Vs05, @Vs06, @Vs07, @V225, @V227, @V247, @A10a, @Vs02, @V224, @A123, @A124, @A121, @A122, @V259, @V260, @E070, @E071, @V252, @A191, @A192, @A193, @A194, @A197, @_510z, @A130, @V301, @A102, @A100, @A101, @V226, @V243, @V302, @Vs01, @A125, @A127, @V002, @V257, @V258, @V244, @V251, @A120, @V201, @V202, @V203, @V204, @V205, @V206, @V207, @V208, @V209, @V210, @V211, @V245, @V246, @V253, @Uxxx, @V262, @V263, @V407", customersUpdate);
                     }
                     catch (Exception)
                     {

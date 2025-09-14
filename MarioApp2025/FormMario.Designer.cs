@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMario));
             this.MenuStripFormMario = new System.Windows.Forms.MenuStrip();
             this.ActionsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemPeppolActions = new System.Windows.Forms.ToolStripMenuItem();
@@ -179,10 +180,10 @@
             this.ClientSize = new System.Drawing.Size(800, 391);
             this.Controls.Add(this.ToolStrip);
             this.Controls.Add(this.MenuStripFormMario);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.MenuStripFormMario;
             this.Name = "FormMario";
-            this.ShowInTaskbar = false;
             this.Text = "FormMario";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMario_FormClosing);
             this.Load += new System.EventHandler(this.FormMario_Load);

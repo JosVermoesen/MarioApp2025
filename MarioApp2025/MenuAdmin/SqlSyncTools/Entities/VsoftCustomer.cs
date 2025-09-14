@@ -103,7 +103,9 @@ namespace MarioApp2025
         public string V253 { get; set; }    // SQL sell instruction
         public string Uxxx { get; set; }    // ??
         public string V262 { get; set; }    // ?
-        public string V263 { get; set; }    // ?                
+        public string V263 { get; set; }    // ?                                            
+        public string V407 { get; set; }    // ?
+
         public virtual ICollection<VsoftContract> VsoftContracts { get; set; }
         public virtual ICollection<VsoftCustomerInvoice> VsoftCustomerInvoices { get; set; }
 

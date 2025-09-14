@@ -1,4 +1,6 @@
-﻿namespace MarioApp2025
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MarioApp2025
 {
     class VsoftCustomerInvoice
     {
@@ -62,6 +64,8 @@
         public decimal Decv064 { get; set; }
         public string RvDm { get; set; }
         public string RvXmltb2 { get; set; }
+        public string V405 { get; set; } // sent certificate        
+        public string V406 { get; set; } // sent invoice        
 
         public int VsoftCustomerId { get; internal set; } // A110 in mdv database
         public virtual VsoftCustomer VsoftCustomer { get; set; } // important for ON DELETE CASCADE when Customer is deleted                
