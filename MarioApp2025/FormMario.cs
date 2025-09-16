@@ -327,6 +327,13 @@ namespace MarioApp2025
                 return;
             }
 
+            string confirmMessage= "Weet u zeker dat u de map van bedrijf " + SharedGlobals.ActiveCompany + " wilt zippen naar Marnt Cloud?\n\n" +
+                "De map wordt gezipt naar:\n" + SharedGlobals.MarntCLoudArchiveLocation + "\n\n" +
+                "De naam van het zip-bestand is: " + SharedGlobals.ActiveCompany + "{Datum:Uur}.zip";
+            var confirmResult = MessageBox.Show(confirmMessage, "Bevestig zip naar Marnt Cloud", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmResult == DialogResult.No) return;
+
+
             Cursor.Current = Cursors.WaitCursor;
             ToolStripStatusLabel.Text = "Bezig...";
             Application.DoEvents();

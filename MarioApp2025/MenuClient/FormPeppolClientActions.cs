@@ -297,6 +297,7 @@ namespace MarioApp2025.MarioMenu.Actions
 
             // Check the API notifications for received documents for this company and fill the listbox
 
+
         }
 
         private void FillListPeppolToSend(ListBox listboxOut, bool isMonitorListBox)
@@ -437,6 +438,14 @@ namespace MarioApp2025.MarioMenu.Actions
 
         async private void ButtonSendUblDocument_Click(object sender, EventArgs e)
         {
+            string confirmMessage = $"Weet u zeker dat u het UBL document {Path.GetFileName(LabelFile.Text)} wilt verzenden?";
+            var confirmResult = MessageBox.Show(confirmMessage, "Bevestig Verzending", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmResult != DialogResult.Yes)
+            {
+                ToolStripStatusLabel.Text = "Verzending geannuleerd door gebruiker.";
+                return; // User chose not to proceed
+            }
+
             ToolStripStatusLabel.Text = "Bezig...";
             Application.DoEvents();
 
@@ -478,6 +487,21 @@ namespace MarioApp2025.MarioMenu.Actions
         // Receive UBL Document Tab
         async private void ButtonGetUBLDocument_Click(object sender, EventArgs e)
         {
+            if (TextBoxTransmissionId.Text.Length == 0)
+            {
+                MessageBox.Show("Gelieve een Transmission ID in te vullen.", "Fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ToolStripStatusLabel.Text = "Ready";
+                return;
+            }
+
+            string confirmMessage = $"Weet u zeker dat u het UBL document met Transmission ID {TextBoxTransmissionId.Text} wilt ophalen?";
+            var confirmResult = MessageBox.Show(confirmMessage, "Bevestig Ophalen", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmResult != DialogResult.Yes)
+            {
+                ToolStripStatusLabel.Text = "Ophalen geannuleerd door gebruiker.";
+                return; // User chose not to proceed
+            }
+
             ToolStripStatusLabel.Text = "Bezig...";
             Application.DoEvents();
 
@@ -1013,7 +1037,7 @@ namespace MarioApp2025.MarioMenu.Actions
         {
             int numberUpdated = 0;
             string sSQL =
-                "SELECT DISTINCT Klanten.A110, Klanten.A100, Klanten.v404, Klanten.v150, Klanten.v407, Klanten.dnnSync FROM Klanten, Dokumenten WHERE trim(Klanten.v150) = 'BE' AND len(trim(Klanten.v404)) = 10;";
+                "SELECT Klanten.A110, Klanten.A100, Klanten.v404, Klanten.v150, Klanten.v407, Klanten.dnnSync FROM Klanten WHERE trim(Klanten.v150) = 'BE' AND len(trim(Klanten.v404)) = 10;";
 
             string connectionString = SharedGlobals.DbJetProvider + SharedGlobals.MimDataLocation + SharedGlobals.MarntMdvLocation;
             DocumentRS = new Recordset()
@@ -1023,6 +1047,29 @@ namespace MarioApp2025.MarioMenu.Actions
             DocumentRS.Open(sSQL, connectionString, CursorTypeEnum.adOpenDynamic, LockTypeEnum.adLockOptimistic);            
             if (DocumentRS.RecordCount > 0)
             {
+                int recordCount = DocumentRS.RecordCount;
+                // Assuming you have a DataGridView named dataGridViewCustomers on your form
+                dataGridViewCustomers.Rows.Clear();
+                dataGridViewCustomers.Columns.Clear();
+                dataGridViewCustomers.Columns.Add("A110", "Id");
+                dataGridViewCustomers.Columns.Add("v404", "KBO");
+                dataGridViewCustomers.Columns.Add("A100", "Name");                
+                dataGridViewCustomers.Columns.Add("v407", "Ondersteund");
+
+                DocumentRS.MoveFirst();
+                while (!DocumentRS.EOF)
+                {
+                    string id = DocumentRS.Fields["A110"].Value.ToString().Trim();
+                    string kbo = DocumentRS.Fields["v404"].Value.ToString().Trim();
+                    string name = DocumentRS.Fields["A100"].Value.ToString().Trim();
+                    string supported = DocumentRS.Fields["v407"].Value.ToString().Trim();
+                    dataGridViewCustomers.Rows.Add(id, kbo, name, supported);
+                    DocumentRS.MoveNext();
+                }
+                dataGridViewCustomers.AutoResizeColumns();
+                dataGridViewCustomers.Visible = true;
+                Application.DoEvents();
+
                 try
                 {
                     DocumentRS.MoveFirst();
@@ -1032,20 +1079,21 @@ namespace MarioApp2025.MarioMenu.Actions
                         string customerName = DocumentRS.Fields["A100"].Value.ToString().Trim();
                         string customerKbo = DocumentRS.Fields["v404"].Value.ToString().Trim();
                         string customerCountry = DocumentRS.Fields["v150"].Value.ToString().Trim();
+                        string supportedDocuments = DocumentRS.Fields["v407"].Value.ToString().Trim();
 
                         if (customerKbo.Length == 10)                            
                         {
                             string result = await MarHelpers.GetPublicPeppolRegistrationAsync("0208:" + customerKbo, false);
                             if (result != "")
-                            {
-                                if (result.ToString() != DocumentRS.Fields["V407"].Value.ToString())
-                                {
-                                    // Only update if the result is different to avoid unnecessary updates
+                            {   
+                                bool same = XmlComparer.AreXmlStringsEqual(result, supportedDocuments);
+                                if (!same)
+                                {   
                                     DocumentRS.Fields["V407"].Value = result; // Set the field to the JSON result
                                     DocumentRS.Fields["dnnSync"].Value = "False"; // Mark as to be synced 
                                     numberUpdated++;
                                     DocumentRS.Update();
-                                    ToolStripStatusLabel.Text = "Bezig... " + numberUpdated ;
+                                    ToolStripStatusLabel.Text = "Bezig... " + numberUpdated + " of "+ recordCount +" - " + customerName;
                                     Application.DoEvents();
                                 }
                             }
@@ -1056,7 +1104,7 @@ namespace MarioApp2025.MarioMenu.Actions
                     return numberUpdated; // Return the number of updated records 
                 }
                 catch (Exception)
-                {                    
+                {                       
                     return 0;
                 }
             }
@@ -1068,6 +1116,13 @@ namespace MarioApp2025.MarioMenu.Actions
 
         private async void ButtonUpdateBECustomersSupported_Click(object sender, EventArgs e)
         {
+            string confirmMessage = "Weet u zeker dat u de Supported Documents van alle Belgische klanten wilt bijwerken? Dit kan enige tijd duren.";
+            var confirmResult = MessageBox.Show(confirmMessage, "Bevestig bijwerken", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmResult != DialogResult.Yes)
+            {
+                return; // User chose No, exit the method
+            }
+
             ToolStripStatusLabel.Text = "Bezig...";
             Application.UseWaitCursor = true;
             Application.DoEvents();
@@ -1077,6 +1132,7 @@ namespace MarioApp2025.MarioMenu.Actions
             {
                 ToolStripStatusLabel.Text = updated + " Customers Supported Documents updated successfully.";
                 MessageBox.Show("Customers Supported Documents updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dataGridViewCustomers.Visible = false;
             }
             else
             {

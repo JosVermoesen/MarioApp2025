@@ -37,6 +37,8 @@
             this.LabelUserGuid = new System.Windows.Forms.Label();
             this.TextBoxGuidToValidate = new System.Windows.Forms.TextBox();
             this.ButtonValidateGuid = new System.Windows.Forms.Button();
+            this.RadioButtonProductionMode = new System.Windows.Forms.RadioButton();
+            this.RadioButtonTestMode = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // ListBoxCompanies
@@ -46,7 +48,7 @@
             this.ListBoxCompanies.Name = "ListBoxCompanies";
             this.ListBoxCompanies.Size = new System.Drawing.Size(472, 69);
             this.ListBoxCompanies.TabIndex = 0;
-            this.ListBoxCompanies.Click += new System.EventHandler(this.ListBoxCompanies_Click);
+            this.ListBoxCompanies.Click += new System.EventHandler(this.ListBoxCompanies_Click);            
             // 
             // LabelMimDataLocation
             // 
@@ -91,9 +93,9 @@
             // ButtonClose
             // 
             this.ButtonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.ButtonClose.Location = new System.Drawing.Point(405, 182);
+            this.ButtonClose.Location = new System.Drawing.Point(347, 182);
             this.ButtonClose.Name = "ButtonClose";
-            this.ButtonClose.Size = new System.Drawing.Size(75, 23);
+            this.ButtonClose.Size = new System.Drawing.Size(133, 23);
             this.ButtonClose.TabIndex = 5;
             this.ButtonClose.Text = "Sluiten";
             this.ButtonClose.UseVisualStyleBackColor = true;
@@ -102,7 +104,7 @@
             // LabelUserGuid
             // 
             this.LabelUserGuid.AutoSize = true;
-            this.LabelUserGuid.Location = new System.Drawing.Point(8, 114);
+            this.LabelUserGuid.Location = new System.Drawing.Point(256, 115);
             this.LabelUserGuid.Name = "LabelUserGuid";
             this.LabelUserGuid.Size = new System.Drawing.Size(142, 13);
             this.LabelUserGuid.TabIndex = 6;
@@ -111,7 +113,7 @@
             // 
             // TextBoxGuidToValidate
             // 
-            this.TextBoxGuidToValidate.Location = new System.Drawing.Point(8, 130);
+            this.TextBoxGuidToValidate.Location = new System.Drawing.Point(8, 133);
             this.TextBoxGuidToValidate.Name = "TextBoxGuidToValidate";
             this.TextBoxGuidToValidate.PasswordChar = '*';
             this.TextBoxGuidToValidate.Size = new System.Drawing.Size(390, 20);
@@ -120,14 +122,40 @@
             // 
             // ButtonValidateGuid
             // 
-            this.ButtonValidateGuid.Location = new System.Drawing.Point(404, 127);
+            this.ButtonValidateGuid.Location = new System.Drawing.Point(404, 133);
             this.ButtonValidateGuid.Name = "ButtonValidateGuid";
-            this.ButtonValidateGuid.Size = new System.Drawing.Size(74, 23);
+            this.ButtonValidateGuid.Size = new System.Drawing.Size(74, 20);
             this.ButtonValidateGuid.TabIndex = 8;
             this.ButtonValidateGuid.Text = "Valideren";
             this.ButtonValidateGuid.UseVisualStyleBackColor = true;
             this.ButtonValidateGuid.Visible = false;
             this.ButtonValidateGuid.Click += new System.EventHandler(this.ButtonValidateGuid_Click);
+            // 
+            // RadioButtonProductionMode
+            // 
+            this.RadioButtonProductionMode.AutoSize = true;
+            this.RadioButtonProductionMode.Location = new System.Drawing.Point(96, 111);
+            this.RadioButtonProductionMode.Name = "RadioButtonProductionMode";
+            this.RadioButtonProductionMode.Size = new System.Drawing.Size(105, 17);
+            this.RadioButtonProductionMode.TabIndex = 13;
+            this.RadioButtonProductionMode.TabStop = true;
+            this.RadioButtonProductionMode.Text = "Productie Modus";
+            this.RadioButtonProductionMode.UseVisualStyleBackColor = true;
+            this.RadioButtonProductionMode.CheckedChanged += new System.EventHandler(this.RadioButtonProductionMode_CheckedChanged);
+            this.RadioButtonProductionMode.Click += new System.EventHandler(this.RadioButtonProductionMode_Click);
+            // 
+            // RadioButtonTestMode
+            // 
+            this.RadioButtonTestMode.AutoSize = true;
+            this.RadioButtonTestMode.Location = new System.Drawing.Point(9, 111);
+            this.RadioButtonTestMode.Name = "RadioButtonTestMode";
+            this.RadioButtonTestMode.Size = new System.Drawing.Size(81, 17);
+            this.RadioButtonTestMode.TabIndex = 12;
+            this.RadioButtonTestMode.TabStop = true;
+            this.RadioButtonTestMode.Text = "Test Modus";
+            this.RadioButtonTestMode.UseVisualStyleBackColor = true;
+            this.RadioButtonTestMode.CheckedChanged += new System.EventHandler(this.RadioButtonTestMode_CheckedChanged);
+            this.RadioButtonTestMode.Click += new System.EventHandler(this.RadioButtonTestMode_Click);
             // 
             // FormChooseCompany
             // 
@@ -135,6 +163,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.ButtonClose;
             this.ClientSize = new System.Drawing.Size(494, 213);
+            this.Controls.Add(this.RadioButtonProductionMode);
+            this.Controls.Add(this.RadioButtonTestMode);
             this.Controls.Add(this.ButtonValidateGuid);
             this.Controls.Add(this.TextBoxGuidToValidate);
             this.Controls.Add(this.LabelUserGuid);
@@ -164,5 +194,7 @@
         private System.Windows.Forms.Label LabelUserGuid;
         private System.Windows.Forms.TextBox TextBoxGuidToValidate;
         private System.Windows.Forms.Button ButtonValidateGuid;
+        private System.Windows.Forms.RadioButton RadioButtonProductionMode;
+        private System.Windows.Forms.RadioButton RadioButtonTestMode;
     }
 }

@@ -60,6 +60,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.TabNotifications = new System.Windows.Forms.TabPage();
+            this.ButtonUpdateBECustomersSupported = new System.Windows.Forms.Button();
             this.ButtonPublicSearch = new System.Windows.Forms.Button();
             this.TextBoxSender = new System.Windows.Forms.TextBox();
             this.TextBoxReceiver = new System.Windows.Forms.TextBox();
@@ -85,7 +86,7 @@
             this.ButtonClose = new System.Windows.Forms.Button();
             this.StatusStrip = new System.Windows.Forms.StatusStrip();
             this.ToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ButtonUpdateBECustomersSupported = new System.Windows.Forms.Button();
+            this.dataGridViewCustomers = new System.Windows.Forms.DataGridView();
             this.TabControlVariousActions.SuspendLayout();
             this.TabMonitor.SuspendLayout();
             this.TabActions.SuspendLayout();
@@ -95,6 +96,7 @@
             this.TabReceiveDocument.SuspendLayout();
             this.TabCheckVatEU.SuspendLayout();
             this.StatusStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomers)).BeginInit();
             this.SuspendLayout();
             // 
             // TabControlVariousActions
@@ -415,6 +417,7 @@
             // 
             // TabNotifications
             // 
+            this.TabNotifications.Controls.Add(this.dataGridViewCustomers);
             this.TabNotifications.Controls.Add(this.ButtonUpdateBECustomersSupported);
             this.TabNotifications.Controls.Add(this.ButtonPublicSearch);
             this.TabNotifications.Controls.Add(this.TextBoxSender);
@@ -429,6 +432,16 @@
             this.TabNotifications.TabIndex = 1;
             this.TabNotifications.Text = "Meldingen";
             this.TabNotifications.UseVisualStyleBackColor = true;
+            // 
+            // ButtonUpdateBECustomersSupported
+            // 
+            this.ButtonUpdateBECustomersSupported.Location = new System.Drawing.Point(223, 129);
+            this.ButtonUpdateBECustomersSupported.Name = "ButtonUpdateBECustomersSupported";
+            this.ButtonUpdateBECustomersSupported.Size = new System.Drawing.Size(165, 46);
+            this.ButtonUpdateBECustomersSupported.TabIndex = 11;
+            this.ButtonUpdateBECustomersSupported.Text = "Klanten bijwerken voor ondersteunde documenten";
+            this.ButtonUpdateBECustomersSupported.UseVisualStyleBackColor = true;
+            this.ButtonUpdateBECustomersSupported.Click += new System.EventHandler(this.ButtonUpdateBECustomersSupported_Click);
             // 
             // ButtonPublicSearch
             // 
@@ -676,15 +689,15 @@
             this.ToolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.ToolStripStatusLabel.Text = "Ready";
             // 
-            // ButtonUpdateBECustomersSupported
+            // dataGridViewCustomers
             // 
-            this.ButtonUpdateBECustomersSupported.Location = new System.Drawing.Point(223, 129);
-            this.ButtonUpdateBECustomersSupported.Name = "ButtonUpdateBECustomersSupported";
-            this.ButtonUpdateBECustomersSupported.Size = new System.Drawing.Size(165, 46);
-            this.ButtonUpdateBECustomersSupported.TabIndex = 11;
-            this.ButtonUpdateBECustomersSupported.Text = "Klanten bijwerken voor ondersteunde documenten";
-            this.ButtonUpdateBECustomersSupported.UseVisualStyleBackColor = true;
-            this.ButtonUpdateBECustomersSupported.Click += new System.EventHandler(this.ButtonUpdateBECustomersSupported_Click);
+            this.dataGridViewCustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCustomers.Location = new System.Drawing.Point(15, 198);
+            this.dataGridViewCustomers.Name = "dataGridViewCustomers";
+            this.dataGridViewCustomers.ReadOnly = true;
+            this.dataGridViewCustomers.Size = new System.Drawing.Size(615, 150);
+            this.dataGridViewCustomers.TabIndex = 12;
+            this.dataGridViewCustomers.Visible = false;
             // 
             // FormPeppolClientActions
             // 
@@ -717,6 +730,7 @@
             this.TabCheckVatEU.PerformLayout();
             this.StatusStrip.ResumeLayout(false);
             this.StatusStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomers)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -782,5 +796,6 @@
         private System.Windows.Forms.Label LabelPeppolInToDo;
         private System.Windows.Forms.Label LabelMapPeppolIn;
         private System.Windows.Forms.Button ButtonUpdateBECustomersSupported;
+        private System.Windows.Forms.DataGridView dataGridViewCustomers;
     }
 }

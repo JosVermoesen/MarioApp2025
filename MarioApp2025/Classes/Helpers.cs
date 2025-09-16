@@ -7,11 +7,58 @@ using System.IO;
 using System.IO.Compression;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace MarioApp2025
 {
+    public static class XmlComparer
+    {
+        public static bool AreXmlStringsEqual(string xmlA, string xmlB)
+        {
+            if (xmlA == null || xmlB == null)
+                return xmlA == xmlB; // both null = equal
+
+            try
+            {
+                // Parse both strings into XDocument
+                var docA = XDocument.Parse(xmlA, LoadOptions.PreserveWhitespace);
+                var docB = XDocument.Parse(xmlB, LoadOptions.PreserveWhitespace);
+                                
+                // Normalize formatting
+                string normA = NormalizeXml(docA);
+                string normB = NormalizeXml(docB);
+
+                return string.Equals(normA, normB, StringComparison.Ordinal);
+            }
+            catch (XmlException)
+            {
+                // One or both strings are not valid XML
+                return false;
+            }
+        }
+
+        private static string NormalizeXml(XDocument doc)
+        {
+            var sb = new StringBuilder();
+            var settings = new XmlWriterSettings
+            {
+                OmitXmlDeclaration = true,
+                Indent = true,
+                NewLineChars = "\n",
+                NewLineHandling = NewLineHandling.Replace
+            };
+            using (var writer = XmlWriter.Create(sb, settings))
+            {
+                doc.Save(writer);
+            }
+            return sb.ToString();
+        }
+    }
+
     public class MarHelpers
     {
         public static async Task<string> GetPublicPeppolRegistrationAsync(

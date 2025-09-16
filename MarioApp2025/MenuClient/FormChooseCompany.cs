@@ -8,7 +8,7 @@ using System.Windows.Forms;
 namespace MarioApp2025.MarioMenu.Actions
 {
     public partial class FormChooseCompany : Form
-    {
+    {        
         public FormChooseCompany()
         {
             InitializeComponent();
@@ -49,19 +49,37 @@ namespace MarioApp2025.MarioMenu.Actions
 
         }
         private void ButtonClose_Click(object sender, System.EventArgs e)
-        {
+        {            
             Close();
         }
         private void ListBoxCompanies_Click(object sender, System.EventArgs e)
-        {
+        {            
             if (ListBoxCompanies.SelectedItem != null)
             {
                 string selectedItem = ListBoxCompanies.SelectedItem.ToString();
                 int separatorPos = selectedItem.IndexOf(" - ");
                 if (separatorPos > 0)
-                {
-                    // Replace range operator with Substring method to fix CS8370, CS0518 errors
+                {                 
                     string selectedCompany = selectedItem.Substring(0, separatorPos);
+                    // check if company is 098 to 099 (demo companies)
+                    if (selectedCompany == "098" && SharedGlobals.ApiModus == "PRODUCTION" || selectedCompany == "099" && SharedGlobals.ApiModus == "PRODUCTION")
+                    {
+                        MessageBox.Show("Waarschuwing: de demo bedrijven 098 en 099 zijn niet geschikt voor productie gebruik.\n\n" +
+                            "Gelieve een ander bedrijf te kiezen.", SharedGlobals.ApiModus);
+
+                        return;
+                    }
+
+                    // check if company is 001 to 097 (real companies)  
+                    if (int.TryParse(selectedCompany, out int companyNumber))
+                    {
+                        if (companyNumber >= 1 && companyNumber <= 97 && SharedGlobals.ApiModus == "TESTMODE")
+                        {
+                            MessageBox.Show("Waarschuwing: de echte bedrijven 001 tot en met 097 zijn niet geschikt voor test gebruik.\n\n" +
+                                "Gelieve een ander bedrijf te kiezen.", SharedGlobals.ApiModus);
+                            return;
+                        }
+                    }
                     MarHelpers.SetCompanyGlobals(selectedCompany);
 
                     try
@@ -183,6 +201,47 @@ namespace MarioApp2025.MarioMenu.Actions
                 TextBoxGuidToValidate.Visible = true;
                 ButtonValidateGuid.Visible = true;
             }
+
+            if (SharedGlobals.ApiModus == "TESTMODE")
+            {
+                RadioButtonTestMode.Checked = true;
+            }
+            else
+            {
+                RadioButtonProductionMode.Checked = true;
+            }
         }
+
+        private void RadioButtonTestMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioButtonTestMode.Checked)
+            {
+                MarHelpers.SetApiMode("TESTMODE");
+                Properties.Settings.Default.peppolTestMode = true;
+                Properties.Settings.Default.Save();
+                // Application.Restart();
+            }
+        }
+
+        private void RadioButtonProductionMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioButtonProductionMode.Checked)
+            {
+                MarHelpers.SetApiMode("PRODUCTION");
+                Properties.Settings.Default.peppolTestMode = false;
+                Properties.Settings.Default.Save();
+                // Application.Restart();
+            }
+        }
+
+        private void RadioButtonTestMode_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
+
+        private void RadioButtonProductionMode_Click(object sender, EventArgs e)
+        {            
+            Application.Restart();
+        }        
     }
 }
