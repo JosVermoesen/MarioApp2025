@@ -48,7 +48,7 @@
             this.ListBoxCompanies.Name = "ListBoxCompanies";
             this.ListBoxCompanies.Size = new System.Drawing.Size(472, 69);
             this.ListBoxCompanies.TabIndex = 0;
-            this.ListBoxCompanies.Click += new System.EventHandler(this.ListBoxCompanies_Click);            
+            this.ListBoxCompanies.Click += new System.EventHandler(this.ListBoxCompanies_Click);
             // 
             // LabelMimDataLocation
             // 
@@ -174,6 +174,8 @@
             this.Controls.Add(this.CheckBoxIsAdmin);
             this.Controls.Add(this.LabelMimDataLocation);
             this.Controls.Add(this.ListBoxCompanies);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormChooseCompany";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormUserSettings";

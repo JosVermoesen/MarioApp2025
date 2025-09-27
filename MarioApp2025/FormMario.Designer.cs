@@ -44,6 +44,7 @@
             this.InfoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStrip = new System.Windows.Forms.ToolStrip();
             this.ToolStripStatusLabel = new System.Windows.Forms.ToolStripLabel();
+            this.VATSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStripFormMario.SuspendLayout();
             this.ToolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -113,7 +114,7 @@
             // MenuItemAutoPageBreak
             // 
             this.MenuItemAutoPageBreak.Name = "MenuItemAutoPageBreak";
-            this.MenuItemAutoPageBreak.Size = new System.Drawing.Size(179, 22);
+            this.MenuItemAutoPageBreak.Size = new System.Drawing.Size(180, 22);
             this.MenuItemAutoPageBreak.Text = "AutoPagebreak Test";
             this.MenuItemAutoPageBreak.Click += new System.EventHandler(this.MenuItemAutoPageBreak_Click);
             // 
@@ -130,26 +131,28 @@
             // MenuItemPeppolTesting
             // 
             this.MenuItemPeppolTesting.Name = "MenuItemPeppolTesting";
-            this.MenuItemPeppolTesting.Size = new System.Drawing.Size(175, 22);
+            this.MenuItemPeppolTesting.Size = new System.Drawing.Size(180, 22);
             this.MenuItemPeppolTesting.Text = "Peppol Acties";
             this.MenuItemPeppolTesting.Click += new System.EventHandler(this.MenuItemPeppolTesting_Click);
             // 
             // MenuItemMdvToSql
             // 
             this.MenuItemMdvToSql.Name = "MenuItemMdvToSql";
-            this.MenuItemMdvToSql.Size = new System.Drawing.Size(175, 22);
+            this.MenuItemMdvToSql.Size = new System.Drawing.Size(180, 22);
             this.MenuItemMdvToSql.Text = "MdvToSql Sync";
             this.MenuItemMdvToSql.Click += new System.EventHandler(this.MenuItemMdvToSql_Click);
             // 
             // MenuItemPeppolSettings
             // 
             this.MenuItemPeppolSettings.Name = "MenuItemPeppolSettings";
-            this.MenuItemPeppolSettings.Size = new System.Drawing.Size(175, 22);
+            this.MenuItemPeppolSettings.Size = new System.Drawing.Size(180, 22);
             this.MenuItemPeppolSettings.Text = "Peppol Instellingen";
             this.MenuItemPeppolSettings.Click += new System.EventHandler(this.MenuItemPeppolSettings_Click);
             // 
             // InfoMenuItem
             // 
+            this.InfoMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.VATSearchToolStripMenuItem});
             this.InfoMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.InfoMenuItem.Name = "InfoMenuItem";
             this.InfoMenuItem.Size = new System.Drawing.Size(24, 20);
@@ -172,6 +175,13 @@
             this.ToolStripStatusLabel.Name = "ToolStripStatusLabel";
             this.ToolStripStatusLabel.Size = new System.Drawing.Size(39, 22);
             this.ToolStripStatusLabel.Text = "Ready";
+            // 
+            // VATSearchToolStripMenuItem
+            // 
+            this.VATSearchToolStripMenuItem.Name = "VATSearchToolStripMenuItem";
+            this.VATSearchToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.VATSearchToolStripMenuItem.Text = "EU BTW Controleren";
+            this.VATSearchToolStripMenuItem.Click += new System.EventHandler(this.VATSearchToolStripMenuItem_Click);
             // 
             // FormMario
             // 
@@ -214,5 +224,6 @@
         private System.Windows.Forms.ToolStripMenuItem MenuItemZipCompany;
         private System.Windows.Forms.ToolStrip ToolStrip;
         private System.Windows.Forms.ToolStripLabel ToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripMenuItem VATSearchToolStripMenuItem;
     }
 }

@@ -83,18 +83,25 @@ namespace MarioApp2025
 
         private void MenuItemUserSettings_Click(object sender, EventArgs e)
         {
-            var form = new FormChooseCompany();
-            form.ShowDialog(this);
+            var form = new FormChooseCompany();            
+            form.ShowDialog(this);            
             if (SharedGlobals.ActiveCompany != "")
             {
-                Text = "Mario2025 - [" + SharedGlobals.ActiveCompany + "] " + SharedGlobals.CompanyName + " [" + SharedGlobals.ApiModus + "]";
+                if (SharedGlobals.ApiModus == "PRODUCTION")
+                {
+                    Text = "Mario2025 - [" + SharedGlobals.ActiveCompany + "] " + SharedGlobals.CompanyName;
+                }
+                else
+                {
+                    Text = "Mario2025 - [" + SharedGlobals.ActiveCompany + "] " + SharedGlobals.CompanyName + " [" + SharedGlobals.ApiModus + "]";
+                }                
                 MenuItemZipCompany.Text = "Zip bedrijf " + SharedGlobals.ActiveCompany + " naar Marnt Cloud";
             }
             else
             {
                 Text = "Mario2025" + " [" + SharedGlobals.ApiModus + "]";
                 MenuItemZipCompany.Text = "Zip bedrijf naar Marnt Cloud";
-            }
+            }            
         }
 
         private void FormMario_Shown(object sender, EventArgs e)
@@ -185,11 +192,11 @@ namespace MarioApp2025
                 MessageBox.Show("Eerst uw sleutel activeren", "Toegangsleutel ontbreekt of onjuist", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
             
-            var form = new FormPeppolClientActions();
-            form.ShowDialog(this);
-            
+            var form = new FormMarPeppol();      
+            this.Hide();
+            form.ShowDialog();            
+            this.Show();
         }
 
         private void MenuItemPeppolTesting_Click(object sender, EventArgs e)
@@ -380,6 +387,15 @@ namespace MarioApp2025
             {
                 MessageBox.Show("The specified folder does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void VATSearchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new MdiForms.FormCheckEUVat
+            {
+                MdiParent = this // Set MDI parent
+            };
+            form.Show();
         }
     }
 }

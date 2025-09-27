@@ -252,6 +252,55 @@ namespace MarioApp2025
             }
         }
 
+        /// <summary>
+        /// Sends an Invoice Response (e.g., accept/reject) for a received Peppol invoice back to the seller.
+        /// </summary>
+        public static async Task<ApiResult> SendInvoiceResponseAsync(
+            string invoiceTransmissionId,
+            string responseCode,
+            string note,
+            string effectiveDate, // Format: "yyyy-MM-dd" or ISO date
+            List<InvoiceResponseClarification> clarifications = null,
+            CancellationToken cancellationToken = default)
+        {
+            string requestUri = ademicoUrl.TrimEnd('/') + "/api/peppol/v1/invoice-responses"
+                                + "?accessToken=" + Uri.EscapeDataString(accessToken);
+
+            var requestObj = new InvoiceResponseRequest
+            {
+                InvoiceTransmissionId = invoiceTransmissionId,
+                ResponseCode = responseCode,
+                Note = note,
+                EffectiveDate = effectiveDate,
+                InvoiceClarifications = clarifications
+            };
+
+            var jsonOptions = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+            };
+            string json = JsonSerializer.Serialize(requestObj, jsonOptions);
+
+            using (var http = new HttpClient())
+            {
+                var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(username + ":" + password));
+                http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", credentials);
+                http.DefaultRequestHeaders.Accept.Clear();
+                http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                using (var content = new StringContent(json, Encoding.UTF8, "application/json"))
+                using (var response = await http.PostAsync(requestUri, content, cancellationToken).ConfigureAwait(false))
+                {
+                    string body = response.Content == null
+                        ? null
+                        : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+                    return new ApiResult(response.StatusCode, body);
+                }
+            }
+        }
+
         private static string Encode(string val)
         {
             return Uri.EscapeDataString(val ?? string.Empty);
@@ -317,6 +366,48 @@ namespace MarioApp2025
         {
             public LegalEntityDetails LegalEntityDetails { get; set; }
             public List<PeppolRegistration> PeppolRegistrations { get; set; }
+        }
+
+        public class Pagination
+        {
+            public int Count { get; set; }
+            public int Page { get; set; }
+            public int PageSize { get; set; }
+        }
+        public class Notification
+        {
+            public string EventType { get; set; }
+            public int NotificationId { get; set; }
+            public string TransmissionId { get; set; }
+            public string SbdhTransmissionId { get; set; }
+            public DateTime NotificationDate { get; set; }
+            public string DocumentId { get; set; }
+            public string DocumentStatus { get; set; }
+            public string PeppolDocumentType { get; set; }
+            public string Sender { get; set; }
+            public string Receiver { get; set; }
+            public DateTime ReceivedDate { get; set; }
+        }
+        public class Root
+        {
+            public Pagination Pagination { get; set; }
+            public List<Notification> Notifications { get; set; }
+        }
+
+        public class InvoiceResponseClarification
+        {
+            public string ClarificationCode { get; set; }
+            public string ClarificationType { get; set; }
+            public string Clarification { get; set; }
+        }
+
+        public class InvoiceResponseRequest
+        {
+            public string InvoiceTransmissionId { get; set; }
+            public string ResponseCode { get; set; }
+            public string Note { get; set; }
+            public string EffectiveDate { get; set; }
+            public List<InvoiceResponseClarification> InvoiceClarifications { get; set; }
         }
     }
 }

@@ -29,7 +29,7 @@
     <PublisherName>Vsoft Administratieve Software</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>11</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -159,6 +159,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Ademico\AdemicoClient.cs" />
+    <Compile Include="MdiForms\FormCheckEUVat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MdiForms\FormCheckEUVat.Designer.cs">
+      <DependentUpon>FormCheckEUVat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Secrets.cs" />
     <Compile Include="Classes\Helpers.cs" />
     <Compile Include="Classes\SharedGlobals.cs" />
@@ -218,11 +224,11 @@
     <Compile Include="MenuClient\FormChooseCompany.Designer.cs">
       <DependentUpon>FormChooseCompany.cs</DependentUpon>
     </Compile>
-    <Compile Include="MenuClient\FormPeppolClientActions.cs">
+    <Compile Include="MenuClient\FormMarPeppol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MenuClient\FormPeppolClientActions.Designer.cs">
-      <DependentUpon>FormPeppolClientActions.cs</DependentUpon>
+    <Compile Include="MenuClient\FormMarPeppol.Designer.cs">
+      <DependentUpon>FormMarPeppol.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -234,6 +240,9 @@
     </Compile>
     <EmbeddedResource Include="FormMario.resx">
       <DependentUpon>FormMario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MdiForms\FormCheckEUVat.resx">
+      <DependentUpon>FormCheckEUVat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuAdmin\FormAdminSettings.resx">
       <DependentUpon>FormAdminSettings.cs</DependentUpon>
@@ -247,8 +256,8 @@
     <EmbeddedResource Include="MenuClient\FormChooseCompany.resx">
       <DependentUpon>FormChooseCompany.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MenuClient\FormPeppolClientActions.resx">
-      <DependentUpon>FormPeppolClientActions.cs</DependentUpon>
+    <EmbeddedResource Include="MenuClient\FormMarPeppol.resx">
+      <DependentUpon>FormMarPeppol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
